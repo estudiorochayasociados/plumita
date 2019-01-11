@@ -11,7 +11,6 @@ $novedad = $novedades->view();
 
 $categorias = new Clases\Categorias();
 $data = $categorias->list(array("area = 'novedades'"));
-
 $imagenes->set("cod", $novedad["cod"]);
 $imagenes->set("link", "novedades&accion=modificar");
 

@@ -98,7 +98,6 @@ class Categorias
         }
 
         $sql = "SELECT * FROM `categorias` $filterSql  ORDER BY $orderSql $limitSql";
-        echo $sql;
         $notas = $this->con->sqlReturn($sql);
         if ($notas) {
             while ($row = mysqli_fetch_assoc($notas)) {
@@ -133,8 +132,8 @@ class Categorias
         } else {
             $limitSql = '';
         }
-        $sql = " SELECT `categorias`.`titulo`,`categorias`.`cod`, count(`productos`.`categoria`)  as cantidad  FROM `productos`,`categorias` WHERE `categoria` = `categorias`.`cod` GROUP BY categoria ORDER BY cantidad  DESC  $limitSql"; 
-         $notas = $this->con->sqlReturn($sql);
+        $sql = " SELECT `categorias`.`titulo`,`categorias`.`cod`, count(`productos`.`categoria`)  as cantidad  FROM `productos`,`categorias` WHERE `categoria` = `categorias`.`cod` GROUP BY categoria ORDER BY cantidad  DESC  $limitSql";
+        $notas = $this->con->sqlReturn($sql);
         if ($notas) {
             while ($row = mysqli_fetch_assoc($notas)) {
                 $array[] = $row;

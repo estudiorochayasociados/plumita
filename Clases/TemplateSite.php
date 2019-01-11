@@ -24,43 +24,34 @@ class TemplateSite
         <!DOCTYPE html>
         <html lang="es">
     <head>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" type="text/css" href="<?= URL ?>/assets/font/font-awesome/css/font-awesome.min.css"/>
-        <link rel="stylesheet" href="<?= URL ?>/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="<?= URL ?>/assets/js/owl-carousel/owl.carousel.css">
-        <link rel="stylesheet" href="<?= URL ?>/assets/js/owl-carousel/owl.theme.css">
-        <link rel="stylesheet" href="<?= URL ?>/assets/css/style.css"/>
-        <link rel="stylesheet" href="<?= URL ?>/assets/css/estilos.css">
-        <meta name="viewport" content="width=device-width"/>
-        <link rel="shortcut icon" href="<?= URL ?>/assets/images/favicon.ico">
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-        <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
-        <!-- Start of HubSpot Embed Code -->
-        <script src="<?= URL ?>/assets/js/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/4852794.js"></script>
-        <!-- End of HubSpot Embed Code -->
+        <!-- Icon css link -->
+        <link href="<?=URL?>/assets/css/font-awesome.min.css" rel="stylesheet">
+        <link href="<?=URL?>/vendors/line-icon/css/simple-line-icons.css" rel="stylesheet">
+        <link href="<?=URL?>/vendors/elegant-icon/style.css" rel="stylesheet">
+        <!-- Bootstrap -->
+        <link href="<?=URL?>/assets/css/bootstrap.min.css" rel="stylesheet">
 
-        <script type='text/javascript' data-cfasync='false'>window.purechatApi = {
-                l: [], t: [], on: function () {
-                    this.l.push(arguments);
-                }
-            };
-            (function () {
-                var done = false;
-                var script = document.createElement('script');
-                script.async = true;
-                script.type = 'text/javascript';
-                script.src = 'https://app.purechat.com/VisitorWidget/WidgetScript';
-                document.getElementsByTagName('HEAD').item(0).appendChild(script);
-                script.onreadystatechange = script.onload = function (e) {
-                    if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) {
-                        var w = new PCWidget({c: '225158be-d376-4357-b284-119878634be3', f: true});
-                        done = true;
-                    }
-                };
-            })();
-        </script>
+        <!-- Rev slider css -->
+        <link href="<?=URL?>/vendors/revolution/css/settings.css" rel="stylesheet">
+        <link href="<?=URL?>/vendors/revolution/css/layers.css" rel="stylesheet">
+        <link href="<?=URL?>/vendors/revolution/css/navigation.css" rel="stylesheet">
 
+        <!-- Extra plugin css -->
+        <link href="<?=URL?>/vendors/owl-carousel/owl.carousel.min.css" rel="stylesheet">
+        <link href="<?=URL?>/vendors/bootstrap-selector/css/bootstrap-select.min.css" rel="stylesheet">
+
+        <!--Productos-->
+        <link href="<?=URL?>/vendors/jquery-ui/jquery-ui.css" rel="stylesheet">
+
+        <link href="<?=URL?>/assets/css/style.css" rel="stylesheet">
+        <link href="<?=URL?>/assets/css/responsive.css" rel="stylesheet">
+        <link href="<?=URL?>/assets/css/estilos.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
         <?php
 
         echo '<meta charset="utf-8"/>';
@@ -106,20 +97,6 @@ class TemplateSite
         echo '<meta property="og:image" content="' . $this->imagen . '" />';
 
         ?>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-127300251-18"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-
-            gtag('js', new Date());
-
-            gtag('config', 'UA-127300251-18');
-        </script>
-
     </head>
         <?php
     }

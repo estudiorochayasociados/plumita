@@ -8,11 +8,11 @@ class autoload
         $_SESSION["cod_pedido"] = isset($_SESSION["cod_pedido"]) ? $_SESSION["cod_pedido"] : substr(md5(uniqid(rand())), 0, 10);
         define('URL', "http://".$_SERVER['HTTP_HOST']."/plumita");
         define('CANONICAL', "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]);
-        define('TITULO', "Pintureria Ariel");
-        define('TELEFONO', "5555555");
+        define('TITULO', "Plumita S.R.L");
+        define('TELEFONO', "03564 422291");
         define('CIUDAD', "San Francisco");
         define('PROVINCIA', "Cordoba");
-        define('EMAIL', "web@estudiorochayasoc.com.ar");
+        define('EMAIL', "ventas@plumita.com ");
         define('PASS_EMAIL', "weAr2010");
         define('SMTP_EMAIL', "estudiorochayasoc.com.ar");
         define('DIRECCION', "asdasdas a22");

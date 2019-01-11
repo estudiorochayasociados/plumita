@@ -79,9 +79,20 @@ class Banner
         return $query;
     }
 
-    function listForCategory() {
+    function listForCategory($order,$limit) {
         $array = array();
-        $sql = "SELECT * FROM `banners` WHERE categoria = '{$this->categoria}'  ORDER BY id DESC";
+        if ($order != '') {
+            $orderSql = $order;
+        } else {
+            $orderSql = "id DESC";
+        }
+
+        if ($limit != '') {
+            $limitSql = "LIMIT " . $limit;
+        } else {
+            $limitSql = '';
+        }
+        $sql = "SELECT * FROM `banners` WHERE categoria = '{$this->categoria}'  ORDER BY $orderSql $limitSql";
         $notas = $this->con->sqlReturn($sql);
         if ($notas) {
             while ($row = mysqli_fetch_assoc($notas)) {
