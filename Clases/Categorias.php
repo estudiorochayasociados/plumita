@@ -51,7 +51,7 @@ class Categorias
 
     public function view()
     {
-        $sql   = "SELECT * FROM `categorias` WHERE cod = '{$this->cod}' ORDER BY id DESC";
+        $sql   = "SELECT * FROM `categorias` WHERE cod = '{$this->cod}' || id = '{$this->id}' ORDER BY id DESC";
         $notas = $this->con->sqlReturn($sql);
         $row   = mysqli_fetch_assoc($notas);
         return $row;

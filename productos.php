@@ -20,13 +20,12 @@ $template->themeInit();
 $categoria->set("area", "productos");
 $categorias_data = $categoria->listForArea('');
 //Productos
-
 $pagina = isset($_GET["pagina"]) ? $_GET["pagina"] : '0';
-$categoria = isset($_GET["categoria"]) ? $_GET["categoria"] : '';
-$titulo = isset($_GET["titulo"]) ? $_GET["titulo"] : '';
+$categoria_get = isset($_GET["categoria"]) ? $_GET["categoria"] : '';
 $orden_pagina = isset($_GET["order"]) ? $_GET["order"] : '';
-
-$cantidad = 1;
+$id = isset($_GET["id"]) ? $_GET["id"] : '';
+//
+$cantidad = 12;
 $filter = array();
 if ($pagina > 0) {
     $pagina = $pagina - 1;
@@ -47,26 +46,13 @@ else:
     $url = CANONICAL;
 endif;
 //
-
-
-if ($categoria != '') {
-    array_push($filter, " categoria='$categoria' ");
+if (!empty($categoria_get)){
+    $categoria->set("id",$id);
+    $categoria_data_filtro=$categoria->view();
+    $cod=$categoria_data_filtro['cod'];
+    $filter=array("categoria='$cod'");
 }
 
-if ($titulo != '') {
-    $titulo_espacios = strpos($titulo, " ");
-    if ($titulo_espacios) {
-        $filter_title = array();
-        $titulo_explode = explode(" ", $titulo);
-        foreach ($titulo_explode as $titulo_) {
-            array_push($filter_title, "(titulo LIKE '%$titulo_%'  || descripcion LIKE '%$titulo_%')");
-        }
-        $filter_title_implode = implode(" OR ", $filter_title);
-        array_push($filter, "(" . $filter_title_implode . ")");
-    } else {
-        array_push($filter, "(titulo LIKE '%$titulo%' || descripcion LIKE '%$titulo%')");
-    }
-}
 switch ($orden_pagina) {
     case "mayor":
         $order_final = "precio DESC";
@@ -81,13 +67,11 @@ switch ($orden_pagina) {
         $order_final = "id DESC";
         break;
 }
-echo $order_final;
 $productos_data = $producto->listWithOps($filter, $order_final, ($cantidad * $pagina) . ',' . $cantidad);
 $numeroPaginas = $producto->paginador($filter, $cantidad);
 $productos_data_random = $producto->listWithOps('', 'RAND()', '4');
 //
-?>
-<?php
+
 $template->themeNav();
 ?>
     <!--================Categories Banner Area =================-->
@@ -97,7 +81,7 @@ $template->themeNav();
                 <h3>Todos los productos</h3>
                 <ul>
                     <li><a href="<?= URL ?>/index">Inicio</a></li>
-                    <li class="current"><a href="#">Listado</a></li>
+                    <li class="current"><a href="<?= URL ?>/productos">Productos</a></li>
                 </ul>
             </div>
         </div>
@@ -115,12 +99,31 @@ $template->themeNav();
                                 <div class="first_fillter">
                                 </div>
                                 <div class="secand_fillter">
-                                    <h4>SORT BY :</h4>
-                                    <select class="selectpicker">
-                                        <option>Name</option>
-                                        <option>Name 2</option>
-                                        <option>Name 3</option>
-                                    </select>
+                                    <h4>Ordenar por :</h4>
+                                    <form method="get" class="pull-right">
+                                        <?php
+                                        foreach ($_GET as $key => $value) {
+                                            if ($key != "order" && $key != "pagina") {
+                                                echo "<input type='hidden' name='" . $key . "' value='" . $value . "' />";
+                                            }
+                                        }
+                                        ?>
+                                        <select class="selectpicker form-control" name="order"  onchange="this.form.submit()">
+                                            <option selected disabled></option>
+                                            <option value="ultimos" <?php if ($orden_pagina == "ultimos") {
+                                                echo "selected";
+                                            } ?>> Últimos
+                                            </option>
+                                            <option value="mayor" <?php if ($orden_pagina == "mayor") {
+                                                echo "selected";
+                                            } ?>> Mayor precio
+                                            </option>
+                                            <option value="menor" <?php if ($orden_pagina == "menor") {
+                                                echo "selected";
+                                            } ?>> Menor precio
+                                            </option>
+                                        </select>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -128,7 +131,7 @@ $template->themeNav();
                             <div class="row">
                                 <?php
                                 foreach ($productos_data as $prod) {
-                                    $imagen->set("cod",$prod['cod']);
+                                    $imagen->set("cod", $prod['cod']);
                                     $img = $imagen->view();
                                     ?>
                                     <div class="col-lg-4 col-sm-6">
@@ -157,15 +160,6 @@ $template->themeNav();
                                 ?>
                             </div>
                             <nav aria-label="Page navigation example" class="pagination_area">
-                                <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                    <li class="page-item next"><a class="page-link" href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                                </ul>
                                 <?php if ($numeroPaginas > 1): ?>
                                     <div class="col-xs-12">
                                         <div class="pagination mb-60">
@@ -203,7 +197,7 @@ $template->themeNav();
                                     foreach ($categorias_data as $cats) {
                                         ?>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#"><?= ucfirst(substr(strip_tags($cats['titulo']), 0, 60)); ?>
+                                            <a class="nav-link" href="<?=URL.'/productos?categoria='.strtolower($funciones->normalizar_link($cats['titulo'])).'&id='.$cats['id'];?>"><?= ucfirst(substr(strip_tags($cats['titulo']), 0, 60)); ?>
                                             </a>
                                         </li>
                                         <?php

@@ -54,7 +54,7 @@
 
 
 
-
+<script async src="https://static.addtoany.com/menu/page.js"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="<?=URL?>/assets/js/jquery-3.2.1.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -81,5 +81,10 @@
 <script src="<?=URL?>/vendors/magnify-popup/jquery.magnific-popup.min.js"></script>
 <script src="<?=URL?>/vendors/vertical-slider/js/jQuery.verticalCarousel.js"></script>
 <script src="<?=URL?>/vendors/jquery-ui/jquery-ui.js"></script>
+
+<!-- contact js -->
+<script src="js/jquery.form.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/contact.js"></script>
 
 <script src="<?=URL?>/assets/js/theme.js"></script>

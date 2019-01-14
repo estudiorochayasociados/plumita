@@ -5,25 +5,23 @@
             <div class="carousel_top_h_inner">
                 <div class="float-md-left">
                     <div class="top_header_left">
-                        <div class="selector">
-                            <select class="language_drop" name="countries" id="countries" style="width:300px;">
-                                <option value='yt' data-image="<?= URL ?>/assets/img/icon/flag-1.png" data-imagecss="flag yt" data-title="English">English</option>
-                                <option value='yu' data-image="<?= URL ?>/assets/img/icon/flag-1.png" data-imagecss="flag yu" data-title="Bangladesh">Bangla</option>
-                                <option value='yt' data-image="<?= URL ?>/assets/img/icon/flag-1.png" data-imagecss="flag yt" data-title="English">English</option>
-                                <option value='yu' data-image="<?= URL ?>/assets/img/icon/flag-1.png" data-imagecss="flag yu" data-title="Bangladesh">Bangla</option>
-                            </select>
-                        </div>
-                        <select class="selectpicker usd_select">
-                            <option>USD</option>
-                            <option>$</option>
-                            <option>$</option>
-                        </select>
+                        <?php
+                        $data_in = "http://ws.geeklab.com.ar/dolar/get-dolar-json.php";
+                        $data_json = @file_get_contents($data_in);
+                        if (strlen($data_json) > 0) {
+                            $data_out = json_decode($data_json, true);
+
+                            if (is_array($data_out)) {
+                                if (isset($data_out['libre'])) echo "Dolar: $" . $data_out['libre'] . "<br>\n";
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
                 <div class="float-md-right">
                     <div class="top_header_middle">
-                        <a href="#"><i class="fa fa-phone"></i>Telefono: <span><?=TELEFONO?></span></a>
-                        <a href="#"><i class="fa fa-envelope"></i> Email: <span><?=EMAIL?></span></a>
+                        <a href="#"><i class="fa fa-phone"></i>Telefono: <span><?= TELEFONO ?></span></a>
+                        <a href="#"><i class="fa fa-envelope"></i> Email: <span><?= EMAIL ?></span></a>
                     </div>
                 </div>
             </div>
@@ -40,10 +38,9 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item"><a class="nav-link" href="<?= URL . '/index' ?>">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?= URL . '/productos' ?>">Productos</a></li>
-
-                        <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">lookbook</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?= URL . '/blogs' ?>">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?= URL . '/c/empresa' ?>">Sobre nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?= URL . '/contacto' ?>">Contacto</a></li>
                     </ul>
                     <ul class="navbar-nav justify-content-end">
                         <li class="search_icon"><a href="#"><i class="icon-magnifier icons"></i></a></li>

@@ -43,8 +43,7 @@ foreach ($categorias_sliders as $catS){
     }
 }
 //
-?>
-<?php
+
 $template->themeNav();
 ?>
     <!--================Home Carousel Area =================-->
@@ -166,7 +165,7 @@ $template->themeNav();
                         $fecha = explode("-", $nov['fecha']);
                         ?>
                         <div class="col-lg-4 col-sm-6">
-                            <a href="<?= URL . '/novedad/' . $funciones->normalizar_link($nov["titulo"]) . '/' . $nov['cod'] ?>">
+                            <a href="<?= URL . '/blog/' . $funciones->normalizar_link($nov["titulo"]) . '/' . $nov['cod'] ?>">
                                 <div class="from_blog_item" style="height:350px;background:url(<?= $img['ruta']; ?>) no-repeat center center/cover;">
                                     <div class="f_blog_text">
                                         <?php

@@ -1,5 +1,15 @@
-
-
+.ordenador{
+    min-width: 150%;
+}
+.derecha{
+    float: right;
+}
+.izquierda{
+    float: left;
+}
+.blog-description{
+    max-width: 100%;
+}
 
 
 

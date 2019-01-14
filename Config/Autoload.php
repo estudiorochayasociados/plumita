@@ -12,10 +12,11 @@ class autoload
         define('TELEFONO', "03564 422291");
         define('CIUDAD', "San Francisco");
         define('PROVINCIA', "Cordoba");
-        define('EMAIL', "ventas@plumita.com ");
+        define('EMAIL', "webestudiorocha@gmail.com");//ventas@plumita.com
+        define('EMAIL2', "davidmarcolini@plumita.com");
         define('PASS_EMAIL', "weAr2010");
         define('SMTP_EMAIL', "estudiorochayasoc.com.ar");
-        define('DIRECCION', "asdasdas a22");
+        define('DIRECCION', "Av. 9 de Septiembre 3203");
         define('LOGO', URL . "/assets/images/logo.png");
         define('APP_ID_FB', "");
         spl_autoload_register(
