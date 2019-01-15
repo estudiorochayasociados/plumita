@@ -13,6 +13,7 @@ RewriteRule ^producto/(.*)/(.*)$ ./producto.php?cod=$2
 #RewriteRule ^checkout(.*)/(.*)/(.*)$ ./checkout.php?cod_pedido=$2&tipo_pedido=$3
 RewriteRule ^blog/(.*)/(.*)$ ./blog.php?cod=$2
 RewriteRule ^c/(.*)/(.*)$ ./contenidos.php?id=$2
+RewriteRule ^sesion/(.*)/(.*)$ ./sesion.php?op=$2
 #RewriteRule ^assets/inc/sesion/panel/(.*)/(.*)$ ./panel.php?op=$2
 
 

@@ -43,8 +43,25 @@
                         <li class="nav-item"><a class="nav-link" href="<?= URL . '/contacto' ?>">Contacto</a></li>
                     </ul>
                     <ul class="navbar-nav justify-content-end">
-                        <li class="search_icon"><a href="#"><i class="icon-magnifier icons"></i></a></li>
-                        <li class="user_icon"><a href="#"><i class="icon-user icons"></i></a></li>
+                        <li class="search_icon"><a href="<?=URL?>/productos#buscar"><i class="icon-magnifier icons"></i></a></li>
+<!--
+                        <li class="user_icon">
+                            <a data-toggle="modal" data-target="#login"
+                               title="Iniciar sesion"><i class="icon-user icons"></i>
+                            </a>
+                        </li>-->
+                        <?php if (@count($_SESSION["usuarios"])!=0): ?>
+                            <li class="user_icon">
+                                <a title="cuenta" href="<?= URL ?>/sesion"><i class="icon-user icons"></i>
+                                </a>
+                            </li>
+                        <?php else: ?>
+                            <li class="user_icon">
+                                <a data-toggle="modal" data-target="#login"
+                                   title="Iniciar sesion"><i class="icon-user icons"></i>
+                                </a>
+                            </li>
+                        <?php endif; ?>
                         <li class="cart_cart"><a href="#"><i class="icon-handbag icons"></i></a></li>
                     </ul>
                 </div>

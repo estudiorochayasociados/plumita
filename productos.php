@@ -22,11 +22,11 @@ $categorias_data = $categoria->listForArea('');
 //Productos
 $pagina = isset($_GET["pagina"]) ? $_GET["pagina"] : '0';
 $categoria_get = isset($_GET["categoria"]) ? $_GET["categoria"] : '';
+$titulo = isset($_GET["titulo"]) ? $_GET["titulo"] : '';
 $orden_pagina = isset($_GET["order"]) ? $_GET["order"] : '';
 $id = isset($_GET["id"]) ? $_GET["id"] : '';
 //
 $cantidad = 12;
-$filter = array();
 if ($pagina > 0) {
     $pagina = $pagina - 1;
 }
@@ -46,11 +46,26 @@ else:
     $url = CANONICAL;
 endif;
 //
+$filter;
 if (!empty($categoria_get)){
     $categoria->set("id",$id);
     $categoria_data_filtro=$categoria->view();
     $cod=$categoria_data_filtro['cod'];
     $filter=array("categoria='$cod'");
+}
+if ($titulo != '') {
+    $titulo_espacios = strpos($titulo, " ");
+    if ($titulo_espacios) {
+        $filter_title = array();
+        $titulo_explode = explode(" ", $titulo);
+        foreach ($titulo_explode as $titulo_) {
+            array_push($filter_title, "(titulo LIKE '%$titulo_%'  || desarrollo LIKE '%$titulo_%')");
+        }
+        $filter_title_implode = implode(" OR ", $filter_title);
+        array_push($filter, "(" . $filter_title_implode . ")");
+    } else {
+        $filter=array( "(titulo LIKE '%$titulo%' || desarrollo LIKE '%$titulo%')");
+    }
 }
 
 switch ($orden_pagina) {
@@ -94,11 +109,21 @@ $template->themeNav();
             <div class="categories_main_inner">
                 <div class="row row_disable">
                     <div class="col-lg-9 float-md-right">
-                        <div class="showing_fillter">
-                            <div class="row m0">
-                                <div class="first_fillter">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form class="login_form row"  method="get" id="buscar">
+                                        <div class="col-md-9 form-group">
+                                            <input class="form-control" value="<?= isset($titulo) ? $titulo : ''; ?>" type="text" placeholder="Buscar un producto" name="titulo"
+                                                   required>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <button type="submit" class="btn update_btn form-control"><i class="icon-magnifier icons"></i></button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="secand_fillter">
+                                <!--
+                                <div class="col-md-6 ordenador">
                                     <h4>Ordenar por :</h4>
                                     <form method="get" class="pull-right">
                                         <?php
@@ -108,7 +133,7 @@ $template->themeNav();
                                             }
                                         }
                                         ?>
-                                        <select class="selectpicker form-control" name="order"  onchange="this.form.submit()">
+                                        <select class="form-control" name="order"  onchange="this.form.submit()">
                                             <option selected disabled></option>
                                             <option value="ultimos" <?php if ($orden_pagina == "ultimos") {
                                                 echo "selected";
@@ -124,7 +149,21 @@ $template->themeNav();
                                             </option>
                                         </select>
                                     </form>
+                                </div>-->
+                                <!--
+                                <div class="third_fillter">
+                                    <h4>Show : </h4>
+                                    <select class="selectpicker">
+                                        <option>09</option>
+                                        <option>10</option>
+                                        <option>10</option>
+                                    </select>
                                 </div>
+                                <div class="four_fillter">
+                                    <h4>View</h4>
+                                    <a class="active" href="#"><i class="icon_grid-2x2"></i></a>
+                                    <a href="#"><i class="icon_grid-3x3"></i></a>
+                                </div>-->
                             </div>
                         </div>
                         <div class="categories_product_area">

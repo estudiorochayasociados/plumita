@@ -1,5 +1,10 @@
-.ordenador{
-    min-width: 150%;
+.ordenador h4{
+    font-size: 14px;
+    color: #999999;
+    font-family: "Poppins", sans-serif;
+    font-weight: normal;
+    display: inline-block;
+    text-transform: uppercase;
 }
 .derecha{
     float: right;
@@ -10,7 +15,9 @@
 .blog-description{
     max-width: 100%;
 }
-
+.blanco{
+    color: white;
+}
 
 
 

@@ -35,7 +35,7 @@ class Carrito
         $condition = '';
 
         $add = array('id' => $this->id, 'titulo' => $this->titulo, 'cantidad' => $this->cantidad, 'precio' => $this->precio, 'peso' => $this->peso, 'opciones' => $this->opciones);
-
+var_dump($add);
         if (count($_SESSION["carrito"]) == 0) {
             array_push($_SESSION["carrito"], $add);
         } else {
@@ -113,6 +113,16 @@ class Carrito
     {
         foreach ($_SESSION["carrito"] as $key => $val) {
             if ($val['id'] === "Envio-Seleccion") {
+                return $key;
+            }
+        }
+        return null;
+    }
+
+    public function checkPago()
+    {
+        foreach ($_SESSION["carrito"] as $key => $val) {
+            if ($val['id'] === "Metodo-Pago") {
                 return $key;
             }
         }

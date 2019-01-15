@@ -3416,7 +3416,7 @@ i:before {
 }
 
 .product_details_text {
-  max-width: 570px;
+  /*max-width: 570px;*/
 }
 
 .product_details_text h3 {

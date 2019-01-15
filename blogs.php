@@ -16,7 +16,7 @@ $template->themeInit();
 
 $pagina = isset($_GET["pagina"]) ? $_GET["pagina"] : '0';
 
-$cantidad = 2;
+$cantidad = 4;
 
 if ($pagina > 0) {
     $pagina = $pagina - 1;

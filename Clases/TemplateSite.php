@@ -98,6 +98,7 @@ class TemplateSite
 
         ?>
     </head>
+        <body>
         <?php
     }
 

@@ -12,7 +12,7 @@ class autoload
         define('TELEFONO', "03564 422291");
         define('CIUDAD', "San Francisco");
         define('PROVINCIA', "Cordoba");
-        define('EMAIL', "webestudiorocha@gmail.com");//ventas@plumita.com
+        define('EMAIL', "web@estudiorochayasoc.com.ar");//ventas@plumita.com
         define('EMAIL2', "davidmarcolini@plumita.com");
         define('PASS_EMAIL', "weAr2010");
         define('SMTP_EMAIL', "estudiorochayasoc.com.ar");

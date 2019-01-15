@@ -55,8 +55,8 @@ $template->themeNav();
                 $img = $imagen->view();
                 ?>
                 <div class="item">
-                    <div class="h_carousel_item" style="width:100%;height:300px;background:url(<?= $img['ruta']; ?>) no-repeat center center/cover;">
-
+                    <div class="h_carousel_item" >
+                        <img src="<?=URL.'/'.$img['ruta']; ?>" style="width: 100%;" alt="">
                     </div>
                 </div>
                 <?php
