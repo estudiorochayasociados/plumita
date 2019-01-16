@@ -8,9 +8,9 @@ $novedades = new Clases\Novedades();
 $imagen = new Clases\Imagenes();
 $categoria = new Clases\Categorias();
 //
-$template->set("title", TITULO . " | Inicio");
-$template->set("description", "");
-$template->set("keywords", "");
+$template->set("title", TITULO . " | Blogs");
+$template->set("description", "Blog de ".TITULO);
+$template->set("keywords", "Blog de ".TITULO);
 $template->set("favicon", LOGO);
 $template->themeInit();
 
@@ -40,9 +40,9 @@ $numeroPaginas = $novedades->paginador("", $cantidad);
 $template->themeNav();
 ?>
 <!--================Categories Banner Area =================-->
-<section class="categories_banner_area">
+<section class="solid_banner_area">
     <div class="container">
-        <div class="c_banner_inner">
+        <div class="solid_banner_inner navegador">
             <h3>Blogs</h3>
             <ul>
                 <li><a href="<?=URL?>/index">Inicio</a></li>

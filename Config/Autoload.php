@@ -17,7 +17,7 @@ class autoload
         define('PASS_EMAIL', "weAr2010");
         define('SMTP_EMAIL', "estudiorochayasoc.com.ar");
         define('DIRECCION', "Av. 9 de Septiembre 3203");
-        define('LOGO', URL . "/assets/images/logo.png");
+        define('LOGO', URL . "/assets/img/logo.jpg");
         define('APP_ID_FB', "");
         spl_autoload_register(
             function($clase)

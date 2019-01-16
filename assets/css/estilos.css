@@ -6,6 +6,12 @@
     display: inline-block;
     text-transform: uppercase;
 }
+.navegador{
+    text-align: left;
+}
+.carousel-index{
+    height: 450px;
+}
 .derecha{
     float: right;
 }
@@ -18,7 +24,64 @@
 .blanco{
     color: white;
 }
-
+.hidden {
+    display: none
+}
+.boton-envio{
+    background: #333333;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 0px;
+    border: 1px solid #333333;
+@include transition;
+    outline: none !important;
+    box-shadow: none !important;
+    cursor: pointer;
+}
+.boton-envio:hover{
+    background: transparent;
+    color: #333333;
+}
+.boton-pagar{
+    background: green;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: .70px;
+    border-radius: 0px;
+    border: 1px solid #333333;
+    padding: 0px 35px;
+    line-height: 48px;
+@include transition;
+    outline: none !important;
+    box-shadow: none !important;
+    cursor: pointer;
+}
+.boton-pagar:hover{
+     background: transparent;
+     color: #333333;
+ }
+.carrito-a{
+    position: relative;
+}
+.carrito-num{
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    position: absolute;
+    font-weight: normal;
+    right: 6px;
+    bottom: 6px;
+    background: #ff0000;
+    line-height: 20px;
+}
 
 
 

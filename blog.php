@@ -15,18 +15,19 @@ $fecha = explode("-", $novedades_data['fecha']);
 $imagen->set("cod", $cod);
 $imagenes_data = $imagen->listForProduct();
 //
-$template->set("title", TITULO . " | Inicio");
-$template->set("description", "");
-$template->set("keywords", "");
+$template->set("title", TITULO . " | ".ucfirst(strip_tags($novedades_data['titulo'])));
+$template->set("description", ucfirst(substr(strip_tags($novedades_data['desarrollo']), 0, 160)));
+$template->set("keywords", ucfirst(strip_tags($novedades_data['titulo'])));
+$template->set("imagen", URL."/".$imagenes_data[0]['ruta']);
 $template->set("favicon", LOGO);
 $template->themeInit();
 
 $template->themeNav();
 ?>
 <!--================Categories Banner Area =================-->
-<section class="categories_banner_area">
+<section class="solid_banner_area">
     <div class="container">
-        <div class="c_banner_inner">
+        <div class="solid_banner_inner navegador">
             <h3><?= ucfirst($novedades_data['titulo']); ?></h3>
             <ul>
                 <li><a href="<?= URL ?>/index">Inicio</a></li>

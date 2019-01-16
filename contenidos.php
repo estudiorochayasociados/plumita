@@ -7,16 +7,16 @@ $contenido = new Clases\Contenidos();
 $contenido->set("cod", $id);
 $contenido_data = $contenido->view();
 $template->set("title", TITULO . " | Empresa");
-$template->set("imagen", LOGO);
-$template->set("keywords", "");
 $template->set("description", ucfirst(substr(strip_tags($contenido_data['contenido']), 0, 160)));
+$template->set("keywords", TITULO . " | Empresa");
+$template->set("favicon", LOGO);
 $template->themeInit();
 
 $template->themeNav();
 ?>
-<section class="categories_banner_area">
+<section class="solid_banner_area">
     <div class="container">
-        <div class="c_banner_inner">
+        <div class="solid_banner_inner navegador">
             <h3><?= ucfirst($contenido_data['cod']); ?></h3>
             <ul>
                 <li><a href="<?= URL ?>/index">Inicio</a></li>
@@ -25,7 +25,7 @@ $template->themeNav();
         </div>
     </div>
 </section>
-<section class="">
+<section class="mt-15">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">

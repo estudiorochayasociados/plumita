@@ -11,9 +11,9 @@ $novedad = new Clases\Novedades();
 $banner = new Clases\Banner();
 $slider = new Clases\Sliders();
 //
-$template->set("title", TITULO . " | Inicio");
-$template->set("description", "");
-$template->set("keywords", "");
+$template->set("title", TITULO . " | Productos");
+$template->set("description", "Plumita S.R.L es una fábrica de Cortadoras y Bordeadoras de cesped, de muy alto nivel con distribución en todo el país.");
+$template->set("keywords", "bordeadora, cortadora, cesped, pasto, yuyo, alto nivel, durardera, maquinas, compra");
 $template->set("favicon", LOGO);
 $template->themeInit();
 //Categorias
@@ -90,9 +90,9 @@ $productos_data_random = $producto->listWithOps('', 'RAND()', '4');
 $template->themeNav();
 ?>
     <!--================Categories Banner Area =================-->
-    <section class="categories_banner_area">
+    <section class="solid_banner_area">
         <div class="container">
-            <div class="c_banner_inner">
+            <div class="solid_banner_inner navegador">
                 <h3>Todos los productos</h3>
                 <ul>
                     <li><a href="<?= URL ?>/index">Inicio</a></li>
@@ -111,7 +111,7 @@ $template->themeNav();
                     <div class="col-lg-9 float-md-right">
                         <div class="">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12 mb-10">
                                     <form class="login_form row"  method="get" id="buscar">
                                         <div class="col-md-9 form-group">
                                             <input class="form-control" value="<?= isset($titulo) ? $titulo : ''; ?>" type="text" placeholder="Buscar un producto" name="titulo"
@@ -254,10 +254,14 @@ $template->themeNav();
                                     $img = $imagen->view();
                                     ?>
                                     <div class="media">
+                                        <a href="<?= URL . '/producto/' . $funciones->normalizar_link($proRand["titulo"]) . '/' . $proRand['cod'] ?>">
                                         <div class="d-flex" style="height:100px;width:80px;background:url(<?= $img['ruta']; ?>) no-repeat center center/contain;">
                                         </div>
+                                        </a>
                                         <div class="media-body ml-5">
-                                            <h4><?= ucfirst(substr(strip_tags($proRand['titulo']), 0, 40)); ?></h4>
+                                            <a href="<?= URL . '/producto/' . $funciones->normalizar_link($proRand["titulo"]) . '/' . $proRand['cod'] ?>">
+                                                <h4><?= ucfirst(substr(strip_tags($proRand['titulo']), 0, 40)); ?></h4>
+                                            </a>
                                             <h5>$<?= $proRand['precio']; ?></h5>
                                         </div>
                                     </div>

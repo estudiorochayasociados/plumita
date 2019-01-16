@@ -42,7 +42,7 @@ $usuarioData = $usuario->view();
         $usuario->set("fecha", $usuarioData['fecha']);
 
         $usuario->edit();
-        $funciones->headerMove(URL . '/panel');
+        $funciones->headerMove(URL . '/sesion/cuenta');
     endif;
     ?>
     <form class="login_form" id="registro" method="post" autocomplete="off" >

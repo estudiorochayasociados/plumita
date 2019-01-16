@@ -14,6 +14,7 @@ if (isset($_POST["login"])):
     $usuario->set("password", $password);
 
     if ($usuario->login() == 0):
+        echo "gg";
         ?>
         <script>
             $(document).ready(function () {
@@ -36,7 +37,7 @@ endif;
                     <p>Si aún no estas registrado, haz click <a href="#registrar" onclick="$('.modal').modal('hide');"
                                                                 data-toggle="modal">aquí</a>.</p>
                 </div>
-                <p id="errorLogin"></p>
+                <div id="errorLogin"></div>
                 <form class="login_form row" id="login" method="post">
                     <div class="col-lg-12 form-group">
                         <input class="form-control" type="email" placeholder="Correo electrónico" name="email"

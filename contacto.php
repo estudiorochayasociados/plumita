@@ -6,9 +6,9 @@ $template = new Clases\TemplateSite();
 $funciones = new Clases\PublicFunction();
 $enviar = new Clases\Email();
 //
-$template->set("title", TITULO . " | Inicio");
-$template->set("description", "");
-$template->set("keywords", "");
+$template->set("title", TITULO . " | Contacto");
+$template->set("description", "Contacto ".TITULO);
+$template->set("keywords", "Contacto ".TITULO);
 $template->set("favicon", LOGO);
 $template->themeInit();
 //

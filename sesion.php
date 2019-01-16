@@ -4,9 +4,9 @@ Config\Autoload::runSitio();
 $template = new Clases\TemplateSite();
 $funciones = new Clases\PublicFunction();
 $enviar = new Clases\Email();
-$template->set("title", "Pinturería Ariel | Contacto");
-$template->set("description", "Contacto Pinturería Ariel");
-$template->set("keywords", "Contacto Pinturería Ariel");
+$template->set("title", TITULO." | Panel");
+$template->set("description", "Panel ".TITULO);
+$template->set("keywords", "Panel ".TITULO);
 $template->set("favicon", LOGO);
 $template->themeInit();
 $usuarios = new Clases\Usuarios();
@@ -15,13 +15,11 @@ if (count($usuarioSesion) == 0) {
     $funciones->headerMove(URL . "/index");
 }
 ?>
-<body id="bd" class="cms-index-index2 header-style2 prd-detail sns-contact-us cms-simen-home-page-v2 default cmspage">
-<div id="sns_wrapper">
     <?php $template->themeNav(); ?>
     <!-- BREADCRUMBS -->
-    <section class="categories_banner_area mb-10">
+    <section class="solid_banner_area">
         <div class="container">
-            <div class="c_banner_inner">
+            <div class="solid_banner_inner navegador">
                 <h3>Panel de usuario</h3>
                 <ul>
                     <li><a href="<?=URL?>/index">Inicio</a></li>
@@ -80,8 +78,6 @@ if (count($usuarioSesion) == 0) {
             </div>
         </div>
     </section>
-</div>
-</body>
 <?php
 $template->themeEnd();
 ?>

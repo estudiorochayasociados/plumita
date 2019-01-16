@@ -20,9 +20,10 @@ $categoria_cod = $producto_data['categoria'];
 $filter = array("categoria='$categoria_cod'");
 $productos_relacionados_data = $producto->listWithOps($filter, '', '3');
 //
-$template->set("title", TITULO . " | Inicio");
-$template->set("description", "");
-$template->set("keywords", "");
+$template->set("title", TITULO . " | ".ucfirst(strip_tags($producto_data['titulo'])));
+$template->set("description", ucfirst(strip_tags($producto_data['desarrollo'])));
+$template->set("keywords", ucfirst(strip_tags($producto_data['titulo'])));
+$template->set("imagen", URL."/".$imagenes_data[0]['ruta']);
 $template->set("favicon", LOGO);
 $template->themeInit();
 //Carro
@@ -36,9 +37,9 @@ $template->themeNav();
 ?>
 
     <!--================Categories Banner Area =================-->
-    <section class="categories_banner_area">
+    <section class="solid_banner_area">
         <div class="container">
-            <div class="c_banner_inner">
+            <div class="solid_banner_inner navegador">
                 <h3><?= ucfirst($producto_data['titulo']); ?></h3>
                 <ul>
                     <li><a href="<?= URL ?>/index">Inicio</a></li>
@@ -62,7 +63,8 @@ $template->themeNav();
                                 foreach ($imagenes_data as $img) {
                                     ?>
                                     <!-- SLIDE  -->
-                                    <li data-index="rs-<?= $img['id'] ?>" data-transition="scaledownfrombottom" data-slotamount="7" data-easein="Power3.easeInOut" data-easeout="Power3.easeInOut" data-masterspeed="1500" data-thumb="<?= URL . '/' . $img['ruta']; ?>" data-rotate="0" data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7" data-saveperformance="off" data-title="<?= ucfirst($producto_data['titulo']); ?>" data-param1="25/08/2015" data-description="<?= ucfirst($producto_data['titulo']); ?>">
+                                    <li data-index="rs-<?= $img['id'] ?>" data-transition="scaledownfrombottom" data-slotamount="7" data-easein="Power3.easeInOut" data-easeout="Power3.easeInOut" data-masterspeed="1500" data-thumb="<?= URL . '/' . $img['ruta']; ?>" data-rotate="0" data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7" data-saveperformance="off" data-title="<?= ucfirst($producto_data['titulo']); ?>" data-param1="25/08/2015"
+                                        data-description="<?= ucfirst($producto_data['titulo']); ?>">
                                         <!-- MAIN IMAGE -->
                                         <img src="<?= URL . '/' . $img['ruta']; ?>" alt="<?= ucfirst($producto_data['titulo']); ?>" data-bgposition="center center" data-bgfit="contain" data-bgrepeat="no-repeat" data-bgparallax="5" class="rev-slidebg" data-no-retina>
                                         <!-- LAYERS -->
@@ -82,6 +84,7 @@ $template->themeNav();
                         <p><?= ucfirst(strip_tags($producto_data['desarrollo'])); ?></p>
                         <div class="quantity">
                             <?php
+                            var_dump($_SESSION['carrito']);
                             if (isset($_POST["enviar"])) {
                                 if ($carroEnvio != '') {
                                     $carrito->delete($carroEnvio);
@@ -113,7 +116,7 @@ $template->themeNav();
                                 }
 */
                                 $carrito->add();
-                                //$funciones->headerMove(CANONICAL . "?success");
+                                $funciones->headerMove(CANONICAL . "?success");
                             }
                             if (strpos(CANONICAL, "success") == true) {
                                 echo "<div class='alert alert-success'>Agregaste un producto a tu carrito, querés <a href='" . URL . "/carrito'><b>pasar por caja</b></a> o <a href='" . URL . "/productos'><b>seguir comprando</b></a></div>";
@@ -121,12 +124,12 @@ $template->themeNav();
                             ?>
                             <form method="post">
 
-                            <div class="custom">
-                                <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="icon_minus-06"></i></button>
-                                <input type="text" name="cantidad" id="sst" maxlength="12" value="01" title="Quantity:" class="input-text qty">
-                                <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" class="increase items-count" type="button"><i class="icon_plus"></i></button>
-                            </div>
-                            <button class="add_cart_btn" name="enviar" >Añadir</button>
+                                <div class="custom">
+                                    <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="icon_minus-06"></i></button>
+                                    <input type="text" name="cantidad" id="sst" maxlength="12" value="01" title="Quantity:" class="input-text qty">
+                                    <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" class="increase items-count" type="button"><i class="icon_plus"></i></button>
+                                </div>
+                                <button class="add_cart_btn" name="enviar">Añadir</button>
                             </form>
                         </div>
                         <div class="shareing_icon">
@@ -156,13 +159,13 @@ $template->themeNav();
                 <div class="row">
                     <?php
                     foreach ($productos_relacionados_data as $prod) {
-                        $imagen->set("cod",$prod['cod']);
+                        $imagen->set("cod", $prod['cod']);
                         $img = $imagen->view();
                         ?>
                         <div class="col-lg-4 col-sm-6">
                             <div class="l_product_item">
                                 <a href="<?= URL . '/producto/' . $funciones->normalizar_link($prod["titulo"]) . '/' . $prod['cod'] ?>">
-                                    <div class="l_p_img" style="height:300px;background:url(<?=URL.'/'. $img['ruta']; ?>) no-repeat center center/70%;">
+                                    <div class="l_p_img" style="height:300px;background:url(<?= URL . '/' . $img['ruta']; ?>) no-repeat center center/70%;">
                                     </div>
                                 </a>
                                 <div class="l_p_text">

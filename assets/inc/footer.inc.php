@@ -5,15 +5,18 @@
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-6">
                     <aside class="f_widget f_about_widget">
-                        <img src="<?= URL ?>/assets/img/logo.png" alt="">
+                        <div class="col-md-12" style="width:100%;height:80px;background:url(<?= LOGO ?>) no-repeat center center/contain;">
+                        </div>
                         <p>Fabricante de cortadoras, bordeadoras de céspec y electrobombas</p>
                         <h6>Redes sociales:</h6>
                         <ul>
-                            <li><a href="#"><i class="social_facebook"></i></a></li>
+                            <li><a href="https://www.facebook.com/plumitasrl/"><i class="social_facebook"></i></a></li>
+                            <!--
                             <li><a href="#"><i class="social_twitter"></i></a></li>
                             <li><a href="#"><i class="social_pinterest"></i></a></li>
                             <li><a href="#"><i class="social_instagram"></i></a></li>
                             <li><a href="#"><i class="social_youtube"></i></a></li>
+                            -->
                         </ul>
                     </aside>
                 </div>
@@ -23,11 +26,9 @@
                             <h3>Informacón</h3>
                         </div>
                         <ul>
-                            <li><a href="#">Sobre nosotros</a></li>
+                            <li><a href="<?=URL?>/c/empresa">Sobre nosotros</a></li>
                         </ul>
                     </aside>
-                </div>
-                <div class="col-lg-4 col-md-4 col-6">
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <aside class="f_widget link_widget f_account_widget">
@@ -35,10 +36,24 @@
                             <h3>Mi cuenta</h3>
                         </div>
                         <ul>
-                            <li><a href="#">Mi cuenta</a></li>
-                            <li><a href="#">Historial</a></li>
+                            <?php if (@count($_SESSION["usuarios"]) != 0): ?>
+                                <li>
+                                    <a title="cuenta" href="<?= URL ?>/sesion">Mi cuenta
+                                    </a>
+                                </li>
+                            <?php else: ?>
+                                <li>
+                                    <a data-toggle="modal" data-target="#login"
+                                       title="Iniciar sesion">Mi cuenta
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                            <li><a href="<?=URL?>/carrito">Carrito</a></li>
                         </ul>
                     </aside>
+                </div>
+                <div class="col-lg-4 col-md-4 col-6">
+                    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fplumitasrl%2F&tabs&width=340&height=197&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="100%" height="197" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
                 </div>
             </div>
         </div>
@@ -83,11 +98,6 @@
 <script src="<?= URL ?>/vendors/magnify-popup/jquery.magnific-popup.min.js"></script>
 <script src="<?= URL ?>/vendors/vertical-slider/js/jQuery.verticalCarousel.js"></script>
 <script src="<?= URL ?>/vendors/jquery-ui/jquery-ui.js"></script>
-
-<!-- contact js -->
-<script src="js/jquery.form.js"></script>
-<script src="js/jquery.validate.min.js"></script>
-<script src="js/contact.js"></script>
 
 <script src="<?= URL ?>/assets/js/theme.js"></script>
 </body>
