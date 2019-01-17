@@ -71,7 +71,7 @@ $template->themeNav();
                     <div class="add_review pl-0">
                         <?= $fecha[2] . '/' . $fecha[1] . '/' . $fecha[0] ?>
                     </div>
-                    <p><?= ucfirst(strip_tags($novedades_data['desarrollo'])); ?></p>
+                    <p><?= ucfirst($novedades_data['desarrollo']); ?></p>
                     <div class="shareing_icon mb-10">
                         <h5>Compartir :</h5>
                         <div class="a2a_kit a2a_kit_size_32 a2a_default_style">

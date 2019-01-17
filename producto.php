@@ -20,16 +20,15 @@ $categoria_cod = $producto_data['categoria'];
 $filter = array("categoria='$categoria_cod'");
 $productos_relacionados_data = $producto->listWithOps($filter, '', '3');
 //
-$template->set("title", TITULO . " | ".ucfirst(strip_tags($producto_data['titulo'])));
+$template->set("title", TITULO . " | " . ucfirst(strip_tags($producto_data['titulo'])));
 $template->set("description", ucfirst(strip_tags($producto_data['desarrollo'])));
 $template->set("keywords", ucfirst(strip_tags($producto_data['titulo'])));
-$template->set("imagen", URL."/".$imagenes_data[0]['ruta']);
+$template->set("imagen", URL . "/" . $imagenes_data[0]['ruta']);
 $template->set("favicon", LOGO);
 $template->themeInit();
 //Carro
 $carro = $carrito->return();
-$carroEnvio = $carrito->checkEnvio();
-$carroPago = $carrito->checkPago();
+
 //
 ?>
 <?php
@@ -81,15 +80,17 @@ $template->themeNav();
                         <h3><?= ucfirst($producto_data['titulo']); ?></h3>
                         <h6>Disponibilidad: <span> consultar</span></h6>
                         <h4>$<?= $producto_data['precio']; ?></h4>
-                        <p><?= ucfirst(strip_tags($producto_data['desarrollo'])); ?></p>
+                        <p><?= ucfirst($producto_data['desarrollo']); ?></p>
                         <div class="quantity">
                             <?php
-                            var_dump($_SESSION['carrito']);
                             if (isset($_POST["enviar"])) {
+
+                                $carroEnvio = $carrito->checkEnvio();
                                 if ($carroEnvio != '') {
                                     $carrito->delete($carroEnvio);
                                 }
 
+                                $carroPago = $carrito->checkPago();
                                 if ($carroPago != '') {
                                     $carrito->delete($carroPago);
                                 }
@@ -97,13 +98,13 @@ $template->themeNav();
                                 $carrito->set("id", $producto_data['id']);
                                 $carrito->set("cantidad", $_POST["cantidad"]);
                                 $carrito->set("titulo", $producto_data['titulo']);
-                                $carrito->set("precio", $producto_data['precio']);/*
+                                $carrito->set("precio", $producto_data['precio']);
+
                                 if (($producto_data['precioDescuento'] <= 0) || $producto_data["precioDescuento"] == '') {
                                     $carrito->set("precio", $producto_data['precio']);
                                 } else {
                                     $carrito->set("precio", $producto_data['precioDescuento']);
                                 }
-
 
                                 if (@$_SESSION["usuarios"]["descuento"] == 1) {
                                     if ($producto_data['precio'] != $producto_data['precio_mayorista']) {
@@ -114,7 +115,6 @@ $template->themeNav();
                                 } else {
                                     $carrito->set("precio", $producto_data['precio']);
                                 }
-*/
                                 $carrito->add();
                                 $funciones->headerMove(CANONICAL . "?success");
                             }
@@ -123,10 +123,9 @@ $template->themeNav();
                             }
                             ?>
                             <form method="post">
-
                                 <div class="custom">
                                     <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="icon_minus-06"></i></button>
-                                    <input type="text" name="cantidad" id="sst" maxlength="12" value="01" title="Quantity:" class="input-text qty">
+                                    <input type="text" name="cantidad" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
                                     <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" class="increase items-count" type="button"><i class="icon_plus"></i></button>
                                 </div>
                                 <button class="add_cart_btn" name="enviar">Añadir</button>

@@ -24,7 +24,7 @@ if (isset($_POST["agregar"])) {
     $count = 0;
     $cod   = $producto["cod"];
     $productos->set("id", $producto["id"]);
-    $productos->set("cod", $funciones->antihack_mysqli(isset($_POST["cod"]) ? $_POST["cod"] : ''));
+    $productos->set("cod", $producto["cod"]);
     $productos->set("titulo", $funciones->antihack_mysqli(isset($_POST["titulo"]) ? $_POST["titulo"] : ''));
     $productos->set("cod_producto", $funciones->antihack_mysqli(isset($_POST["cod_producto"]) ? $_POST["cod_producto"] : ''));
     $productos->set("precio", $funciones->antihack_mysqli(isset($_POST["precio"]) ? $_POST["precio"] : ''));

@@ -26,7 +26,7 @@
                             <h3>Informacón</h3>
                         </div>
                         <ul>
-                            <li><a href="<?=URL?>/c/empresa">Sobre nosotros</a></li>
+                            <li><a href="<?= URL ?>/c/empresa">Sobre nosotros</a></li>
                         </ul>
                     </aside>
                 </div>
@@ -48,12 +48,12 @@
                                     </a>
                                 </li>
                             <?php endif; ?>
-                            <li><a href="<?=URL?>/carrito">Carrito</a></li>
+                            <li><a href="<?= URL ?>/carrito">Carrito</a></li>
                         </ul>
                     </aside>
                 </div>
                 <div class="col-lg-4 col-md-4 col-6">
-                    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fplumitasrl%2F&tabs&width=340&height=197&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="100%" height="197" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+                    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Ffacebook.com%2Fplumitasrl%2F&tabs&width=340&height=181&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="340" height="181" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
                 </div>
             </div>
         </div>
@@ -67,13 +67,14 @@
         </div>
     </div>
 </footer>
-<?php include("login.inc.php"); ?>
+
 <!--================End Footer Area =================-->
 
 
 <script async src="https://static.addtoany.com/menu/page.js"></script>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins)-->
 <script src="<?= URL ?>/assets/js/jquery-3.2.1.min.js"></script>
+
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="<?= URL ?>/assets/js/popper.min.js"></script>
 <script src="<?= URL ?>/assets/js/bootstrap.min.js"></script>
@@ -96,9 +97,14 @@
 <script src="<?= URL ?>/vendors/isotope/imagesloaded.pkgd.min.js"></script>
 <script src="<?= URL ?>/vendors/isotope/isotope.pkgd.min.js"></script>
 <script src="<?= URL ?>/vendors/magnify-popup/jquery.magnific-popup.min.js"></script>
-<script src="<?= URL ?>/vendors/vertical-slider/js/jQuery.verticalCarousel.js"></script>
-<script src="<?= URL ?>/vendors/jquery-ui/jquery-ui.js"></script>
 
+<!--
+<script src="<?= URL ?>/vendors/jquery-ui/jquery-ui.js"></script>
+<script src="<?= URL ?>/vendors/vertical-slider/js/jQuery.verticalCarousel.js"></script>
+-->
 <script src="<?= URL ?>/assets/js/theme.js"></script>
+
+<?php include("login.inc.php"); ?>
+
 </body>
 </html>

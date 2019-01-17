@@ -122,7 +122,7 @@ class Usuarios
     {
         $funciones = new PublicFunction();
         unset($_SESSION["usuarios"]);
-        $funciones->headerMove(URL);
+        //$funciones->headerMove(URL);
     }
 
     public function view()

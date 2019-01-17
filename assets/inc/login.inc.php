@@ -14,11 +14,10 @@ if (isset($_POST["login"])):
     $usuario->set("password", $password);
 
     if ($usuario->login() == 0):
-        echo "gg";
         ?>
         <script>
             $(document).ready(function () {
-                $("#errorLogin").html('<br/><div class="alert alert-warning" role="alert">Email o contraseña incorrecta.</div>');
+                $('#errorLogin').html('<br/><div class="alert alert-warning" role="alert">Email o contraseña incorrecta.</div>');
                 $('#login').modal("show");
             });
         </script>
@@ -28,6 +27,9 @@ if (isset($_POST["login"])):
     endif;
 endif;
 ?>
+<script>
+    $('#login').modal("show");
+</script>
 <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myLogin" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

@@ -29,8 +29,8 @@ $template->themeNav();
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="product_details_text blog-description">
-                    <p><?= ucfirst(strip_tags($contenido_data['contenido'])); ?></p>
+                <div class="">
+                    <p><?= ucfirst($contenido_data['contenido']); ?></p>
                 </div>
             </div>
         </div>

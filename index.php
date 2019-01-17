@@ -58,8 +58,8 @@ $template->themeNav();
             <div class="carousel-item <?php if ($activo == 0) {
                 echo 'active';
                 $activo++;
-            } ?>" >
-                <img class="d-block w-100" src="<?= URL . '/' . $img['ruta']; ?>" alt="First slide">
+            } ?>" style="height:800px;background:url(<?= $img['ruta']; ?>) no-repeat center center/cover;" >
+           <!--     <img class="d-block w-100" src="<?= URL . '/' . $img['ruta']; ?>" alt="First slide">-->
             </div>
             <?php
         }
@@ -75,7 +75,6 @@ $template->themeNav();
     </a>
 </div>
 <!--================End Home Carousel Area =================-->
-
 <!--================Special Offer Area =================-->
 <section class="special_offer_area">
     <div class="container">

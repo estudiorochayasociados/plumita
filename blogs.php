@@ -16,7 +16,7 @@ $template->themeInit();
 
 $pagina = isset($_GET["pagina"]) ? $_GET["pagina"] : '0';
 
-$cantidad = 4;
+$cantidad = 6;
 
 if ($pagina > 0) {
     $pagina = $pagina - 1;
@@ -65,7 +65,7 @@ $template->themeNav();
                     $cat_novedad = $categoria->view();
                     $fecha = explode("-", $nov['fecha']);
                     ?>
-                    <div class="col-lg-6 col-sm-6">
+                    <div class="col-lg-6 col-sm-6 mb-20">
                         <a href="<?= URL . '/blog/' . $funciones->normalizar_link($nov["titulo"]) . '/' . $nov['cod'] ?>">
                             <div class="from_blog_item" style="height:350px;background:url(<?= $img['ruta']; ?>) no-repeat center center/cover;">
                                 <div class="f_blog_text">

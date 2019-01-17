@@ -64,26 +64,6 @@
      background: transparent;
      color: #333333;
  }
-.carrito-a{
-    position: relative;
-}
-.carrito-num{
-    position: absolute;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    text-align: center;
-    color: #fff;
-    font-size: 12px;
-    position: absolute;
-    font-weight: normal;
-    right: 6px;
-    bottom: 6px;
-    background: #ff0000;
-    line-height: 20px;
-}
-
-
 
 /*margin top*/
 

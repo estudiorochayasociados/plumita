@@ -1,3 +1,7 @@
+<?php
+$carrito = new Clases\Carrito();
+$carro = $carrito->return();
+?>
 <!--================Menu Area =================-->
 <header class="shop_header_area carousel_menu_area">
     <div class="carousel_top_header row m0">
@@ -44,16 +48,10 @@
                         <li class="nav-item"><a class="nav-link" href="<?= URL . '/contacto' ?>">Contacto</a></li>
                     </ul>
                     <ul class="navbar-nav justify-content-end">
-                        <li class="search_icon"><a href="<?= URL ?>/productos#buscar"><i class="icon-magnifier icons"></i></a></li>
-                        <!--
-                                                <li class="user_icon">
-                                                    <a data-toggle="modal" data-target="#login"
-                                                       title="Iniciar sesion"><i class="icon-user icons"></i>
-                                                    </a>
-                                                </li>-->
+                        <li class="search_icon"><a title="Buscar productos" href="<?= URL ?>/productos#buscar"><i class="icon-magnifier icons"></i></a></li>
                         <?php if (@count($_SESSION["usuarios"]) != 0): ?>
                             <li class="user_icon">
-                                <a title="cuenta" href="<?= URL ?>/sesion"><i class="icon-user icons"></i>
+                                <a title="Cuenta" href="<?= URL ?>/sesion"><i class="icon-user icons"></i>
                                 </a>
                             </li>
                         <?php else: ?>
@@ -63,7 +61,7 @@
                                 </a>
                             </li>
                         <?php endif; ?>
-                        <li class="cart_cart"><a href="<?php echo URL . '/carrito'; //if (@count($_SESSION["usuarios"])!=0){echo URL.'/carrito'; } ?>"><i class="icon-handbag icons"></i></a></li>
+                        <li><a title="Carrito" href="<?= URL . '/carrito'; ?>"><i class="icon-handbag icons"></i> <?php if (!empty($carro)){echo @count($carro);} ?></a></li>
                     </ul>
                 </div>
             </nav>

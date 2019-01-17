@@ -4,10 +4,12 @@ class autoload
 {
     public static function runSitio()
     {
+        require_once "Config/Minify.php";
         session_start();
         $_SESSION["cod_pedido"] = isset($_SESSION["cod_pedido"]) ? $_SESSION["cod_pedido"] : substr(md5(uniqid(rand())), 0, 10);
         define('URL', "http://".$_SERVER['HTTP_HOST']."/plumita");
         define('CANONICAL', "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]);
+        define('GOOGLE_TAG', "");
         define('TITULO', "Plumita S.R.L");
         define('TELEFONO', "03564 422291");
         define('CIUDAD', "San Francisco");

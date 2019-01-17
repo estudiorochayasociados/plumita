@@ -17,7 +17,7 @@ $template->themeNav();
 <!--================Categories Banner Area =================-->
 <section class="solid_banner_area">
     <div class="container">
-        <div class="solid_banner_inner">
+        <div class="solid_banner_inner navegador">
             <h3>Contacto</h3>
             <ul>
                 <li><a href="<?= URL ?>/index">Inicio</a></li>
