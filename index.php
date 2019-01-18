@@ -58,8 +58,8 @@ $template->themeNav();
             <div class="carousel-item <?php if ($activo == 0) {
                 echo 'active';
                 $activo++;
-            } ?>" style="height:800px;background:url(<?= $img['ruta']; ?>) no-repeat center center/cover;" >
-           <!--     <img class="d-block w-100" src="<?= URL . '/' . $img['ruta']; ?>" alt="First slide">-->
+            } ?>" style="height:400px;background:url(<?= $img['ruta']; ?>) no-repeat center center/cover;">
+                <!--     <img class="d-block w-100" src="<?= URL . '/' . $img['ruta']; ?>" alt="First slide">-->
             </div>
             <?php
         }
@@ -90,7 +90,7 @@ $template->themeNav();
                 ?>
                 <div class="col-lg-6">
                     <a href="<?= $banM['link']; ?>">
-                        <div class="special_offer_item" style="height:150px;background:url(<?= $img['ruta']; ?>) no-repeat center center/contain;">
+                        <div class="special_offer_item" style="height:300px;background:url(<?= $img['ruta']; ?>) no-repeat center center/cover;">
                         </div>
                     </a>
                 </div>
@@ -142,9 +142,54 @@ $template->themeNav();
                                     </li>
                                 </ul>
                                 <h4><?= ucfirst(substr(strip_tags($prod['titulo']), 0, 40)); ?></h4>
-                                <h5>
-                                    $ <?= $prod['precio']; ?>
-                                </h5>
+                                <?php
+                                if ($_SESSION["usuarios"]["descuento"] == 1) {
+                                    if ($prod['precio_mayorista'] != 0) {
+                                        ?>
+                                        <h5 class="precios">
+                                            $ <?= $prod['precio_mayorista']; ?>
+                                        </h5>
+                                        <h5 class="precios precio-desc">
+                                            $ <?= $prod['precio']; ?>
+                                        </h5>
+                                        <?php
+                                    } else {
+                                        if ($prod['precio_descuento'] != 0) {
+                                            ?>
+                                            <h5 class="precios">
+                                                $ <?= $prod['precio_descuento']; ?>
+                                            </h5>
+                                            <h5 class="precios precio-desc">
+                                                $ <?= $prod['precio']; ?>
+                                            </h5>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <h5>
+                                                $ <?= $prod['precio']; ?>
+                                            </h5>
+                                            <?php
+                                        }
+                                    }
+                                } else {
+                                    if ($prod['precio_descuento'] != 0) {
+                                        ?>
+                                        <h5 class="precios">
+                                            $ <?= $prod['precio_descuento']; ?>
+                                        </h5>
+                                        <h5 class="precios precio-desc">
+                                            $ <?= $prod['precio']; ?>
+                                        </h5>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <h5>
+                                            $ <?= $prod['precio']; ?>
+                                        </h5>
+                                        <?php
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

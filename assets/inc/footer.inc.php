@@ -1,3 +1,41 @@
+<?php
+$categoria_footer = new Clases\Categorias();
+$banner_footer = new Clases\Banner();
+$imagen = new Clases\Imagenes();
+//Banners
+$categoria_footer->set("area", "banners");
+$categorias_banners = $categoria_footer->listForArea('');
+foreach ($categorias_banners as $catB) {
+    if ($catB['titulo'] == "Pie") {
+        $banner_footer->set("categoria", $catB['cod']);
+        $banner_data_pie = $banner_footer->listForCategory('RAND()', '1');
+    }
+}
+?>
+<section class="">
+    <div class="container">
+        <div class="row">
+            <?php
+            foreach ($banner_data_pie as $banP) {
+                $imagen->set("cod", $banP['cod']);
+                $img = $imagen->view();
+                $banner_footer->set("id", $banP['id']);
+                $value = $banP['vistas'] + 1;
+                $banner_footer->set("vistas", $value);
+                $banner_footer->increaseViews();
+                ?>
+                <div class="col-md-12">
+                    <a href="<?= $banP['link']; ?>">
+                        <div class="special_offer_item" style="height:150px;background:url(<?= $img['ruta']; ?>) no-repeat center center/contain;">
+                        </div>
+                    </a>
+                </div>
+                <?php
+            }
+            ?>
+        </div>
+    </div>
+</section>
 <!--================Footer Area =================-->
 <footer class="footer_area">
     <div class="container">
@@ -98,10 +136,7 @@
 <script src="<?= URL ?>/vendors/isotope/isotope.pkgd.min.js"></script>
 <script src="<?= URL ?>/vendors/magnify-popup/jquery.magnific-popup.min.js"></script>
 
-<!--
 <script src="<?= URL ?>/vendors/jquery-ui/jquery-ui.js"></script>
-<script src="<?= URL ?>/vendors/vertical-slider/js/jQuery.verticalCarousel.js"></script>
--->
 <script src="<?= URL ?>/assets/js/theme.js"></script>
 
 <?php include("login.inc.php"); ?>

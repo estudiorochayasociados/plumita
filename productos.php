@@ -85,6 +85,7 @@ switch ($orden_pagina) {
 $productos_data = $producto->listWithOps($filter, $order_final, ($cantidad * $pagina) . ',' . $cantidad);
 $numeroPaginas = $producto->paginador($filter, $cantidad);
 $productos_data_random = $producto->listWithOps('', 'RAND()', '4');
+$sesionCount = @count($_SESSION['usuarios']);
 //
 
 $template->themeNav();
@@ -188,9 +189,54 @@ $template->themeNav();
                                                     </li>
                                                 </ul>
                                                 <h4><?= ucfirst(substr(strip_tags($prod['titulo']), 0, 40)); ?></h4>
-                                                <h5>
-                                                    $ <?= $prod['precio']; ?>
-                                                </h5>
+                                                <?php
+                                                if ($_SESSION["usuarios"]["descuento"] == 1) {
+                                                    if ($prod['precio_mayorista'] != 0) {
+                                                        ?>
+                                                        <h5 class="precios">
+                                                            $ <?= $prod['precio_mayorista']; ?>
+                                                        </h5>
+                                                        <h5 class="precios precio-desc">
+                                                            $ <?= $prod['precio']; ?>
+                                                        </h5>
+                                                        <?php
+                                                    } else {
+                                                        if ($prod['precio_descuento'] != 0) {
+                                                            ?>
+                                                            <h5 class="precios">
+                                                                $ <?= $prod['precio_descuento']; ?>
+                                                            </h5>
+                                                            <h5 class="precios precio-desc">
+                                                                $ <?= $prod['precio']; ?>
+                                                            </h5>
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                            <h5>
+                                                                $ <?= $prod['precio']; ?>
+                                                            </h5>
+                                                            <?php
+                                                        }
+                                                    }
+                                                } else {
+                                                    if ($prod['precio_descuento'] != 0) {
+                                                        ?>
+                                                        <h5 class="precios">
+                                                            $ <?= $prod['precio_descuento']; ?>
+                                                        </h5>
+                                                        <h5 class="precios precio-desc">
+                                                            $ <?= $prod['precio']; ?>
+                                                        </h5>
+                                                        <?php
+                                                    } else {
+                                                        ?>
+                                                        <h5>
+                                                            $ <?= $prod['precio']; ?>
+                                                        </h5>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
                                             </div>
                                         </div>
                                     </div>
@@ -262,7 +308,56 @@ $template->themeNav();
                                             <a href="<?= URL . '/producto/' . $funciones->normalizar_link($proRand["titulo"]) . '/' . $proRand['cod'] ?>">
                                                 <h4><?= ucfirst(substr(strip_tags($proRand['titulo']), 0, 40)); ?></h4>
                                             </a>
-                                            <h5>$<?= $proRand['precio']; ?></h5>
+                                            <?php
+                                            if ($_SESSION["usuarios"]["descuento"] == 1) {
+                                                if (){
+                                                if ($proRand['precio_mayorista'] != 0) {
+                                                    ?>
+                                                    <h5 class="precios">
+                                                        $ <?= $proRand['precio_mayorista']; ?>
+                                                    </h5>
+                                                    <h5 class="precios precio-desc">
+                                                        $ <?= $proRand['precio']; ?>
+                                                    </h5>
+                                                    <?php
+                                                } else {
+                                                    if ($proRand['precio_descuento'] != 0) {
+                                                        ?>
+                                                        <h5 class="precios">
+                                                            $ <?= $proRand['precio_descuento']; ?>
+                                                        </h5>
+                                                        <h5 class="precios precio-desc">
+                                                            $ <?= $proRand['precio']; ?>
+                                                        </h5>
+                                                        <?php
+                                                    } else {
+                                                        ?>
+                                                        <h5>
+                                                            $ <?= $proRand['precio']; ?>
+                                                        </h5>
+                                                        <?php
+                                                    }
+                                                }
+                                                }
+                                            } else {
+                                                if ($proRand['precio_descuento'] != 0) {
+                                                    ?>
+                                                    <h5 class="precios">
+                                                        $ <?= $proRand['precio_descuento']; ?>
+                                                    </h5>
+                                                    <h5 class="precios precio-desc">
+                                                        $ <?= $proRand['precio']; ?>
+                                                    </h5>
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                    <h5>
+                                                        $ <?= $proRand['precio']; ?>
+                                                    </h5>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                     <?php

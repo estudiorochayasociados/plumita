@@ -52,7 +52,7 @@ switch ($categoria["titulo"]) {
 ?>
     <body id="bd" class="cms-index-index2 header-style2 prd-detail blog-pagev1 detail cms-simen-home-page-v2 default cmspage">
     <div id="sns_wrapper">
-        <div id="sns_breadcrumbs" class="wrap mb-20" style="background: #176BB3">
+        <div id="sns_breadcrumbs" class="wrap mb-20">
             <div class="container">
                 <div class="row">
                     <div class="col-md-2 col-xs-6 pt-20 pb-10">

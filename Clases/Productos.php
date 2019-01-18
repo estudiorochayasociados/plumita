@@ -10,8 +10,9 @@ class Productos
     public $cod;
     public $titulo;
     public $precio;
+    public $precio_mayorista;
     public $peso;
-    public $precioDescuento;
+    public $precio_descuento;
     public $stock;
     public $desarrollo;
     public $categoria;
@@ -43,7 +44,7 @@ class Productos
 
     public function add()
     {
-        $sql = "INSERT INTO `productos`(`cod`, `titulo`,`cod_producto`, `precio`, `peso`, `precioDescuento`, `stock`, `desarrollo`, `categoria`, `subcategoria`, `keywords`, `description`, `fecha`, `meli`, `url`) VALUES ('{$this->cod}', '{$this->titulo}','{$this->cod_producto}', '{$this->precio}', '{$this->peso}', '{$this->precioDescuento}', '{$this->stock}', '{$this->desarrollo}', '{$this->categoria}', '{$this->subcategoria}', '{$this->keywords}', '{$this->description}', '{$this->fecha}', '{$this->meli}', '{$this->url}')";
+        $sql = "INSERT INTO `productos`(`cod`, `titulo`,`cod_producto`, `precio`,`precio_mayorista`, `peso`, `precio_descuento`, `stock`, `desarrollo`, `categoria`, `subcategoria`, `keywords`, `description`, `fecha`, `meli`, `url`) VALUES ('{$this->cod}', '{$this->titulo}','{$this->cod_producto}', '{$this->precio}','{$this->precio_mayorista}', '{$this->peso}', '{$this->precio_descuento}', '{$this->stock}', '{$this->desarrollo}', '{$this->categoria}', '{$this->subcategoria}', '{$this->keywords}', '{$this->description}', '{$this->fecha}', '{$this->meli}', '{$this->url}')";
         $query = $this->con->sql($sql);
         return $query;
     }
@@ -54,9 +55,10 @@ class Productos
         `cod` = '{$this->cod}',
         `titulo` = '{$this->titulo}',
         `precio` = '{$this->precio}',
+        `precio_mayorista` = '{$this->precio_mayorista}',
         `peso` = '{$this->peso}',
         `cod_producto` = '{$this->cod_producto}',
-        `precioDescuento` = '{$this->precioDescuento}',
+        `precio_descuento` = '{$this->precio_descuento}',
         `stock` = '{$this->stock}',
         `desarrollo` = '{$this->desarrollo}',
         `categoria` = '{$this->categoria}',

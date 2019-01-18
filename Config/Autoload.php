@@ -6,6 +6,7 @@ class autoload
     {
         require_once "Config/Minify.php";
         session_start();
+        $_SESSION["usuarios"] = isset($_SESSION["usuarios"]) ? $_SESSION["usuarios"] : '';
         $_SESSION["cod_pedido"] = isset($_SESSION["cod_pedido"]) ? $_SESSION["cod_pedido"] : substr(md5(uniqid(rand())), 0, 10);
         define('URL', "http://".$_SERVER['HTTP_HOST']."/plumita");
         define('CANONICAL', "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]);
@@ -44,7 +45,7 @@ class autoload
     public static function runAdmin()
     {
         session_start();
-        define('URLSITE',"http://".$_SERVER['HTTP_HOST']."/plumita/admin");
+        define('URLSITE',"http://".$_SERVER['HTTP_HOST']."/plumita");
         define('URL', "http://".$_SERVER['HTTP_HOST']."/plumita/admin");
         define('CANONICAL', "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]);
         require_once "../Clases/Zebra_Image.php";

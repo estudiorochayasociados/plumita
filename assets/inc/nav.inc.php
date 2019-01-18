@@ -34,7 +34,9 @@ $carro = $carrito->return();
     <div class="carousel_menu_inner">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="navbar-brand" style="width:15%;height:100px;background:url(<?= LOGO ?>) no-repeat center center/contain;">
+                <div class="navbar-brand d-none d-md-block" style="width:15%;height:100px;background:url(<?= LOGO ?>) no-repeat center center/contain;">
+                </div>
+                <div class="navbar-brand d-sm-none" style="width:65%;height:100px;background:url(<?= LOGO ?>) no-repeat center center/contain;">
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -44,7 +46,15 @@ $carro = $carrito->return();
                         <li class="nav-item"><a class="nav-link" href="<?= URL . '/index' ?>">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?= URL . '/productos' ?>">Productos</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?= URL . '/blogs' ?>">Blog</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?= URL . '/c/empresa' ?>">Sobre nosotros</a></li>
+                        <li class="nav-item dropdown submenu">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Empresa <i class="fa fa-angle-down" aria-hidden="true"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="nav-link" href="<?= URL . '/c/empresa' ?>">Sobre nosotros</a></li>
+                                <li class="nav-item"><a class="nav-link" href="<?= URL . '/c/servicio técnico' ?>">Servicio técnico</a></li>
+                            </ul>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="<?= URL . '/contacto' ?>">Contacto</a></li>
                     </ul>
                     <ul class="navbar-nav justify-content-end">

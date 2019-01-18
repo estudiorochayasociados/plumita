@@ -18,7 +18,7 @@ $pedidos->set("cod", $cod_pedido);
 $pedido_info = $pedidos->info();
 
 if (count($_SESSION["carrito"]) == 0) {
-    //$funciones->headerMove(URL . "/index");
+    $funciones->headerMove(URL . "/index");
 }
 
 if ($estado_get != '') {

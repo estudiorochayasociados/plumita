@@ -31,10 +31,14 @@ $precio = $carrito->precio_total();
 $timezone = -3;
 $fecha = gmdate("Y-m-j H:i:s", time() + 3600 * ($timezone + date("I")));
 ?>
-    <body id="bd" class="cms-index-index2 header-style2 prd-detail sns-products-detail1 cms-simen-home-page-v2 default cmspage">
-    <div id="sns_wrapper">
-        <?php $template->themeNav(); ?>
-    </div>
+    <section class="error_area p_100">
+        <div class="container">
+            <div class="error_inner">
+                <img src="<?=LOGO?>">
+                <h5>Procesando pago...</h5>
+            </div>
+        </div>
+    </section>
     <?php
     if (is_array($pedido)) {
         $pedidos->set("cod", $cod_pedido);
@@ -113,7 +117,6 @@ $fecha = gmdate("Y-m-j H:i:s", time() + 3600 * ($timezone + date("I")));
             break;
     }
     ?>
-    </body>
 <?php
 $template->themeEnd();
 ?>
