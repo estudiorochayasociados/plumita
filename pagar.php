@@ -6,7 +6,7 @@ $funciones = new Clases\PublicFunction();
 $template->set("title", "Admin");
 $template->set("description", "Admin");
 $template->set("keywords", "Inicio");
-$template->set("favicon", LOGO);
+$template->set("favicon", FAVICON);
 $template->themeInit();
 $carrito    = new Clases\Carrito();
 $usuarios    = new Clases\Usuarios();

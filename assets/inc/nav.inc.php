@@ -59,7 +59,7 @@ $carro = $carrito->return();
                     </ul>
                     <ul class="navbar-nav justify-content-end">
                         <li class="search_icon"><a title="Buscar productos" href="<?= URL ?>/productos#buscar"><i class="icon-magnifier icons"></i></a></li>
-                        <?php if (@count($_SESSION["usuarios"]) != 0): ?>
+                        <?php if (!empty($_SESSION['usuarios'])): ?>
                             <li class="user_icon">
                                 <a title="Cuenta" href="<?= URL ?>/sesion"><i class="icon-user icons"></i>
                                 </a>

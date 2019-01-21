@@ -14,7 +14,7 @@ $slider = new Clases\Sliders();
 $template->set("title", TITULO . " | Productos");
 $template->set("description", "Plumita S.R.L es una fábrica de Cortadoras y Bordeadoras de cesped, de muy alto nivel con distribución en todo el país.");
 $template->set("keywords", "bordeadora, cortadora, cesped, pasto, yuyo, alto nivel, durardera, maquinas, compra");
-$template->set("favicon", LOGO);
+$template->set("favicon", FAVICON);
 $template->themeInit();
 //Categorias
 $categoria->set("area", "productos");
@@ -123,115 +123,71 @@ $template->themeNav();
                                         </div>
                                     </form>
                                 </div>
-                                <!--
-                                <div class="col-md-6 ordenador">
-                                    <h4>Ordenar por :</h4>
-                                    <form method="get" class="pull-right">
-                                        <?php
-                                        foreach ($_GET as $key => $value) {
-                                            if ($key != "order" && $key != "pagina") {
-                                                echo "<input type='hidden' name='" . $key . "' value='" . $value . "' />";
-                                            }
-                                        }
-                                        ?>
-                                        <select class="form-control" name="order"  onchange="this.form.submit()">
-                                            <option selected disabled></option>
-                                            <option value="ultimos" <?php if ($orden_pagina == "ultimos") {
-                                                echo "selected";
-                                            } ?>> Últimos
-                                            </option>
-                                            <option value="mayor" <?php if ($orden_pagina == "mayor") {
-                                                echo "selected";
-                                            } ?>> Mayor precio
-                                            </option>
-                                            <option value="menor" <?php if ($orden_pagina == "menor") {
-                                                echo "selected";
-                                            } ?>> Menor precio
-                                            </option>
-                                        </select>
-                                    </form>
-                                </div>-->
-                                <!--
-                                <div class="third_fillter">
-                                    <h4>Show : </h4>
-                                    <select class="selectpicker">
-                                        <option>09</option>
-                                        <option>10</option>
-                                        <option>10</option>
-                                    </select>
-                                </div>
-                                <div class="four_fillter">
-                                    <h4>View</h4>
-                                    <a class="active" href="#"><i class="icon_grid-2x2"></i></a>
-                                    <a href="#"><i class="icon_grid-3x3"></i></a>
-                                </div>-->
                             </div>
                         </div>
                         <div class="categories_product_area">
                             <div class="row">
                                 <?php
                                 foreach ($productos_data as $prod) {
-                                    $imagen->set("cod", $prod['cod']);
-                                    $img = $imagen->view();
                                     ?>
                                     <div class="col-lg-4 col-sm-6">
                                         <div class="l_product_item">
-                                            <a href="<?= URL . '/producto/' . $funciones->normalizar_link($prod["titulo"]) . '/' . $prod['cod'] ?>">
-                                                <div class="l_p_img" style="height:300px;background:url(<?= $img['ruta']; ?>) no-repeat center center/70%;">
+                                            <a href="<?= URL . '/producto/' . $funciones->normalizar_link($prod['data']["titulo"]) . '/' . $prod['data']['cod'] ?>">
+                                                <div class="l_p_img" style="height:300px;background:url(<?= $prod['imagenes']['0']['ruta']; ?>) no-repeat center center/70%;">
                                                 </div>
                                             </a>
                                             <div class="l_p_text">
                                                 <ul>
                                                     <li>
-                                                        <a class="add_cart_btn" href="<?= URL . '/producto/' . $funciones->normalizar_link($prod["titulo"]) . '/' . $prod['cod'] ?>">
+                                                        <a class="add_cart_btn" href="<?= URL . '/producto/' . $funciones->normalizar_link($prod['data']["titulo"]) . '/' . $prod['data']['cod'] ?>">
                                                             Ver
                                                         </a>
                                                     </li>
                                                 </ul>
-                                                <h4><?= ucfirst(substr(strip_tags($prod['titulo']), 0, 40)); ?></h4>
+                                                <h4><?= ucfirst(substr(strip_tags($prod['data']['titulo']), 0, 40)); ?></h4>
                                                 <?php
-                                                if ($_SESSION["usuarios"]["descuento"] == 1) {
-                                                    if ($prod['precio_mayorista'] != 0) {
+                                                if (!empty($_SESSION['usuarios'])) {
+                                                    if ($prod['data']['precio_mayorista'] != 0) {
                                                         ?>
                                                         <h5 class="precios">
-                                                            $ <?= $prod['precio_mayorista']; ?>
+                                                            $ <?= $prod['data']['precio_mayorista']; ?>
                                                         </h5>
                                                         <h5 class="precios precio-desc">
-                                                            $ <?= $prod['precio']; ?>
+                                                            $ <?= $prod['data']['precio']; ?>
                                                         </h5>
                                                         <?php
                                                     } else {
-                                                        if ($prod['precio_descuento'] != 0) {
+                                                        if ($prod['data']['precio_descuento'] != 0) {
                                                             ?>
                                                             <h5 class="precios">
-                                                                $ <?= $prod['precio_descuento']; ?>
+                                                                $ <?= $prod['data']['precio_descuento']; ?>
                                                             </h5>
                                                             <h5 class="precios precio-desc">
-                                                                $ <?= $prod['precio']; ?>
+                                                                $ <?= $prod['data']['precio']; ?>
                                                             </h5>
                                                             <?php
                                                         } else {
                                                             ?>
                                                             <h5>
-                                                                $ <?= $prod['precio']; ?>
+                                                                $ <?= $prod['data']['precio']; ?>
                                                             </h5>
                                                             <?php
                                                         }
                                                     }
                                                 } else {
-                                                    if ($prod['precio_descuento'] != 0) {
+                                                    if ($prod['data']['precio_descuento'] != 0) {
                                                         ?>
                                                         <h5 class="precios">
-                                                            $ <?= $prod['precio_descuento']; ?>
+                                                            $ <?= $prod['data']['precio_descuento']; ?>
                                                         </h5>
                                                         <h5 class="precios precio-desc">
-                                                            $ <?= $prod['precio']; ?>
+                                                            $ <?= $prod['data']['precio']; ?>
                                                         </h5>
                                                         <?php
                                                     } else {
                                                         ?>
                                                         <h5>
-                                                            $ <?= $prod['precio']; ?>
+                                                            $ <?= $prod['data']['precio']; ?>
                                                         </h5>
                                                         <?php
                                                     }
@@ -296,11 +252,9 @@ $template->themeNav();
                                 </div>
                                 <?php
                                 foreach ($productos_data_random as $proRand) {
-                                    $imagen->set("cod", $proRand['cod']);
-                                    $img = $imagen->view();
                                     ?>
                                     <div class="media">
-                                        <a href="<?= URL . '/producto/' . $funciones->normalizar_link($proRand["titulo"]) . '/' . $proRand['cod'] ?>">
+                                        <a href="<?= URL . '/producto/' . $funciones->normalizar_link($proRand['data']["titulo"]) . '/' . $proRand['cod'] ?>">
                                         <div class="d-flex" style="height:100px;width:80px;background:url(<?= $img['ruta']; ?>) no-repeat center center/contain;">
                                         </div>
                                         </a>
@@ -309,35 +263,33 @@ $template->themeNav();
                                                 <h4><?= ucfirst(substr(strip_tags($proRand['titulo']), 0, 40)); ?></h4>
                                             </a>
                                             <?php
-                                            if ($_SESSION["usuarios"]["descuento"] == 1) {
-                                                if (){
-                                                if ($proRand['precio_mayorista'] != 0) {
+                                            if (!empty($_SESSION['usuarios'])) {
+                                                if ($prod['precio_mayorista'] != 0) {
                                                     ?>
                                                     <h5 class="precios">
-                                                        $ <?= $proRand['precio_mayorista']; ?>
+                                                        $ <?= $prod['precio_mayorista']; ?>
                                                     </h5>
                                                     <h5 class="precios precio-desc">
-                                                        $ <?= $proRand['precio']; ?>
+                                                        $ <?= $prod['precio']; ?>
                                                     </h5>
                                                     <?php
                                                 } else {
-                                                    if ($proRand['precio_descuento'] != 0) {
+                                                    if ($prod['precio_descuento'] != 0) {
                                                         ?>
                                                         <h5 class="precios">
-                                                            $ <?= $proRand['precio_descuento']; ?>
+                                                            $ <?= $prod['precio_descuento']; ?>
                                                         </h5>
                                                         <h5 class="precios precio-desc">
-                                                            $ <?= $proRand['precio']; ?>
+                                                            $ <?= $prod['precio']; ?>
                                                         </h5>
                                                         <?php
                                                     } else {
                                                         ?>
                                                         <h5>
-                                                            $ <?= $proRand['precio']; ?>
+                                                            $ <?= $prod['precio']; ?>
                                                         </h5>
                                                         <?php
                                                     }
-                                                }
                                                 }
                                             } else {
                                                 if ($proRand['precio_descuento'] != 0) {

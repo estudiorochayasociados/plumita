@@ -6,7 +6,7 @@ $funciones = new Clases\PublicFunction();
 $template->set("title", TITULO." | Carrito de compra");
 $template->set("description", "Carrito de compra ".TITULO);
 $template->set("keywords", "Carrito de compra ".TITULO);
-$template->set("favicon", LOGO);
+$template->set("favicon", FAVICON);
 $template->themeInit();
 //Clases
 $productos = new Clases\Productos();

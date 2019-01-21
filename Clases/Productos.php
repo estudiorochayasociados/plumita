@@ -24,12 +24,16 @@ class Productos
     public $url;
     private $con;
     private $funciones;
+    private $imagenes;
+    private $categorias;
 
     //Metodos
     public function __construct()
     {
         $this->con = new Conexion();
         $this->funciones = new PublicFunction();
+        $this->imagenes= new Imagenes();
+        $this->categorias=new Categorias();
     }
 
     public function set($atributo, $valor)
@@ -144,8 +148,8 @@ class Productos
     public function view()
     {
         $sql   = "SELECT * FROM `productos` WHERE id = '{$this->id}' ||  cod = '{$this->cod}' ORDER BY id DESC";
-        $notas = $this->con->sqlReturn($sql);
-        $row   = mysqli_fetch_assoc($notas);
+        $productos = $this->con->sqlReturn($sql);
+        $row   = mysqli_fetch_assoc($productos);
         return $row;
     }
 
@@ -159,10 +163,10 @@ class Productos
         }
 
         $sql   = "SELECT * FROM `productos` $filterSql  ORDER BY id DESC";
-        $notas = $this->con->sqlReturn($sql);
+        $productos = $this->con->sqlReturn($sql);
 
-        if ($notas) {
-            while ($row = mysqli_fetch_assoc($notas)) {
+        if ($productos) {
+            while ($row = mysqli_fetch_assoc($productos)) {
                 $array[] = $row;
             }
             return $array;
@@ -190,10 +194,12 @@ class Productos
             $limitSql = '';
         }
         $sql = "SELECT * FROM `productos` $filterSql  ORDER BY $orderSql $limitSql";
-        $notas = $this->con->sqlReturn($sql); 
-        if ($notas) {
-            while ($row = mysqli_fetch_assoc($notas)) {
-                $array[] = $row;
+        $productos = $this->con->sqlReturn($sql);
+        if ($productos) {
+            while ($row = mysqli_fetch_assoc($productos)) {
+                $img = $this->imagenes->list(array("cod = '".$row['cod']."'"));
+                $cat = $this->categorias->view_row(array("cod = '".$row['categoria']."'"));
+                $array[] = array("data"=>$row,"categorias" => $cat,"imagenes" => $img);
             }
             return $array ;
         }

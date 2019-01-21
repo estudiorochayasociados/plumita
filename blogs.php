@@ -11,7 +11,7 @@ $categoria = new Clases\Categorias();
 $template->set("title", TITULO . " | Blogs");
 $template->set("description", "Blog de ".TITULO);
 $template->set("keywords", "Blog de ".TITULO);
-$template->set("favicon", LOGO);
+$template->set("favicon", FAVICON);
 $template->themeInit();
 
 $pagina = isset($_GET["pagina"]) ? $_GET["pagina"] : '0';

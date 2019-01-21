@@ -7,7 +7,7 @@ $enviar = new Clases\Email();
 $template->set("title", TITULO." | Panel");
 $template->set("description", "Panel ".TITULO);
 $template->set("keywords", "Panel ".TITULO);
-$template->set("favicon", LOGO);
+$template->set("favicon", FAVICON);
 $template->themeInit();
 $usuarios = new Clases\Usuarios();
 $usuarioSesion = $usuarios->view_sesion();

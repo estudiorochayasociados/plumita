@@ -9,7 +9,7 @@ $enviar = new Clases\Email();
 $template->set("title", TITULO . " | Contacto");
 $template->set("description", "Contacto ".TITULO);
 $template->set("keywords", "Contacto ".TITULO);
-$template->set("favicon", LOGO);
+$template->set("favicon", FAVICON);
 $template->themeInit();
 //
 $template->themeNav();

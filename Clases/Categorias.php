@@ -57,6 +57,21 @@ class Categorias
         return $row;
     }
 
+    public function view_row($filter)
+    {
+        if (is_array($filter)) {
+            $filterSql = "WHERE ";
+            $filterSql .= implode(" AND ", $filter);
+        } else {
+            $filterSql = '';
+        }
+
+        $sql   = "SELECT * FROM `categorias` $filterSql ORDER BY id DESC";
+        $notas = $this->con->sqlReturn($sql);
+        $row   = mysqli_fetch_assoc($notas);
+        return $row;
+    }
+
     function list($filter) {
         $array = array();
         if (is_array($filter)) {

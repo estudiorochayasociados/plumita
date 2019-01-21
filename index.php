@@ -6,7 +6,6 @@ $template = new Clases\TemplateSite();
 $funciones = new Clases\PublicFunction();
 $producto = new Clases\Productos();
 $categoria = new Clases\Categorias();
-$imagen = new Clases\Imagenes();
 $novedad = new Clases\Novedades();
 $banner = new Clases\Banner();
 $slider = new Clases\Sliders();
@@ -14,7 +13,7 @@ $slider = new Clases\Sliders();
 $template->set("title", TITULO . " | Inicio");
 $template->set("description", "Plumita S.R.L es una fábrica de Cortadoras y Bordeadoras de cesped, de muy alto nivel con distribución en todo el país.");
 $template->set("keywords", "bordeadora, cortadora, cesped, pasto, yuyo, alto nivel, durardera, maquinas, compra");
-$template->set("favicon", LOGO);
+$template->set("favicon", FAVICON);
 $template->themeInit();
 //Categorias
 $categoria->set("area", "productos");
@@ -52,14 +51,12 @@ $template->themeNav();
         <?php
         $activo = 0;
         foreach ($sliders_data as $sli) {
-            $imagen->set("cod", $sli['cod']);
-            $img = $imagen->view();
             ?>
             <div class="carousel-item <?php if ($activo == 0) {
                 echo 'active';
                 $activo++;
-            } ?>" style="height:400px;background:url(<?= $img['ruta']; ?>) no-repeat center center/cover;">
-                <!--     <img class="d-block w-100" src="<?= URL . '/' . $img['ruta']; ?>" alt="First slide">-->
+            } ?>" style="height:400px;background:url(<?= $sli['imagenes']['0']['ruta']; ?>) no-repeat center center/cover;">
+                <!--     <img class="d-block w-100" src="<?= URL . '/' . $sli['imagenes']['0']['ruta']; ?>" alt="First slide">-->
             </div>
             <?php
         }
@@ -81,16 +78,14 @@ $template->themeNav();
         <div class="row">
             <?php
             foreach ($banner_data_pie_medio as $banM) {
-                $imagen->set("cod", $banM['cod']);
-                $img = $imagen->view();
-                $banner->set("id", $banM['id']);
-                $value = $banM['vistas'] + 1;
+                $banner->set("id", $banM['data']['id']);
+                $value = $banM['data']['vistas'] + 1;
                 $banner->set("vistas", $value);
                 $banner->increaseViews();
                 ?>
                 <div class="col-lg-6">
-                    <a href="<?= $banM['link']; ?>">
-                        <div class="special_offer_item" style="height:300px;background:url(<?= $img['ruta']; ?>) no-repeat center center/cover;">
+                    <a href="<?= $banM['data']['link']; ?>">
+                        <div class="special_offer_item" style="height:300px;background:url(<?= $banM['imagenes']['0']['ruta']; ?>) no-repeat center center/cover;">
                         </div>
                     </a>
                 </div>
@@ -101,7 +96,6 @@ $template->themeNav();
     </div>
 </section>
 <!--================End Special Offer Area =================-->
-
 <!--================Latest Product isotope Area =================-->
 <section class="fillter_latest_product">
     <div class="container">
@@ -122,69 +116,65 @@ $template->themeNav();
             <div class="row isotope_l_p_inner">
                 <?php
                 foreach ($ultimos_productos as $prod) {
-                    $imagen->set("cod", $prod['cod']);
-                    $img = $imagen->view();
-                    $categoria->set("cod", $prod['categoria']);
-                    $cat = $categoria->view();
                     ?>
-                    <div class="col-lg-3 col-md-4 col-sm-6 <?= $funciones->normalizar_link($cat['titulo']); ?>">
+                    <div class="col-lg-3 col-md-4 col-sm-6 <?= $funciones->normalizar_link($prod['categorias']['titulo']); ?>">
                         <div class="l_product_item">
-                            <a href="<?= URL . '/producto/' . $funciones->normalizar_link($prod["titulo"]) . '/' . $prod['cod'] ?>">
-                                <div class="l_p_img" style="height:300px;background:url(<?= $img['ruta']; ?>) no-repeat center center/70%;">
+                            <a href="<?= URL . '/producto/' . $funciones->normalizar_link($prod['data']["titulo"]) . '/' . $prod['data']['cod'] ?>">
+                                <div class="l_p_img" style="height:300px;background:url(<?= $prod['imagenes']['0']['ruta']; ?>) no-repeat center center/70%;">
                                 </div>
                             </a>
                             <div class="l_p_text">
                                 <ul>
                                     <li>
-                                        <a class="add_cart_btn" href="<?= URL . '/producto/' . $funciones->normalizar_link($prod["titulo"]) . '/' . $prod['cod'] ?>">
+                                        <a class="add_cart_btn" href="<?= URL . '/producto/' . $funciones->normalizar_link($prod['data']["titulo"]) . '/' . $prod['data']['cod'] ?>">
                                             Ver
                                         </a>
                                     </li>
                                 </ul>
-                                <h4><?= ucfirst(substr(strip_tags($prod['titulo']), 0, 40)); ?></h4>
+                                <h4><?= ucfirst(substr(strip_tags($prod['data']['titulo']), 0, 40)); ?></h4>
                                 <?php
-                                if ($_SESSION["usuarios"]["descuento"] == 1) {
-                                    if ($prod['precio_mayorista'] != 0) {
+                                if (!empty($_SESSION['usuarios'])) {
+                                    if ($prod['data']['precio_mayorista'] != 0) {
                                         ?>
                                         <h5 class="precios">
-                                            $ <?= $prod['precio_mayorista']; ?>
+                                            $ <?= $prod['data']['precio_mayorista']; ?>
                                         </h5>
                                         <h5 class="precios precio-desc">
-                                            $ <?= $prod['precio']; ?>
+                                            $ <?= $prod['data']['precio']; ?>
                                         </h5>
                                         <?php
                                     } else {
-                                        if ($prod['precio_descuento'] != 0) {
+                                        if ($prod['data']['precio_descuento'] != 0) {
                                             ?>
                                             <h5 class="precios">
-                                                $ <?= $prod['precio_descuento']; ?>
+                                                $ <?= $prod['data']['precio_descuento']; ?>
                                             </h5>
                                             <h5 class="precios precio-desc">
-                                                $ <?= $prod['precio']; ?>
+                                                $ <?= $prod['data']['precio']; ?>
                                             </h5>
                                             <?php
                                         } else {
                                             ?>
                                             <h5>
-                                                $ <?= $prod['precio']; ?>
+                                                $ <?= $prod['data']['precio']; ?>
                                             </h5>
                                             <?php
                                         }
                                     }
                                 } else {
-                                    if ($prod['precio_descuento'] != 0) {
+                                    if ($prod['data']['precio_descuento'] != 0) {
                                         ?>
                                         <h5 class="precios">
-                                            $ <?= $prod['precio_descuento']; ?>
+                                            $ <?= $prod['data']['precio_descuento']; ?>
                                         </h5>
                                         <h5 class="precios precio-desc">
-                                            $ <?= $prod['precio']; ?>
+                                            $ <?= $prod['data']['precio']; ?>
                                         </h5>
                                         <?php
                                     } else {
                                         ?>
                                         <h5>
-                                            $ <?= $prod['precio']; ?>
+                                            $ <?= $prod['data']['precio']; ?>
                                         </h5>
                                         <?php
                                     }
@@ -201,7 +191,6 @@ $template->themeNav();
     </div>
 </section>
 <!--================End Latest Product isotope Area =================-->
-
 <!--================Form Blog Area =================-->
 <section class="from_blog_area">
     <div class="container">
@@ -212,25 +201,20 @@ $template->themeNav();
             <div class="row">
                 <?php
                 foreach ($ultimas_novedades as $nov) {
-                    $imagen->set("cod", $nov['cod']);
-                    $img = $imagen->view();
-                    $categoria->set("cod", $nov['categoria']);
-                    $cat_novedad = $categoria->view();
-                    $fecha = explode("-", $nov['fecha']);
                     ?>
                     <div class="col-lg-4 col-sm-6">
-                        <a href="<?= URL . '/blog/' . $funciones->normalizar_link($nov["titulo"]) . '/' . $nov['cod'] ?>">
-                            <div class="from_blog_item" style="height:350px;background:url(<?= $img['ruta']; ?>) no-repeat center center/cover;">
+                        <a href="<?= URL . '/blog/' . $funciones->normalizar_link($nov['data']["titulo"]) . '/' . $nov['data']['cod'] ?>">
+                            <div class="from_blog_item" style="height:350px;background:url(<?= $nov['imagenes']['0']['ruta']; ?>) no-repeat center center/cover;">
                                 <div class="f_blog_text">
                                     <?php
-                                    if ($nov['categoria'] != '') {
+                                    if ($nov['data']['categoria'] != '') {
                                         ?>
-                                        <h5><?= ucfirst($cat_novedad['titulo']); ?></h5>
+                                        <h5><?= ucfirst($nov['categorias']['titulo']); ?></h5>
                                         <?php
                                     }
                                     ?>
-                                    <p><?= ucfirst(substr(strip_tags($nov['titulo']), 0, 60)); ?>...</p>
-                                    <h6><?= $fecha[2] . '/' . $fecha[1] . '/' . $fecha[0] ?></h6>
+                                    <p><?= ucfirst(substr(strip_tags($nov['data']['titulo']), 0, 60)); ?>...</p>
+                                    <h6><?= $nov['fecha_actual'] ?></h6>
                                 </div>
                             </div>
                         </a>

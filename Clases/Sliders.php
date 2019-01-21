@@ -14,11 +14,15 @@ class Sliders
     public $link;
     public $fecha;
     private $con;
+    private $imagenes;
+    private $categorias;
 
     //Metodos
     public function __construct()
     {
         $this->con = new Conexion();
+        $this->imagenes=new Imagenes();
+        $this->categorias=new Categorias();
     }
 
     public function set($atributo, $valor)
@@ -79,13 +83,48 @@ class Sliders
             return $array;
         }
     }
+    function listWithOps($filter, $order, $limit)
+    {
+        $array = array();
+        if (is_array($filter)) {
+            $filterSql = "WHERE ";
+            $filterSql .= implode(" AND ", $filter);
+        } else {
+            $filterSql = '';
+        }
+
+        if ($order != '') {
+            $orderSql = $order;
+        } else {
+            $orderSql = "id DESC";
+        }
+
+        if ($limit != '') {
+            $limitSql = "LIMIT " . $limit;
+        } else {
+            $limitSql = '';
+        }
+        $sql = "SELECT * FROM `sliders` $filterSql  ORDER BY $orderSql $limitSql";
+        $productos = $this->con->sqlReturn($sql);
+        if ($productos) {
+            while ($row = mysqli_fetch_assoc($productos)) {
+                $img = $this->imagenes->list(array("cod = '" . $row['cod'] . "'"));
+                $cat = $this->categorias->view_row(array("cod = '" . $row['categoria'] . "'"));
+                $array[] = array("data" => $row, "categorias" => $cat, "imagenes" => $img);
+            }
+            return $array;
+        }
+    }
+
     function listForCategory() {
         $array = array();
         $sql = "SELECT * FROM `sliders` WHERE categoria = '{$this->categoria}'  ORDER BY id DESC";
         $notas = $this->con->sqlReturn($sql);
         if ($notas) {
             while ($row = mysqli_fetch_assoc($notas)) {
-                $array[] = $row;
+                $img = $this->imagenes->list(array("cod = '" . $row['cod'] . "'"));
+                $cat = $this->categorias->view_row(array("cod = '" . $row['categoria'] . "'"));
+                $array[] = array("data" => $row, "categorias" => $cat, "imagenes" => $img);
             }
             return $array;
         }

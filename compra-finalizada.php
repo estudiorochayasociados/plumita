@@ -6,7 +6,7 @@ $funciones = new Clases\PublicFunction();
 $template->set("title", "Compra finalizada");
 $template->set("description", "Compra finalizada");
 $template->set("keywords", "Compra finalizada");
-$template->set("favicon", LOGO);
+$template->set("favicon", FAVICON);
 $template->themeInit();
 $estado_get = isset($_GET["estado"]) ? $_GET["estado"] : '';
 $pedidos = new Clases\Pedidos();

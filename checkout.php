@@ -6,7 +6,7 @@ $funciones = new Clases\PublicFunction();
 $template->set("title", "Cierre de compra");
 $template->set("description", "Cierre de compra");
 $template->set("keywords", "Cierre de compra");
-$template->set("favicon", LOGO);
+$template->set("favicon", FAVICON);
 $template->themeInit();
 
 $cod_pedido = isset($_GET["cod_pedido"]) ? $_GET["cod_pedido"] : '';

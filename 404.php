@@ -6,7 +6,7 @@ $template = new Clases\TemplateSite();
 $template->set("title", TITULO . " | Página no encontrada");
 $template->set("description", "Página no encontrada");
 $template->set("keywords", "Página no encontrada");
-$template->set("favicon", LOGO);
+$template->set("favicon", FAVICON);
 $template->themeInit();
 
 $template->themeNav();

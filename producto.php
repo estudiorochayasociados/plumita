@@ -24,7 +24,7 @@ $template->set("title", TITULO . " | " . ucfirst(strip_tags($producto_data['titu
 $template->set("description", ucfirst(strip_tags($producto_data['desarrollo'])));
 $template->set("keywords", ucfirst(strip_tags($producto_data['titulo'])));
 $template->set("imagen", URL . "/" . $imagenes_data[0]['ruta']);
-$template->set("favicon", LOGO);
+$template->set("favicon", FAVICON);
 $template->themeInit();
 //Carro
 $carro = $carrito->return();
@@ -80,10 +80,10 @@ $template->themeNav();
                         <h3><?= ucfirst($producto_data['titulo']); ?></h3>
                         <h6>Disponibilidad: <span> consultar</span></h6>
                         <?php
-                        if ($_SESSION["usuarios"]["descuento"] == 1) {
+                        if (!empty($_SESSION['usuarios'])) {
                             if ($producto_data['precio_mayorista'] != 0) {
                                 ?>
-                                <h5 class="precios producto-precio">
+                                <h5 class="precios">
                                     $ <?= $producto_data['precio_mayorista']; ?>
                                 </h5>
                                 <h5 class="precios precio-desc">
@@ -93,7 +93,7 @@ $template->themeNav();
                             } else {
                                 if ($producto_data['precio_descuento'] != 0) {
                                     ?>
-                                    <h5 class="precios producto-precio">
+                                    <h5 class="precios">
                                         $ <?= $producto_data['precio_descuento']; ?>
                                     </h5>
                                     <h5 class="precios precio-desc">
@@ -102,7 +102,7 @@ $template->themeNav();
                                     <?php
                                 } else {
                                     ?>
-                                    <h5 class="producto-precio">
+                                    <h5>
                                         $ <?= $producto_data['precio']; ?>
                                     </h5>
                                     <?php
@@ -154,7 +154,7 @@ $template->themeNav();
                                 }
 
                                 if ($_SESSION["usuarios"]["descuento"] == 1) {
-                                    if ($producto_data['precio'] != $producto_data['precio_mayorista']&&$producto_data['precio_mayorista']!=0) {
+                                    if ($producto_data['precio'] != $producto_data['precio_mayorista'] && $producto_data['precio_mayorista'] != 0) {
                                         $carrito->set("precio", $producto_data['precio_mayorista']);
                                     } else {
                                         $carrito->set("precio", $producto_data['precio']);
@@ -195,8 +195,6 @@ $template->themeNav();
         </div>
     </section>
     <!--================End Product Details Area =================-->
-
-
     <!--================End Related Product Area =================-->
     <section class="related_product_area">
         <div class="container">
@@ -211,7 +209,7 @@ $template->themeNav();
                         <div class="col-lg-4 col-sm-6">
                             <div class="l_product_item">
                                 <a href="<?= URL . '/producto/' . $funciones->normalizar_link($prod["titulo"]) . '/' . $prod['cod'] ?>">
-                                    <div class="l_p_img" style="height:300px;background:url(<?= URL . '/' . $img['ruta']; ?>) no-repeat center center/70%;">
+                                    <div class="l_p_img" style="height:400px;background:url(<?= URL . '/' . $img['ruta']; ?>) no-repeat center center/70%;">
                                     </div>
                                 </a>
                                 <div class="l_p_text">
@@ -224,7 +222,7 @@ $template->themeNav();
                                     </ul>
                                     <h4><?= ucfirst(substr(strip_tags($prod['titulo']), 0, 40)); ?></h4>
                                     <?php
-                                    if ($_SESSION["usuarios"]["descuento"] == 1) {
+                                    if (!empty($_SESSION['usuarios'])) {
                                         if ($prod['precio_mayorista'] != 0) {
                                             ?>
                                             <h5 class="precios">
