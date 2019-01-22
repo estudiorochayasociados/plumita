@@ -58,7 +58,40 @@ class Usuarios
     {
         $validar = $this->validate();
         $usuario = $this->view();
-        $sql = "UPDATE `usuarios` SET `nombre` = '{$this->nombre}', `apellido` = '{$this->apellido}', `doc` = '{$this->doc}', `email` = '{$this->email}', `password` = '{$this->password}', `direccion` = '{$this->direccion}', `postal` = '{$this->postal}', `localidad` = '{$this->localidad}', `provincia` = '{$this->provincia}', `pais` = '{$this->pais}', `telefono` = '{$this->telefono}', `celular` = '{$this->celular}', `invitado` = '{$this->invitado}', `descuento` = '{$this->descuento}', `fecha` = '{$this->fecha}'WHERE `cod`='{$this->cod}'";
+
+        $nombre = isset($this->nombre) ? $this->nombre : $usuario['nombre'];
+        $apellido = isset($this->apellido) ? $this->apellido : $usuario['apellido'];
+        $doc = isset($this->doc) ? $this->doc : $usuario['doc'];
+        $email = isset($this->email) ? $this->email : $usuario['email'];
+        $password = isset($this->password) ? $this->password : $usuario['password'];
+        $direccion = isset($this->direccion) ? $this->direccion : $usuario['direccion'];
+        $postal = isset($this->postal) ? $this->postal : $usuario['postal'];
+        $localidad = isset($this->localidad) ? $this->localidad : $usuario['localidad'];
+        $provincia = isset($this->provincia) ? $this->provincia : $usuario['provincia'];
+        $pais = isset($this->pais) ? $this->pais : $usuario['pais'];
+        $telefono = isset($this->telefono) ? $this->telefono : $usuario['telefono'];
+        $celular = isset($this->celular) ? $this->celular : $usuario['celular'];
+        $invitado = isset($this->invitado) ? $this->invitado : $usuario['invitado'];
+        $descuento = isset($this->descuento) ? $this->descuento : $usuario['descuento'];
+        $fecha = isset($this->fecha) ? $this->fecha : $usuario['fecha'];
+
+        $sql = "UPDATE `usuarios` SET 
+                      `nombre` = '$nombre',
+                      `apellido` = '$apellido',
+                      `doc` = '$doc',
+                      `email` = '$email',
+                      `password` = '$password',
+                      `direccion` = '$direccion',
+                      `postal` = '$postal',
+                      `localidad` = '$localidad',
+                      `provincia` = '$provincia',
+                      `pais` = '$pais',
+                      `telefono` = '$telefono',
+                      `celular` = '$celular',
+                      `invitado` = '$invitado',
+                      `descuento` = '$descuento', 
+                      `fecha` = '$fecha'
+                WHERE `cod`='{$this->cod}'";
 
         if (is_array($validar)) {
             if ($validar["email"] == $usuario["email"]) {
@@ -75,24 +108,7 @@ class Usuarios
 
     public function invitado_sesion()
     {
-        $_SESSION["usuarios"] = array(
-            'cod' => $this->cod,
-            'nombre' => $this->nombre,
-            'apellido' => $this->apellido,
-            'doc' => $this->doc,
-            'email' => $this->email,
-            'password' => $this->password,
-            'direccion' => $this->direccion,
-            'postal' => $this->postal,
-            'localidad' => $this->localidad,
-            'provincia' => $this->provincia,
-            'pais' => $this->pais,
-            'telefono' => $this->telefono,
-            'celular' => $this->celular,
-            'invitado' => $this->invitado,
-            'descuento' => $this->descuento,
-            'fecha' => $this->fecha
-        );
+        $_SESSION["usuarios"] = array('cod' => $this->cod, 'nombre' => $this->nombre, 'apellido' => $this->apellido, 'doc' => $this->doc, 'email' => $this->email, 'password' => $this->password, 'direccion' => $this->direccion, 'postal' => $this->postal, 'localidad' => $this->localidad, 'provincia' => $this->provincia, 'pais' => $this->pais, 'telefono' => $this->telefono, 'celular' => $this->celular, 'invitado' => $this->invitado, 'descuento' => $this->descuento, 'fecha' => $this->fecha);
 
         $sql = "INSERT INTO `usuarios` (`cod`, `nombre`, `apellido`, `doc`, `email`, `password`, `direccion`, `postal`, `localidad`, `provincia`, `pais`, `telefono`, `celular`, `invitado`, `descuento`, `fecha`) VALUES ('{$this->cod}', '{$this->nombre}', '{$this->apellido}', '{$this->doc}', '{$this->email}', '{$this->password}', '{$this->direccion}', '{$this->postal}', '{$this->localidad}', '{$this->provincia}', '{$this->pais}', '{$this->telefono}', '{$this->celular}',1, '{$this->descuento}', '{$this->fecha}')";
         $this->con->sql($sql);

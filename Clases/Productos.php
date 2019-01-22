@@ -152,6 +152,16 @@ class Productos
         $row   = mysqli_fetch_assoc($productos);
         return $row;
     }
+    public function view_()
+    {
+        $sql   = "SELECT * FROM `productos` WHERE id = '{$this->id}' ||  cod = '{$this->cod}' ORDER BY id DESC";
+        $productos = $this->con->sqlReturn($sql);
+        $row   = mysqli_fetch_assoc($productos);
+        $img = $this->imagenes->list(array("cod = '".$this->cod."'"));
+        $cat = $this->categorias->view_row(array("cod = '".$this->categoria."'"));
+        $row_ = array("data"=>$row,"categorias" => $cat,"imagenes" => $img);
+        return $row_;
+    }
 
     function list($filter) {
         $array = array();

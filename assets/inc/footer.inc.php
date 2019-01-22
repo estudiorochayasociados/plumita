@@ -65,6 +65,7 @@ foreach ($categorias_banners as $catB) {
                         </div>
                         <ul>
                             <li><a href="<?= URL ?>/c/empresa">Sobre nosotros</a></li>
+                            <li><a href="<?= URL ?>/c/servicio técnico">Servicio técnico</a></li>
                         </ul>
                     </aside>
                 </div>

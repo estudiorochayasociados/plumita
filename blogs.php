@@ -16,7 +16,7 @@ $template->themeInit();
 
 $pagina = isset($_GET["pagina"]) ? $_GET["pagina"] : '0';
 
-$cantidad = 6;
+$cantidad = 4;
 
 if ($pagina > 0) {
     $pagina = $pagina - 1;
@@ -59,25 +59,20 @@ $template->themeNav();
             <div class="row">
                 <?php
                 foreach ($novedades_data as $nov) {
-                    $imagen->set("cod", $nov['cod']);
-                    $img = $imagen->view();
-                    $categoria->set("cod", $nov['categoria']);
-                    $cat_novedad = $categoria->view();
-                    $fecha = explode("-", $nov['fecha']);
                     ?>
                     <div class="col-lg-6 col-sm-6 mb-20">
-                        <a href="<?= URL . '/blog/' . $funciones->normalizar_link($nov["titulo"]) . '/' . $nov['cod'] ?>">
-                            <div class="from_blog_item" style="height:350px;background:url(<?= $img['ruta']; ?>) no-repeat center center/cover;">
+                        <a href="<?= URL . '/blog/' . $funciones->normalizar_link($nov['data']["titulo"]) . '/' . $nov['data']['cod'] ?>">
+                            <div class="from_blog_item" style="height:350px;background:url(<?= $nov['imagenes']['0']['ruta']; ?>) no-repeat center center/cover;">
                                 <div class="f_blog_text">
                                     <?php
-                                    if ($nov['categoria'] != '') {
+                                    if ($nov['data']['categoria'] != '') {
                                         ?>
-                                        <h5><?= ucfirst($cat_novedad['titulo']); ?></h5>
+                                        <h5><?= ucfirst($nov['categorias']['titulo']); ?></h5>
                                         <?php
                                     }
                                     ?>
-                                    <p><?= ucfirst(substr(strip_tags($nov['titulo']), 0, 60)); ?>...</p>
-                                    <h6><?= $fecha[2] . '/' . $fecha[1] . '/' . $fecha[0] ?></h6>
+                                    <p><?= ucfirst(substr(strip_tags($nov['data']['titulo']), 0, 60)); ?>...</p>
+                                    <h6><?= $nov['fecha_actual'] ?></h6>
                                 </div>
                             </div>
                         </a>

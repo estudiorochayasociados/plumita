@@ -16,12 +16,18 @@ $template->set("keywords", "bordeadora, cortadora, cesped, pasto, yuyo, alto niv
 $template->set("favicon", FAVICON);
 $template->themeInit();
 //Categorias
-$categoria->set("area", "productos");
-$ultimas_categorias = $categoria->listForArea('');
-//Productos
-$filterP = array("");
 $ultimos_productos = $producto->listWithOps('', 'RAND()', '12');
-//Novedades
+$categoria->set("area", "productos");
+$categorias_ = $categoria->listForArea('');
+$ultimas_categorias=array();
+foreach ($ultimos_productos as $prods){
+    $categoria->set('cod',$prods['data']['categoria']);
+    $cate=$categoria->view();
+    if (($key = array_search($cate, $categorias_)) !== false) {
+        array_push($ultimas_categorias,$cate);
+        unset($categorias_[$key]);
+    }
+}
 $ultimas_novedades = $novedad->listWithOps('', '', '3');
 //Banners
 $categoria->set("area", "banners");
@@ -42,7 +48,6 @@ foreach ($categorias_sliders as $catS) {
     }
 }
 //
-
 $template->themeNav();
 ?>
 <!--================Home Carousel Area =================-->

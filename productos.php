@@ -26,7 +26,7 @@ $titulo = isset($_GET["titulo"]) ? $_GET["titulo"] : '';
 $orden_pagina = isset($_GET["order"]) ? $_GET["order"] : '';
 $id = isset($_GET["id"]) ? $_GET["id"] : '';
 //
-$cantidad = 12;
+$cantidad = 9;
 if ($pagina > 0) {
     $pagina = $pagina - 1;
 }
@@ -254,57 +254,57 @@ $template->themeNav();
                                 foreach ($productos_data_random as $proRand) {
                                     ?>
                                     <div class="media">
-                                        <a href="<?= URL . '/producto/' . $funciones->normalizar_link($proRand['data']["titulo"]) . '/' . $proRand['cod'] ?>">
-                                        <div class="d-flex" style="height:100px;width:80px;background:url(<?= $img['ruta']; ?>) no-repeat center center/contain;">
+                                        <a href="<?= URL . '/producto/' . $funciones->normalizar_link($proRand['data']["titulo"]) . '/' . $proRand['data']['cod'] ?>">
+                                        <div class="d-flex" style="height:100px;width:80px;background:url(<?= $proRand['imagenes']['0']['ruta']; ?>) no-repeat center center/contain;">
                                         </div>
                                         </a>
                                         <div class="media-body ml-5">
-                                            <a href="<?= URL . '/producto/' . $funciones->normalizar_link($proRand["titulo"]) . '/' . $proRand['cod'] ?>">
-                                                <h4><?= ucfirst(substr(strip_tags($proRand['titulo']), 0, 40)); ?></h4>
+                                            <a href="<?= URL . '/producto/' . $funciones->normalizar_link($proRand['data']["titulo"]) . '/' . $proRand['data']['cod'] ?>">
+                                                <h4><?= ucfirst(substr(strip_tags($proRand['data']['titulo']), 0, 40)); ?></h4>
                                             </a>
                                             <?php
                                             if (!empty($_SESSION['usuarios'])) {
-                                                if ($prod['precio_mayorista'] != 0) {
+                                                if ($proRand['data']['precio_mayorista'] != 0) {
                                                     ?>
                                                     <h5 class="precios">
-                                                        $ <?= $prod['precio_mayorista']; ?>
+                                                        $ <?= $proRand['data']['precio_mayorista']; ?>
                                                     </h5>
                                                     <h5 class="precios precio-desc">
-                                                        $ <?= $prod['precio']; ?>
+                                                        $ <?= $proRand['data']['precio']; ?>
                                                     </h5>
                                                     <?php
                                                 } else {
-                                                    if ($prod['precio_descuento'] != 0) {
+                                                    if ($proRand['data']['precio_descuento'] != 0) {
                                                         ?>
                                                         <h5 class="precios">
-                                                            $ <?= $prod['precio_descuento']; ?>
+                                                            $ <?= $proRand['data']['precio_descuento']; ?>
                                                         </h5>
                                                         <h5 class="precios precio-desc">
-                                                            $ <?= $prod['precio']; ?>
+                                                            $ <?= $proRand['data']['precio']; ?>
                                                         </h5>
                                                         <?php
                                                     } else {
                                                         ?>
                                                         <h5>
-                                                            $ <?= $prod['precio']; ?>
+                                                            $ <?= $proRand['data']['precio']; ?>
                                                         </h5>
                                                         <?php
                                                     }
                                                 }
                                             } else {
-                                                if ($proRand['precio_descuento'] != 0) {
+                                                if ($proRand['data']['precio_descuento'] != 0) {
                                                     ?>
                                                     <h5 class="precios">
-                                                        $ <?= $proRand['precio_descuento']; ?>
+                                                        $ <?= $proRand['data']['precio_descuento']; ?>
                                                     </h5>
                                                     <h5 class="precios precio-desc">
-                                                        $ <?= $proRand['precio']; ?>
+                                                        $ <?= $proRand['data']['precio']; ?>
                                                     </h5>
                                                     <?php
                                                 } else {
                                                     ?>
                                                     <h5>
-                                                        $ <?= $proRand['precio']; ?>
+                                                        $ <?= $proRand['data']['precio']; ?>
                                                     </h5>
                                                     <?php
                                                 }

@@ -1,6 +1,6 @@
 <?php
 $usuarios = new Clases\Usuarios();
-
+$funciones=new Clases\PublicFunction();
 if (isset($_POST["agregar"])) {
     $cod = substr(md5(uniqid(rand())), 0, 10);
 
@@ -25,69 +25,3 @@ if (isset($_POST["agregar"])) {
     $funciones->headerMove(URL . "/index.php?op=usuarios");
 }
 ?>
-
-<div class="col-md-12 ">
-    <h4>
-        Usuarios
-    </h4>
-    <hr/>
-    <form method="post" class="row">
-        <label class="col-md-4">
-            Nombre:<br/>
-            <input type="text" name="nombre" />
-        </label>
-        <label class="col-md-4">
-            Apellido:<br/>
-            <input type="text" name="apellido" />
-        </label>
-        <label class="col-md-4">
-            DNI/CUIT/CUIL:<Br/>
-            <input type="text" name="doc" />
-        </label>
-        <label class="col-md-4">
-            Email:<br/>
-            <input type="text" name="email" />
-        </label>
-        <label class="col-md-4">
-            Password:<br/>
-            <input type="password" class="form-control" name="password" />
-        </label>
-        <label class="col-md-4">
-            Postal:<br/>
-            <input type="text" name="postal" />
-        </label>
-        <label class="col-md-4">
-            Localidad:<br/>
-            <input type="text" name="localidad" />
-        </label>
-        <label class="col-md-4">
-            Provincia:<br/>
-            <input type="text" name="provincia" />
-        </label>
-        <label class="col-md-4">
-            Pais:<Br/>
-            <input type="text" name="pais" />
-        </label>
-        <label class="col-md-4">
-            Telefono:<br/>
-            <input type="text" name="telefono" />
-        </label>
-        <label class="col-md-4">
-            Celular:<br/>
-            <input type="text" name="celular" />
-        </label>
-        <label class="col-md-2">
-            Invitado (1 Si, 0 No):<br/>
-            <input type="number" min="0" max="1" name="invitado" />
-        </label>
-        <label class="col-md-2">
-            Tipo (1 Mayorista, 0 Minorista):<br/>
-            <input type="number" min="0" max="1" name="descuento" />
-        </label>
-        <div class="clearfix">
-        </div><br/>
-        <div class="col-md-12">
-            <input type="submit" class="btn btn-primary" name="agregar" value="Crear Usuarios" />
-        </div>
-    </form>
-</div>
