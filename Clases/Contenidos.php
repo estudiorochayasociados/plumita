@@ -28,14 +28,13 @@ class Contenidos
     {
         $sql   = "INSERT INTO `contenidos`(`contenido`, `cod`) VALUES ('{$this->contenido}','{$this->cod}')";
         $query = $this->con->sql($sql);
-        return $query;
+        return true;
     }
 
     public function edit()
     {
         $sql   = "UPDATE `contenidos` SET `contenido`='{$this->contenido}' WHERE `id`='{$this->id}'";
         $query = $this->con->sql($sql);
-        return $query;
     }
 
     public function delete()

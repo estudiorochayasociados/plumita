@@ -74,7 +74,7 @@ class Productos
         `url` = '{$this->url}'
         WHERE `id`='{$this->id}'";
         $query = $this->con->sql($sql);
-        return $query;
+        return true;
     }
 
     public function delete()

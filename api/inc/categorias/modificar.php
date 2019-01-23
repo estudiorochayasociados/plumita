@@ -12,9 +12,11 @@ if (isset($_POST["agregar"])) {
     $categorias->set("cod", $cod);
     $categorias->set("titulo", $funciones->antihack_mysqli(isset($_POST["titulo"]) ? $_POST["titulo"] : $data['titulo']));
     $categorias->set("area", $funciones->antihack_mysqli(isset($_POST["area"]) ? $_POST["area"] : $data['area']));
-    $categorias->edit();
-    echo json_encode($categorias,JSON_PRETTY_PRINT);
-
-    //$funciones->headerMove(URL . "/index.php?op=categorias");
+    if ($categorias->edit()) {
+        $array = array("status" => true);
+    } else {
+        $array = array("status" => false);
+    }
+    echo json_encode($array, JSON_PRETTY_PRINT);
 }
 ?>

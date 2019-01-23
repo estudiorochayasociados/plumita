@@ -20,12 +20,11 @@ if (isset($_POST["agregar"])) {
     $usuarios->set("descuento", $funciones->antihack_mysqli(isset($_POST["descuento"]) ? $_POST["descuento"] : ''));
     $usuarios->set("fecha", $funciones->antihack_mysqli(isset($_POST["fecha"]) ? $_POST["fecha"] : date("Y-m-d")));
 
-    if ($usuarios->add()==1){
-
+    if ($usuarios->add()){
+        $array = array("status" => true);
     }else{
-
+        $array = array("status" => false);
     }
-
-    //$funciones->headerMove(URL . "/index.php?op=usuarios");
+echo json_encode($array,JSON_PRETTY_PRINT);
 }
 ?>

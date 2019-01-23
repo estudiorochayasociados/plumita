@@ -36,14 +36,14 @@ class Pagos
     {
         $sql = "INSERT INTO `pagos`(`titulo`, `leyenda`, `cod`, `estado`, `aumento`, `disminuir`, `defecto`) VALUES ('{$this->titulo}','{$this->leyenda}','{$this->cod}','{$this->estado}','{$this->aumento}','{$this->disminuir}','{$this->defecto}')";
         $query = $this->con->sql($sql);
-        return $query;
+        return true;
     }
 
     public function edit()
     {
         $sql = "UPDATE `pagos` SET  `titulo` = '{$this->titulo}',`leyenda` = '{$this->leyenda}',`estado` = '{$this->estado}',`aumento` = '{$this->aumento}',`disminuir` = '{$this->disminuir}',`defecto` = '{$this->defecto}' WHERE `cod`='{$this->cod}'";
         $query = $this->con->sql($sql);
-        return $query;
+        return true;
     }
 
     public function cambiar_estado()

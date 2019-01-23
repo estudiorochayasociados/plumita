@@ -39,14 +39,14 @@ class Sliders
     {
         $sql   = "INSERT INTO `sliders`(`cod`, `titulo`, `subtitulo`,  `categoria`,  `link`, `fecha`) VALUES ('{$this->cod}', '{$this->titulo}', '{$this->subtitulo}', '{$this->categoria}' , '{$this->link}','{$this->fecha}')";
         $query = $this->con->sql($sql);
-        return $query;
+        return true;
     }
 
     public function edit()
     {
         $sql   = "UPDATE `sliders` SET cod = '{$this->cod}', titulo = '{$this->titulo}', subtitulo = '{$this->subtitulo}', categoria = '{$this->categoria}', link = '{$this->link}', fecha = '{$this->fecha}' WHERE `cod`='{$this->cod}'";
         $query = $this->con->sql($sql);
-        return $query;
+        return true;
     }
 
     public function delete()

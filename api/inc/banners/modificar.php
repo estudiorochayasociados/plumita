@@ -63,9 +63,11 @@ if (isset($_POST["agregar"])) {
     //    $count++;
     //}
 
-    $banners->edit();
-    echo json_encode($productos, JSON_PRETTY_PRINT);
-
-    //$funciones->headerMove(URL . "/index.php?op=banners");
+    if ($banners->edit()) {
+        $array = array("status" => true);
+    } else {
+        $array = array("status" => false);
+    }
+echo json_encode($array, JSON_PRETTY_PRINT);
 }
 ?>

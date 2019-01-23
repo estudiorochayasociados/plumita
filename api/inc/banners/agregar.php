@@ -1,7 +1,7 @@
 <?php
 $banners = new Clases\Banner();
-$imagenes  = new Clases\Imagenes();  
-$zebra     = new Clases\Zebra_Image();
+$imagenes = new Clases\Imagenes();
+$zebra = new Clases\Zebra_Image();
 $categorias = new Clases\Categorias();
 $funciones = new Clases\PublicFunction();
 
@@ -9,7 +9,7 @@ $data = $categorias->list(array("area = 'banners'"));
 
 if (isset($_POST["agregar"])) {
     $count = 0;
-    $cod   = substr(md5(uniqid(rand())), 0, 10);
+    $cod = substr(md5(uniqid(rand())), 0, 10);
 
     $banners->set("cod", $cod);
     $banners->set("nombre", $funciones->antihack_mysqli(isset($_POST["nombre"]) ? $_POST["nombre"] : ''));
@@ -48,9 +48,11 @@ if (isset($_POST["agregar"])) {
     //    $count++;
     //}
 
-    $banners->add();
-    echo json_encode($productos, JSON_PRETTY_PRINT);
-
-    //$funciones->headerMove(URL . "/index.php?op=banners");
+    if ($banners->add()) {
+        $array = array("status" => true);
+    } else {
+        $array = array("status" => false);
+    }
+echo json_encode($array, JSON_PRETTY_PRINT);
 }
-?>b
+?>

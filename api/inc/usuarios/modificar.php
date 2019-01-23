@@ -22,9 +22,11 @@ if (isset($_POST["agregar"])) {
     $usuarios->set("descuento", $funciones->antihack_mysqli(isset($_POST["descuento"]) ? $_POST["descuento"] : $usuario["descuento"]));
     $usuarios->set("fecha", $funciones->antihack_mysqli(isset($_POST["fecha"]) ? $_POST["fecha"] : $usuario["fecha"]));
 
-    $usuarios->edit();
-    echo json_encode($usuarios,JSON_PRETTY_PRINT);
-
-    //$funciones->headerMove(URL . "/index.php?op=usuarios");
+    if ($usuarios->edit()) {
+        $array = array("status" => true);
+    } else {
+        $array = array("status" => false);
+    }
+echo json_encode($array, JSON_PRETTY_PRINT);
 }
 ?>

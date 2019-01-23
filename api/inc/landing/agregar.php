@@ -2,7 +2,7 @@
 $landing = new Clases\Landing();
 $imagenes  = new Clases\Imagenes();
 $zebra     = new Clases\Zebra_Image();
-
+$funciones = new Clases\PublicFunction();
 $categorias = new Clases\Categorias();
 $data = $categorias->list(array("area = 'landing'"));
 
@@ -50,50 +50,11 @@ if (isset($_POST["agregar"])) {
         $count++;
     }
 
-    $landing->add();
-    $funciones->headerMove(URL . "/index.php?op=landing");
+    if ($landing->add()){
+        $array = array("status" => true);
+    }else{
+        $array = array("status" => false);
+    }
+    echo json_encode($array,JSON_PRETTY_PRINT);
 }
 ?>
-
-<div class="col-md-12">
-    <h4>Landing</h4>
-    <hr/>
-    <form method="post" class="row" enctype="multipart/form-data">
-        <label class="col-md-4">Título:<br/>
-            <input type="text" name="titulo">
-        </label>
-        <label class="col-md-4">Categoría:<br/>
-            <select name="categoria">
-                <option value="" disabled selected>-- categorías --</option> 
-                <?php
-                foreach ($data as $categoria) {
-                    echo "<option value='".$categoria["cod"]."'>".$categoria["titulo"]."</option>";
-                }
-                ?>
-            </select>
-        </label>
-        <label class="col-md-4">Fecha:<br/>
-            <input type="date" name="fecha">
-        </label>
-        <div class="clearfix"></div>
-        <label class="col-md-12">Desarrollo:<br/>
-            <textarea name="desarrollo" class="ckeditorTextarea"></textarea>
-        </label>
-        <div class="clearfix"></div>
-        <label class="col-md-12">Palabras claves dividas por ,<br/>
-            <input type="text" name="keywords">
-        </label>
-        <label class="col-md-12">Descripción breve<br/>
-            <textarea name="description"></textarea>
-        </label>
-        <br/>
-        <label class="col-md-7">Imágenes:<br/>
-            <input type="file" id="file" name="files[]" multiple="multiple" accept="image/*" />
-        </label>
-        <div class="clearfix"></div>
-        <br/>
-        <div class="col-md-12">
-            <input type="submit" class="btn btn-primary" name="agregar" value="Agregar" />
-        </div>
-    </form>
-</div>

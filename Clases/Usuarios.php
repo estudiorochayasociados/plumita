@@ -47,11 +47,10 @@ class Usuarios
         if (!is_array($validar)) {
             $sql = "INSERT INTO `usuarios` (`cod`, `nombre`, `apellido`, `doc`, `email`, `password`, `direccion`, `postal`, `localidad`, `provincia`, `pais`, `telefono`, `celular`, `invitado`, `descuento`, `fecha`) VALUES ('{$this->cod}', '{$this->nombre}', '{$this->apellido}', '{$this->doc}', '{$this->email}', '{$this->password}', '{$this->direccion}', '{$this->postal}', '{$this->localidad}', '{$this->provincia}', '{$this->pais}', '{$this->telefono}', '{$this->celular}', '{$this->invitado}', '{$this->descuento}', '{$this->fecha}')";
             $this->con->sql($sql);
-            $r = 1;
+            return true;
         } else {
-            $r = 0;
+            return false;
         }
-        return $r;
     }
 
     public function edit()
@@ -64,13 +63,14 @@ class Usuarios
         if (is_array($validar)) {
             if ($validar["email"] == $usuario["email"]) {
                 $query = $this->con->sql($sql);
-                return $query;
+                return true;
             } else {
-                echo "<div class='col-md-12'><div class='alert alert-danger'>Este correo ya existe como usuario.</div></div>";
+                //echo "<div class='col-md-12'><div class='alert alert-danger'>Este correo ya existe como usuario.</div></div>";
+                return false;
             }
         } else {
             $query = $this->con->sql($sql);
-            return $query;
+            return true;
         }
     }
 

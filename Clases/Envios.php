@@ -35,14 +35,14 @@ class Envios
     {
         $sql = "INSERT INTO `envios`(`cod`, `titulo`, `peso`, `precio`, `estado`) VALUES ('{$this->cod}', '{$this->titulo}','{$this->peso}','{$this->precio}', '{$this->estado}')";
         $query = $this->con->sql($sql);
-        return $query;
+        return true;
     }
 
     public function edit()
     {
         $sql = "UPDATE `envios` SET  `titulo`='{$this->titulo}',`peso`='{$this->peso}',`precio`='{$this->precio}',`estado`='{$this->estado}' WHERE `cod`='{$this->cod}'";
         $query = $this->con->sql($sql);
-        return $query;
+        return true;
     }
 
     public function cambiar_estado()

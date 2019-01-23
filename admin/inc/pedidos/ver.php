@@ -10,11 +10,9 @@ $cod = isset($_GET["cod"]) ? $_GET["cod"] : '';
 $tipo = isset($_GET["tipo"]) ? $_GET["tipo"] : '';
 $usuario = isset($_GET["usuario"]) ? $_GET["usuario"] : '';
 
-if ($estado != '' && $cod != '' && $tipo != '' && $usuario != '') {
+if ($estado != '' && $cod != '') {
     $pedidos->set("estado", $estado);
     $pedidos->set("cod", $cod);
-    $pedidos->set("tipo", $tipo);
-    $pedidos->set("usuario", $usuario);
     $pedidos->cambiar_estado();
     $funciones->headerMove(URL . '/?op=pedidos&accion=ver');
 }

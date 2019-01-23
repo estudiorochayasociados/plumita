@@ -64,9 +64,11 @@ if (isset($_POST["agregar"])) {
     //    $count++;
     //}
 
-    $novedades->edit();
-    echo json_encode($novedades, JSON_PRETTY_PRINT);
-
-    //$funciones->headerMove(URL . "/index.php?op=novedades&accion=modificar&cod=$cod");
+    if ($novedades->edit()){
+        $array = array("status" => true);
+    }else{
+        $array = array("status" => false);
+    }
+echo json_encode($array,JSON_PRETTY_PRINT);
 }
 ?>

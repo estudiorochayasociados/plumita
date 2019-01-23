@@ -46,9 +46,11 @@ if (isset($_POST["agregar"])) {
     //    }
 //
     //}
-    $sliders->add();
-    echo json_encode($sliders,JSON_PRETTY_PRINT);
-
-    //$funciones->headerMove(URL . "/index.php?op=sliders&accion=ver");
+    if ($sliders->add()){
+        $array = array("status" => true);
+    }else{
+        $array = array("status" => false);
+    }
+    echo json_encode($array,JSON_PRETTY_PRINT);
 }
 ?>

@@ -32,21 +32,21 @@ class Categorias
     {
         $sql   = "INSERT INTO `categorias`(`cod`, `titulo`, `area`) VALUES ('{$this->cod}', '{$this->titulo}', '{$this->area}')";
         $query = $this->con->sql($sql);
-        return $query;
+        return true;
     }
 
     public function edit()
     {
         $sql   = "UPDATE `categorias` SET cod = '{$this->cod}', titulo = '{$this->titulo}', area = '{$this->area}' WHERE `cod`='{$this->cod}'";
         $query = $this->con->sql($sql);
-        return $query;
+        return true;
     }
 
     public function delete()
     {
         $sql   = "DELETE FROM `categorias` WHERE `cod`  = '{$this->cod}'";
         $query = $this->con->sql($sql);
-        return $query;
+        return true;
     }
 
     public function view()

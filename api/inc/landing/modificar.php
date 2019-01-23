@@ -1,9 +1,10 @@
 <?php
 $landing = new Clases\Landing();
-$imagenes  = new Clases\Imagenes();
-$zebra     = new Clases\Zebra_Image();
+$imagenes = new Clases\Imagenes();
+$zebra = new Clases\Zebra_Image();
+$funciones = new Clases\PublicFunction();
 
-$cod       = $funciones->antihack_mysqli(isset($_GET["cod"]) ? $_GET["cod"] : '');
+$cod = $funciones->antihack_mysqli(isset($_GET["cod"]) ? $_GET["cod"] : '');
 $borrarImg = $funciones->antihack_mysqli(isset($_GET["borrarImg"]) ? $_GET["borrarImg"] : '');
 
 $landing->set("cod", $cod);
@@ -22,25 +23,25 @@ if ($borrarImg != '') {
 
 if (isset($_POST["agregar"])) {
     $count = 0;
-    $cod   = $landingInd["cod"];
+    $cod = $landingInd["cod"];
     //$landing->set("id", $id);
     $landing->set("cod", $cod);
-    $landing->set("titulo", $funciones->antihack_mysqli(isset($_POST["titulo"]) ? $_POST["titulo"] : ''));
-    $landing->set("categoria", $funciones->antihack_mysqli(isset($_POST["categoria"]) ? $_POST["categoria"] : ''));
-    $landing->set("desarrollo", $funciones->antihack_mysqli(isset($_POST["desarrollo"]) ? $_POST["desarrollo"] : ''));
-    $landing->set("fecha", $funciones->antihack_mysqli(isset($_POST["fecha"]) ? $_POST["fecha"] : ''));
-    $landing->set("description", trim($funciones->antihack_mysqli(isset($_POST["description"]) ? $_POST["description"] : '')));
-    $landing->set("keywords", $funciones->antihack_mysqli(isset($_POST["keywords"]) ? $_POST["keywords"] : ''));
+    $landing->set("titulo", $funciones->antihack_mysqli(isset($_POST["titulo"]) ? $_POST["titulo"] : $landingInd["titulo"]));
+    $landing->set("categoria", $funciones->antihack_mysqli(isset($_POST["categoria"]) ? $_POST["categoria"] : $landingInd["categoria"]));
+    $landing->set("desarrollo", $funciones->antihack_mysqli(isset($_POST["desarrollo"]) ? $_POST["desarrollo"] : $landingInd["desarrollo"]));
+    $landing->set("fecha", $funciones->antihack_mysqli(isset($_POST["fecha"]) ? $_POST["fecha"] : $landingInd["fecha"]));
+    $landing->set("description", trim($funciones->antihack_mysqli(isset($_POST["description"]) ? $_POST["description"] : $landingInd["description"])));
+    $landing->set("keywords", $funciones->antihack_mysqli(isset($_POST["keywords"]) ? $_POST["keywords"] : $landingInd["keywords"]));
 
     foreach ($_FILES['files']['name'] as $f => $name) {
         $imgInicio = $_FILES["files"]["tmp_name"][$f];
-        $tucadena  = $_FILES["files"]["name"][$f];
-        $partes    = explode(".", $tucadena);
-        $dom       = (count($partes) - 1);
-        $dominio   = $partes[$dom];
-        $prefijo   = substr(md5(uniqid(rand())), 0, 10);
+        $tucadena = $_FILES["files"]["name"][$f];
+        $partes = explode(".", $tucadena);
+        $dom = (count($partes) - 1);
+        $dominio = $partes[$dom];
+        $prefijo = substr(md5(uniqid(rand())), 0, 10);
         if ($dominio != '') {
-            $destinoFinal     = "../assets/archivos/" . $prefijo . "." . $dominio;
+            $destinoFinal = "../assets/archivos/" . $prefijo . "." . $dominio;
             move_uploaded_file($imgInicio, $destinoFinal);
             chmod($destinoFinal, 0777);
             $destinoRecortado = "../assets/archivos/recortadas/a_" . $prefijo . "." . $dominio;
@@ -63,79 +64,11 @@ if (isset($_POST["agregar"])) {
 
         $count++;
     }
-
-    $landing->edit();
-    $funciones->headerMove(URL . "/index.php?op=landing");
+    if ($landing->edit()){
+        $array = array("status" => true);
+    }else{
+        $array = array("status" => false);
+    }
+    echo json_encode($array,JSON_PRETTY_PRINT);
 }
 ?>
-
-<div class="col-md-12 ">
-    <h4>
-        Landing
-    </h4>
-    <hr/>
-    <form method="post" class="row" enctype="multipart/form-data">
-        <label class="col-md-4">
-            Título:<br/>
-            <input type="text" value="<?=$landingInd["titulo"]?>" name="titulo">
-        </label>
-        <label class="col-md-4">
-            Categoría:<br/>
-            <select name="categoria">
-                <option></option>
-                <?php
-                foreach ($data as $categoria) {
-                    if($landingInd["categoria"] == $categoria["cod"]) {
-                        echo "<option value='".$categoria["cod"]."' selected>".$categoria["titulo"]."</option>";
-                    } else {
-                        echo "<option value='".$categoria["cod"]."'>".$categoria["titulo"]."</option>";
-                    } 
-                }
-                ?>
-            </select>
-        </label>
-        <label class="col-md-4">
-            Fecha:<br/>
-            <input type="date" name="fecha" value="<?=$landingInd["fecha"]?>">
-        </label>
-
-        <div class="clearfix">
-        </div>
-        <label class="col-md-12">
-            Desarrollo:<br/>
-            <textarea name="desarrollo" class="ckeditorTextarea">
-                <?=$landingInd["desarrollo"];?>
-            </textarea>
-        </label>
-        <div class="clearfix">
-        </div>
-        <label class="col-md-12">
-            Palabras claves dividas por ,<br/>
-            <input type="text" name="keywords" value="<?=$landingInd["keywords"]?>">
-        </label>
-        <label class="col-md-12">
-            Descripción breve<br/>
-            <textarea name="description"><?=$landingInd["description"]?></textarea>
-        </label>
-        <br/>
-        <div class="col-md-12">
-            <div class="row">
-                <?php
-                $imagenes->imagenesAdmin();
-                ?>
-            </div>
-        </div>
-        <div class="clearfix">
-        </div>
-        <label class="col-md-12">
-            Imágenes:<br/>
-            <input type="file" id="file" name="files[]" multiple="multiple" accept="image/*" />
-        </label>
-        <div class="clearfix">
-        </div>
-        <br/>
-        <div class="col-md-12">
-            <input type="submit" class="btn btn-primary" name="agregar" value="Modificar" />
-        </div>
-    </form>
-</div>

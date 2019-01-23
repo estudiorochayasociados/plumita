@@ -38,14 +38,14 @@ class Banner
     {
         $sql = "INSERT INTO `banners`(`cod`, `nombre`, `categoria`, `vistas`,`link`) VALUES ('{$this->cod}', '{$this->nombre}', '{$this->categoria}', '{$this->vistas}', '{$this->link}')";
         $query = $this->con->sql($sql);
-        return $query;
+        return true;
     }
 
     public function edit()
     {
         $sql = "UPDATE `banners` SET cod = '{$this->cod}', nombre = '{$this->nombre}', categoria = '{$this->categoria}', vistas = '{$this->vistas}', link = '{$this->link}' WHERE `cod`='{$this->cod}'";
         $query = $this->con->sql($sql);
-        return $query;
+        return true;
     }
 
     public function delete()
