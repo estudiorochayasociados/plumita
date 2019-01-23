@@ -6,10 +6,6 @@ $template = new Clases\TemplateSite();
 $funciones = new Clases\PublicFunction();
 $producto = new Clases\Productos();
 $categoria = new Clases\Categorias();
-$imagen = new Clases\Imagenes();
-$novedad = new Clases\Novedades();
-$banner = new Clases\Banner();
-$slider = new Clases\Sliders();
 //
 $template->set("title", TITULO . " | Productos");
 $template->set("description", "Plumita S.R.L es una fábrica de Cortadoras y Bordeadoras de cesped, de muy alto nivel con distribución en todo el país.");
@@ -47,11 +43,11 @@ else:
 endif;
 //
 $filter;
-if (!empty($categoria_get)){
-    $categoria->set("id",$id);
-    $categoria_data_filtro=$categoria->view();
-    $cod=$categoria_data_filtro['cod'];
-    $filter=array("categoria='$cod'");
+if (!empty($categoria_get)) {
+    $categoria->set("id", $id);
+    $categoria_data_filtro = $categoria->view();
+    $cod = $categoria_data_filtro['cod'];
+    $filter = array("categoria='$cod'");
 }
 if ($titulo != '') {
     $titulo_espacios = strpos($titulo, " ");
@@ -64,7 +60,7 @@ if ($titulo != '') {
         $filter_title_implode = implode(" OR ", $filter_title);
         array_push($filter, "(" . $filter_title_implode . ")");
     } else {
-        $filter=array( "(titulo LIKE '%$titulo%' || desarrollo LIKE '%$titulo%')");
+        $filter = array("(titulo LIKE '%$titulo%' || desarrollo LIKE '%$titulo%')");
     }
 }
 
@@ -113,7 +109,7 @@ $template->themeNav();
                         <div class="">
                             <div class="row">
                                 <div class="col-md-12 mb-10">
-                                    <form class="login_form row"  method="get" id="buscar">
+                                    <form class="login_form row" method="get" id="buscar">
                                         <div class="col-md-9 form-group">
                                             <input class="form-control" value="<?= isset($titulo) ? $titulo : ''; ?>" type="text" placeholder="Buscar un producto" name="titulo"
                                                    required>
@@ -238,7 +234,7 @@ $template->themeNav();
                                     foreach ($categorias_data as $cats) {
                                         ?>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<?=URL.'/productos?categoria='.strtolower($funciones->normalizar_link($cats['titulo'])).'&id='.$cats['id'];?>"><?= ucfirst(substr(strip_tags($cats['titulo']), 0, 60)); ?>
+                                            <a class="nav-link" href="<?= URL . '/productos?categoria=' . strtolower($funciones->normalizar_link($cats['titulo'])) . '&id=' . $cats['id']; ?>"><?= ucfirst(substr(strip_tags($cats['titulo']), 0, 60)); ?>
                                             </a>
                                         </li>
                                         <?php
@@ -255,8 +251,8 @@ $template->themeNav();
                                     ?>
                                     <div class="media">
                                         <a href="<?= URL . '/producto/' . $funciones->normalizar_link($proRand['data']["titulo"]) . '/' . $proRand['data']['cod'] ?>">
-                                        <div class="d-flex" style="height:100px;width:80px;background:url(<?= $proRand['imagenes']['0']['ruta']; ?>) no-repeat center center/contain;">
-                                        </div>
+                                            <div class="d-flex" style="height:100px;width:80px;background:url(<?= $proRand['imagenes']['0']['ruta']; ?>) no-repeat center center/contain;">
+                                            </div>
                                         </a>
                                         <div class="media-body ml-5">
                                             <a href="<?= URL . '/producto/' . $funciones->normalizar_link($proRand['data']["titulo"]) . '/' . $proRand['data']['cod'] ?>">

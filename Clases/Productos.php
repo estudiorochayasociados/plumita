@@ -50,7 +50,7 @@ class Productos
     {
         $sql = "INSERT INTO `productos`(`cod`, `titulo`,`cod_producto`, `precio`,`precio_mayorista`, `peso`, `precio_descuento`, `stock`, `desarrollo`, `categoria`, `subcategoria`, `keywords`, `description`, `fecha`, `meli`, `url`) VALUES ('{$this->cod}', '{$this->titulo}','{$this->cod_producto}', '{$this->precio}','{$this->precio_mayorista}', '{$this->peso}', '{$this->precio_descuento}', '{$this->stock}', '{$this->desarrollo}', '{$this->categoria}', '{$this->subcategoria}', '{$this->keywords}', '{$this->description}', '{$this->fecha}', '{$this->meli}', '{$this->url}')";
         $query = $this->con->sql($sql);
-        return $query;
+        return true;
     }
 
     public function edit()

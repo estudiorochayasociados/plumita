@@ -15,10 +15,11 @@ $categoria_cod = $producto_data['data']['categoria'];
 $filter = array("categoria='$categoria_cod'","cod!='$cod'");
 $productos_relacionados_data = $producto->listWithOps($filter, '', '3');
 //
+if(!empty($producto_data['imagenes'][0]['ruta'])){$ruta_=URL . "/" . $producto_data['imagenes'][0]['ruta']; }else{$ruta_='';}
 $template->set("title", TITULO . " | " . ucfirst(strip_tags($producto_data['data']['titulo'])));
 $template->set("description", ucfirst(strip_tags($producto_data['data']['desarrollo'])));
 $template->set("keywords", ucfirst(strip_tags($producto_data['data']['titulo'])));
-$template->set("imagen", URL . "/" . $producto_data['imagenes'][0]['ruta']);
+$template->set("imagen", $ruta_);
 $template->set("favicon", FAVICON);
 $template->themeInit();
 //Carro

@@ -15,10 +15,11 @@ $fecha = explode("-", $novedades_data['fecha']);
 $imagen->set("cod", $cod);
 $imagenes_data = $imagen->listForProduct();
 //
+if(!empty($novedades_data['imagenes'][0]['ruta'])){$ruta_=URL . "/" . $novedades_data['imagenes'][0]['ruta']; }else{$ruta_='';}
 $template->set("title", TITULO . " | ".ucfirst(strip_tags($novedades_data['titulo'])));
 $template->set("description", ucfirst(substr(strip_tags($novedades_data['desarrollo']), 0, 160)));
 $template->set("keywords", ucfirst(strip_tags($novedades_data['titulo'])));
-$template->set("imagen", URL."/".$imagenes_data[0]['ruta']);
+$template->set("imagen", $ruta_);
 $template->set("favicon", FAVICON);
 $template->themeInit();
 
