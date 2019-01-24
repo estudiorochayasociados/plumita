@@ -75,7 +75,7 @@ foreach ($categorias_banners as $catB) {
                             <h3>Mi cuenta</h3>
                         </div>
                         <ul>
-                            <?php if (@count($_SESSION["usuarios"]) != 0): ?>
+                            <?php if (!empty($_SESSION['usuarios'])): ?>
                                 <li>
                                     <a title="cuenta" href="<?= URL ?>/sesion">Mi cuenta
                                     </a>
@@ -100,7 +100,7 @@ foreach ($categorias_banners as $catB) {
             <h5>©
                 <script>document.write(new Date().getFullYear());</script>
                 Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                Todos los derechos reservados, Plumita SRL. Copyright by <a href="http://www.estudiorochayasoc.com" target="_blank">Estudio Rocha & Asociados</a>
+                Todos los derechos reservados, <?=TITULO?> Copyright by <a href="http://www.estudiorochayasoc.com" target="_blank">Estudio Rocha & Asociados</a>
 
             </h5>
         </div>

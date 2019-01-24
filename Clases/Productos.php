@@ -32,8 +32,8 @@ class Productos
     {
         $this->con = new Conexion();
         $this->funciones = new PublicFunction();
-        $this->imagenes= new Imagenes();
-        $this->categorias=new Categorias();
+        $this->imagenes = new Imagenes();
+        $this->categorias = new Categorias();
     }
 
     public function set($atributo, $valor)
@@ -79,7 +79,7 @@ class Productos
 
     public function delete()
     {
-        $sql   = "DELETE FROM `productos` WHERE `cod`  = '{$this->cod}'";
+        $sql = "DELETE FROM `productos` WHERE `cod`  = '{$this->cod}'";
         $query = $this->con->sql($sql);
         return $query;
     }
@@ -147,23 +147,25 @@ class Productos
 
     public function view()
     {
-        $sql   = "SELECT * FROM `productos` WHERE id = '{$this->id}' ||  cod = '{$this->cod}' ORDER BY id DESC";
+        $sql = "SELECT * FROM `productos` WHERE id = '{$this->id}' ||  cod = '{$this->cod}' ORDER BY id DESC";
         $productos = $this->con->sqlReturn($sql);
-        $row   = mysqli_fetch_assoc($productos);
+        $row = mysqli_fetch_assoc($productos);
         return $row;
     }
+
     public function view_()
     {
-        $sql   = "SELECT * FROM `productos` WHERE id = '{$this->id}' ||  cod = '{$this->cod}' ORDER BY id DESC";
+        $sql = "SELECT * FROM `productos` WHERE id = '{$this->id}' ||  cod = '{$this->cod}' ORDER BY id DESC";
         $productos = $this->con->sqlReturn($sql);
-        $row   = mysqli_fetch_assoc($productos);
-        $img = $this->imagenes->list(array("cod = '".$this->cod."'"));
-        $cat = $this->categorias->view_row(array("cod = '".$this->categoria."'"));
-        $row_ = array("data"=>$row,"categorias" => $cat,"imagenes" => $img);
+        $row = mysqli_fetch_assoc($productos);
+        $img = $this->imagenes->list(array("cod = '" . $this->cod . "'"));
+        $cat = $this->categorias->view_row(array("cod = '" . $this->categoria . "'"));
+        $row_ = array("data" => $row, "categorias" => $cat, "imagenes" => $img);
         return $row_;
     }
 
-    function list($filter) {
+    function list($filter)
+    {
         $array = array();
         if (is_array($filter)) {
             $filterSql = "WHERE ";
@@ -172,7 +174,7 @@ class Productos
             $filterSql = '';
         }
 
-        $sql   = "SELECT * FROM `productos` $filterSql  ORDER BY id DESC";
+        $sql = "SELECT * FROM `productos` $filterSql  ORDER BY id DESC";
         $productos = $this->con->sqlReturn($sql);
 
         if ($productos) {
@@ -183,7 +185,8 @@ class Productos
         }
     }
 
-    function listWithOps($filter,$order,$limit) {
+    function listWithOps($filter, $order, $limit)
+    {
         $array = array();
         if (is_array($filter)) {
             $filterSql = "WHERE ";
@@ -207,15 +210,16 @@ class Productos
         $productos = $this->con->sqlReturn($sql);
         if ($productos) {
             while ($row = mysqli_fetch_assoc($productos)) {
-                $img = $this->imagenes->list(array("cod = '".$row['cod']."'"));
-                $cat = $this->categorias->view_row(array("cod = '".$row['categoria']."'"));
-                $array[] = array("data"=>$row,"categorias" => $cat,"imagenes" => $img);
+                $img = $this->imagenes->list(array("cod = '" . $row['cod'] . "'"));
+                $cat = $this->categorias->view_row(array("cod = '" . $row['categoria'] . "'"));
+                $array[] = array("data" => $row, "categorias" => $cat, "imagenes" => $img);
             }
-            return $array ;
+            return $array;
         }
-     }
+    }
 
-    function paginador($filter,$cantidad) {
+    function paginador($filter, $cantidad)
+    {
         $array = array();
         if (is_array($filter)) {
             $filterSql = "WHERE ";
@@ -228,5 +232,48 @@ class Productos
         $total = mysqli_num_rows($contar);
         $totalPaginas = $total / $cantidad;
         return ceil($totalPaginas);
+    }
+
+    //App
+    function listWithOpsApp($filter, $order, $limit)
+    {
+        $array = array();
+        if (is_array($filter)) {
+            $filterSql = "WHERE ";
+            $filterSql .= implode(" AND ", $filter);
+        } else {
+            $filterSql = '';
+        }
+
+        if ($order != '') {
+            $orderSql = $order;
+        } else {
+            $orderSql = "id DESC";
+        }
+
+        if ($limit != '') {
+            $limitSql = "LIMIT " . $limit;
+        } else {
+            $limitSql = '';
+        }
+        $sql = "SELECT * FROM `productos` $filterSql  ORDER BY $orderSql $limitSql";
+        $productos = $this->con->sqlReturn($sql);
+        if ($productos) {
+            while ($row = mysqli_fetch_assoc($productos)) {
+                //Agregar url a las imagenes
+                $img = $this->imagenes->list(array("cod = '" . $row['cod'] . "'"));
+                $img_ = array();
+                foreach ($img as $i) {
+                    $i['ruta'] = URLSITE . '/' . $i['ruta'];
+                    array_push($img_, $i);
+                }
+                //Sacar etiquetas
+                $row['desarrollo'] = strip_tags($row['desarrollo']);
+                //
+                $cat = $this->categorias->view_row(array("cod = '" . $row['categoria'] . "'"));
+                $array[] = array("data" => $row, "categorias" => $cat, "imagenes" => $img_);
+            }
+            return $array;
+        }
     }
 }

@@ -126,7 +126,7 @@ $template->themeNav();
                                 <?php
                                 foreach ($productos_data as $prod) {
                                     ?>
-                                    <div class="col-lg-4 col-sm-6">
+                                    <div class="col-md-4 col-sm-6">
                                         <div class="l_product_item">
                                             <a href="<?= URL . '/producto/' . $funciones->normalizar_link($prod['data']["titulo"]) . '/' . $prod['data']['cod'] ?>">
                                                 <div class="l_p_img" style="height:300px;background:url(<?= $prod['imagenes']['0']['ruta']; ?>) no-repeat center center/70%;">
@@ -164,7 +164,7 @@ $template->themeNav();
                                                             <?php
                                                         } else {
                                                             ?>
-                                                            <h5>
+                                                            <h5 class="producto-precio">
                                                                 $ <?= $prod['data']['precio']; ?>
                                                             </h5>
                                                             <?php
@@ -182,7 +182,7 @@ $template->themeNav();
                                                         <?php
                                                     } else {
                                                         ?>
-                                                        <h5>
+                                                        <h5 class="producto-precio">
                                                             $ <?= $prod['data']['precio']; ?>
                                                         </h5>
                                                         <?php
@@ -196,7 +196,7 @@ $template->themeNav();
                                 }
                                 ?>
                             </div>
-                            <nav aria-label="Page navigation example" class="pagination_area">
+                            <nav aria-label="Page navigation example" class="pagination_area mb-15">
                                 <?php if ($numeroPaginas > 1): ?>
                                     <div class="col-xs-12">
                                         <div class="pagination mb-60">
@@ -281,7 +281,7 @@ $template->themeNav();
                                                         <?php
                                                     } else {
                                                         ?>
-                                                        <h5>
+                                                        <h5 class="producto-precio">
                                                             $ <?= $proRand['data']['precio']; ?>
                                                         </h5>
                                                         <?php
@@ -299,7 +299,7 @@ $template->themeNav();
                                                     <?php
                                                 } else {
                                                     ?>
-                                                    <h5>
+                                                    <h5 class="producto-precio">
                                                         $ <?= $proRand['data']['precio']; ?>
                                                     </h5>
                                                     <?php

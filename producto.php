@@ -12,10 +12,14 @@ $producto->set("cod", $cod);
 $producto_data = $producto->view_();
 //Productos relacionados
 $categoria_cod = $producto_data['data']['categoria'];
-$filter = array("categoria='$categoria_cod'","cod!='$cod'");
+$filter = array("categoria='$categoria_cod'", "cod!='$cod'");
 $productos_relacionados_data = $producto->listWithOps($filter, '', '3');
 //
-if(!empty($producto_data['imagenes'][0]['ruta'])){$ruta_=URL . "/" . $producto_data['imagenes'][0]['ruta']; }else{$ruta_='';}
+if (!empty($producto_data['imagenes'][0]['ruta'])) {
+    $ruta_ = URL . "/" . $producto_data['imagenes'][0]['ruta'];
+} else {
+    $ruta_ = '';
+}
 $template->set("title", TITULO . " | " . ucfirst(strip_tags($producto_data['data']['titulo'])));
 $template->set("description", ucfirst(strip_tags($producto_data['data']['desarrollo'])));
 $template->set("keywords", ucfirst(strip_tags($producto_data['data']['titulo'])));
@@ -41,6 +45,7 @@ $template->themeNav();
                     <li class="current"><a href="#"><?= ucfirst($producto_data['data']['titulo']); ?></a></li>
                 </ul>
             </div>
+
         </div>
     </section>
     <!--================End Categories Banner Area =================-->
@@ -78,7 +83,7 @@ $template->themeNav();
                         if (!empty($_SESSION['usuarios'])) {
                             if ($producto_data['data']['precio_mayorista'] != 0) {
                                 ?>
-                                <h5 class="precios">
+                                <h5 class="precios producto-precio">
                                     $ <?= $producto_data['data']['precio_mayorista']; ?>
                                 </h5>
                                 <h5 class="precios precio-desc">
@@ -88,7 +93,7 @@ $template->themeNav();
                             } else {
                                 if ($producto_data['data']['precio_descuento'] != 0) {
                                     ?>
-                                    <h5 class="precios">
+                                    <h5 class="precios producto-precio">
                                         $ <?= $producto_data['data']['precio_descuento']; ?>
                                     </h5>
                                     <h5 class="precios precio-desc">
@@ -97,7 +102,7 @@ $template->themeNav();
                                     <?php
                                 } else {
                                     ?>
-                                    <h5>
+                                    <h5 class="producto-precio">
                                         $ <?= $producto_data['data']['precio']; ?>
                                     </h5>
                                     <?php
@@ -136,7 +141,6 @@ $template->themeNav();
                                 if ($carroPago != '') {
                                     $carrito->delete($carroPago);
                                 }
-
                                 $carrito->set("id", $producto_data['data']['id']);
                                 $carrito->set("cantidad", $_POST["cantidad"]);
                                 $carrito->set("titulo", $producto_data['data']['titulo']);
@@ -198,51 +202,33 @@ $template->themeNav();
                 <div class="row">
                     <?php
                     foreach ($productos_relacionados_data as $prod) {
-                            ?>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="l_product_item">
-                                    <a href="<?= URL . '/producto/' . $funciones->normalizar_link($prod['data']["titulo"]) . '/' . $prod['data']['cod'] ?>">
-                                        <div class="l_p_img" style="height:400px;background:url(<?= URL . '/' . $prod['imagenes']['0']['ruta']; ?>) no-repeat center center/70%;">
-                                        </div>
-                                    </a>
-                                    <div class="l_p_text">
-                                        <ul>
-                                            <li>
-                                                <a class="add_cart_btn" href="<?= URL . '/producto/' . $funciones->normalizar_link($prod['data']["titulo"]) . '/' . $prod['data']['cod'] ?>">
-                                                    Ver
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <h4><?= ucfirst(substr(strip_tags($prod['data']['titulo']), 0, 40)); ?></h4>
-                                        <?php
-                                        if (!empty($_SESSION['usuarios'])) {
-                                            if ($prod['data']['precio_mayorista'] != 0) {
-                                                ?>
-                                                <h5 class="precios">
-                                                    $ <?= $prod['data']['precio_mayorista']; ?>
-                                                </h5>
-                                                <h5 class="precios precio-desc">
-                                                    $ <?= $prod['data']['precio']; ?>
-                                                </h5>
-                                                <?php
-                                            } else {
-                                                if ($prod['data']['precio_descuento'] != 0) {
-                                                    ?>
-                                                    <h5 class="precios">
-                                                        $ <?= $prod['data']['precio_descuento']; ?>
-                                                    </h5>
-                                                    <h5 class="precios precio-desc">
-                                                        $ <?= $prod['data']['precio']; ?>
-                                                    </h5>
-                                                    <?php
-                                                } else {
-                                                    ?>
-                                                    <h5>
-                                                        $ <?= $prod['data']['precio']; ?>
-                                                    </h5>
-                                                    <?php
-                                                }
-                                            }
+                        ?>
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="l_product_item">
+                                <a href="<?= URL . '/producto/' . $funciones->normalizar_link($prod['data']["titulo"]) . '/' . $prod['data']['cod'] ?>">
+                                    <div class="l_p_img" style="height:400px;background:url(<?= URL . '/' . $prod['imagenes']['0']['ruta']; ?>) no-repeat center center/70%;">
+                                    </div>
+                                </a>
+                                <div class="l_p_text">
+                                    <ul>
+                                        <li>
+                                            <a class="add_cart_btn" href="<?= URL . '/producto/' . $funciones->normalizar_link($prod['data']["titulo"]) . '/' . $prod['data']['cod'] ?>">
+                                                Ver
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <h4><?= ucfirst(substr(strip_tags($prod['data']['titulo']), 0, 40)); ?></h4>
+                                    <?php
+                                    if (!empty($_SESSION['usuarios'])) {
+                                        if ($prod['data']['precio_mayorista'] != 0) {
+                                            ?>
+                                            <h5 class="precios">
+                                                $ <?= $prod['data']['precio_mayorista']; ?>
+                                            </h5>
+                                            <h5 class="precios precio-desc">
+                                                $ <?= $prod['data']['precio']; ?>
+                                            </h5>
+                                            <?php
                                         } else {
                                             if ($prod['data']['precio_descuento'] != 0) {
                                                 ?>
@@ -255,18 +241,36 @@ $template->themeNav();
                                                 <?php
                                             } else {
                                                 ?>
-                                                <h5>
+                                                <h5 class="producto-precio">
                                                     $ <?= $prod['data']['precio']; ?>
                                                 </h5>
                                                 <?php
                                             }
                                         }
-                                        ?>
-                                    </div>
+                                    } else {
+                                        if ($prod['data']['precio_descuento'] != 0) {
+                                            ?>
+                                            <h5 class="precios">
+                                                $ <?= $prod['data']['precio_descuento']; ?>
+                                            </h5>
+                                            <h5 class="precios precio-desc">
+                                                $ <?= $prod['data']['precio']; ?>
+                                            </h5>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <h5 class="producto-precio">
+                                                $ <?= $prod['data']['precio']; ?>
+                                            </h5>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
                                 </div>
                             </div>
-                            <?php
-                        }
+                        </div>
+                        <?php
+                    }
                     ?>
                 </div>
             </div>

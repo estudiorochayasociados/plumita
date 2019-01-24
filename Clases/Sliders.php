@@ -105,9 +105,9 @@ class Sliders
             $limitSql = '';
         }
         $sql = "SELECT * FROM `sliders` $filterSql  ORDER BY $orderSql $limitSql";
-        $productos = $this->con->sqlReturn($sql);
-        if ($productos) {
-            while ($row = mysqli_fetch_assoc($productos)) {
+        $sliders = $this->con->sqlReturn($sql);
+        if ($sliders) {
+            while ($row = mysqli_fetch_assoc($sliders)) {
                 $img = $this->imagenes->list(array("cod = '" . $row['cod'] . "'"));
                 $cat = $this->categorias->view_row(array("cod = '" . $row['categoria'] . "'"));
                 $array[] = array("data" => $row, "categorias" => $cat, "imagenes" => $img);
@@ -125,6 +125,46 @@ class Sliders
                 $img = $this->imagenes->list(array("cod = '" . $row['cod'] . "'"));
                 $cat = $this->categorias->view_row(array("cod = '" . $row['categoria'] . "'"));
                 $array[] = array("data" => $row, "categorias" => $cat, "imagenes" => $img);
+            }
+            return $array;
+        }
+    }
+
+    //App
+    function listWithOpsApp($filter, $order, $limit)
+    {
+        $array = array();
+        if (is_array($filter)) {
+            $filterSql = "WHERE ";
+            $filterSql .= implode(" AND ", $filter);
+        } else {
+            $filterSql = '';
+        }
+
+        if ($order != '') {
+            $orderSql = $order;
+        } else {
+            $orderSql = "id DESC";
+        }
+
+        if ($limit != '') {
+            $limitSql = "LIMIT " . $limit;
+        } else {
+            $limitSql = '';
+        }
+        $sql = "SELECT * FROM `sliders` $filterSql  ORDER BY $orderSql $limitSql";
+        $sliders = $this->con->sqlReturn($sql);
+        if ($sliders) {
+            while ($row = mysqli_fetch_assoc($sliders)) {
+                //Agregar url a las imagenes
+                $img = $this->imagenes->list(array("cod = '" . $row['cod'] . "'"));
+                $img_ = array();
+                foreach ($img as $i) {
+                    $i['ruta'] = URLSITE . '/' . $i['ruta'];
+                    array_push($img_, $i);
+                }
+                $cat = $this->categorias->view_row(array("cod = '" . $row['categoria'] . "'"));
+                $array[] = array("data" => $row, "categorias" => $cat, "imagenes" => $img_);
             }
             return $array;
         }

@@ -151,4 +151,47 @@ class Novedades
         $totalPaginas = $total / $cantidad;
         return ceil($totalPaginas);
     }
+
+    //App
+    function listWithOpsApp($filter, $order, $limit)
+    {
+        $array = array();
+        if (is_array($filter)) {
+            $filterSql = "WHERE ";
+            $filterSql .= implode(" AND ", $filter);
+        } else {
+            $filterSql = '';
+        }
+
+        if ($order != '') {
+            $orderSql = $order;
+        } else {
+            $orderSql = "id DESC";
+        }
+
+        if ($limit != '') {
+            $limitSql = "LIMIT " . $limit;
+        } else {
+            $limitSql = '';
+        }
+        $sql = "SELECT * FROM `novedades` $filterSql  ORDER BY $orderSql $limitSql";
+        $novedades = $this->con->sqlReturn($sql);
+        if ($novedades) {
+            while ($row = mysqli_fetch_assoc($novedades)) {
+                //Agregar url a las imagenes
+                $img = $this->imagenes->list(array("cod = '" . $row['cod'] . "'"));
+                $img_ = array();
+                foreach ($img as $i) {
+                    $i['ruta'] = URLSITE . '/' . $i['ruta'];
+                    array_push($img_, $i);
+                }
+                //Sacar etiquetas
+                $row['desarrollo'] = strip_tags($row['desarrollo']);
+                //
+                $cat = $this->categorias->view_row(array("cod = '" . $row['categoria'] . "'"));
+                $array[] = array("data" => $row, "categorias" => $cat, "imagenes" => $img_);
+            }
+            return $array;
+        }
+    }
 }
