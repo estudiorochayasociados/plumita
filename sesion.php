@@ -11,7 +11,7 @@ $template->set("favicon", FAVICON);
 $template->themeInit();
 $usuarios = new Clases\Usuarios();
 $usuarioSesion = $usuarios->view_sesion();
-if (count($usuarioSesion) == 0) {
+if (empty($usuarioSesion)) {
     $funciones->headerMove(URL . "/index");
 }
 ?>
@@ -29,23 +29,11 @@ if (count($usuarioSesion) == 0) {
         </div>
     </section>
     <!-- END BREADCRUMBS -->
-    <section class="categories_product_main p_80">
+    <section class="categories_product_main p_20">
         <div class="container">
             <div class="categories_main_inner">
                 <div class="row row_disable">
-                    <div class="col-lg-9 float-md-right">
-                        <div class="categories_product_area">
-                            <div class="row">
-                                <?php
-                                $op = isset($_GET["op"]) ? $_GET["op"] : 'pedidos';
-                                if ($op != '') {
-                                    include("assets/inc/sesion/" . $op . ".php");
-                                }
-                                ?>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 float-md-right">
+                    <div class="col-lg-3 float-md-left mb-10">
                         <div class="categories_sidebar">
                             <aside class="l_widgest l_menufacture_widget">
                                 <div class="l_w_title">
@@ -72,6 +60,18 @@ if (count($usuarioSesion) == 0) {
                                     </li>
                                 </ul>
                             </aside>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 float-md-right">
+                        <div class="categories_product_area">
+                            <div class="row">
+                                <?php
+                                $op = isset($_GET["op"]) ? $_GET["op"] : 'pedidos';
+                                if ($op != '') {
+                                    include("assets/inc/sesion/" . $op . ".php");
+                                }
+                                ?>
+                            </div>
                         </div>
                     </div>
                 </div>

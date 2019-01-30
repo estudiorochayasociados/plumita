@@ -80,9 +80,9 @@ $template->themeNav();
                         <?= $fecha[2] . '/' . $fecha[1] . '/' . $fecha[0] ?>
                     </div>
                     <p><?= ucfirst($novedades_data['desarrollo']); ?></p>
-                    <div class="shareing_icon mb-10">
-                        <h5>Compartir :</h5>
-                        <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                    <div class="shareing_icon">
+                        <h5 class="pt-40 pb-10">Compartir :</h5>
+                        <div class="a2a_kit a2a_kit_size_32 a2a_default_style pb-40">
                             <a class="a2a_button_facebook"></a>
                             <a class="a2a_button_twitter"></a>
                             <a class="a2a_button_google_plus"></a>

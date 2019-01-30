@@ -3,9 +3,9 @@ require_once "Config/Autoload.php";
 Config\Autoload::runSitio();
 $template = new Clases\TemplateSite();
 $funciones = new Clases\PublicFunction();
-$template->set("title", TITULO." | Carrito de compra");
-$template->set("description", "Carrito de compra ".TITULO);
-$template->set("keywords", "Carrito de compra ".TITULO);
+$template->set("title", TITULO . " | Carrito de compra");
+$template->set("description", "Carrito de compra " . TITULO);
+$template->set("keywords", "Carrito de compra " . TITULO);
 $template->set("favicon", FAVICON);
 $template->themeInit();
 //Clases
@@ -19,6 +19,9 @@ $pagos = new Clases\Pagos();
 $carro = $carrito->return();
 $carroEnvio = $carrito->checkEnvio();
 
+if (count($carro) == 0) {
+    $funciones->headerMove(URL . "/productos.php");
+}
 ?>
 <?php $template->themeNav(); ?>
     <!--================Categories Banner Area =================-->
@@ -34,7 +37,7 @@ $carroEnvio = $carrito->checkEnvio();
         </div>
     </section>
     <!--================End Categories Banner Area =================-->
-    <section class="shopping_cart_area p_100">
+    <section class="shopping_cart_area">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
@@ -59,8 +62,9 @@ $carroEnvio = $carrito->checkEnvio();
                                     $funciones->headerMove(CANONICAL . "");
                                 }
                                 ?>
+                                <div class="clearfix"></div>
                                 <form method="post" class="calculate_shoping_form" id="envio">
-                                    <select name="envio" class="form-control" id="envio" onchange="this.form.submit()">
+                                    <select name="envio" class="form-control mt-5" id="envio" onchange="this.form.submit()">
                                         <option value="" selected disabled>Elegir envío</option>
                                         <?php
                                         foreach ($metodos_de_envios as $metodos_de_envio_) {
@@ -79,27 +83,33 @@ $carroEnvio = $carrito->checkEnvio();
                             }
                             ?>
                         </div>
-                        <div class="table-responsive-md">
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                 <tr>
                                     <th scope="col"></th>
                                     <th scope="col">Producto</th>
-                                    <th scope="col">Precio</th>
-                                    <th scope="col">Cantidad</th>
+                                    <th class="hidden-xs" scope="col">Precio</th>
+                                    <th class="hidden-xs" scope="col">Cantidad</th>
                                     <th scope="col">Total</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
+                                $carroEnvio = $carrito->checkEnvio();
                                 if (isset($_GET["remover"])) {
                                     $carrito->delete($_GET["remover"]);
+                                    $carroEnvio = $carrito->checkEnvio();
+                                    if ($carroEnvio != '') {
+                                        $carrito->delete($carroEnvio);
+                                    }
                                     $funciones->headerMove(URL . "/carrito");
                                 }
 
                                 $i = 0;
                                 $precio = 0;
                                 foreach ($carro as $key => $carroItem) {
+
                                     $precio += ($carroItem["precio"] * $carroItem["cantidad"]);
                                     $opciones = @implode(" - ", $carroItem["opciones"]);
                                     if ($carroItem["id"] == "Envio-Seleccion" || $carroItem["id"] == "Metodo-Pago") {
@@ -107,7 +117,7 @@ $carroEnvio = $carrito->checkEnvio();
                                         $none = "hidden";
                                     } else {
                                         $clase;
-                                        $none;
+                                        $none = "";
                                     }
                                     $productos->set("id", $carroItem['id']);
                                     $pro = $productos->view();
@@ -115,22 +125,28 @@ $carroEnvio = $carrito->checkEnvio();
                                     $img = $imagenes->view();
                                     ?>
                                     <tr>
-                                        <th scope="row">
+                                        <td scope="row">
                                             <a href="<?= URL ?>/carrito.php?remover=<?= $key ?>">
                                                 <img src="<?= URL ?>/assets/img/icon/close-icon.png" alt="">
                                             </a>
-                                        </th>
+                                        </td>
                                         <td>
-                                            <div class="media">
+                                            <div class="media hidden-xs">
                                                 <div class="d-flex" style="width:70px;height:100px;background:url(<?= URL . '/' . $img['ruta']; ?>) no-repeat center center/contain">
                                                 </div>
                                                 <div class="media-body">
                                                     <h4><?= mb_strtoupper($carroItem["titulo"]); ?></h4>
                                                 </div>
                                             </div>
+                                            <div class="d-lg-none text-left">
+                                                <?= mb_strtoupper($carroItem["titulo"]); ?>
+                                                <p class="<?= $none ?>">Precio: <?= "$" . $carroItem["precio"]; ?></p>
+                                                <p class="<?= $none ?>">Cantidad: <?= $carroItem["cantidad"]; ?></p>
+                                            </div>
                                         </td>
-                                        <td><p class="<?= $none ?>"><?= "$" . $carroItem["precio"]; ?></p></td>
-                                        <td><p class="<?= $none ?>"><?= $carroItem["cantidad"]; ?></p></td>
+                                        <td class="hidden-xs"><p class="<?= $none ?>"><?= "$" . $carroItem["precio"]; ?></p></td>
+                                        <td class="hidden-xs"><p class="<?= $none ?>"><?= $carroItem["cantidad"]; ?></p></td>
+
                                         <td><p><?php
                                                 if ($carroItem["precio"] != 0) {
                                                     echo "$" . ($carroItem["precio"] * $carroItem["cantidad"]);

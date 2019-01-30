@@ -263,9 +263,14 @@ class Productos
                 //Agregar url a las imagenes
                 $img = $this->imagenes->list(array("cod = '" . $row['cod'] . "'"));
                 $img_ = array();
-                foreach ($img as $i) {
-                    $i['ruta'] = URLSITE . '/' . $i['ruta'];
-                    array_push($img_, $i);
+                if (count($img) != 0) {
+                    foreach ($img as $i) {
+                        $i['ruta'] = URLSITE . '/' . $i['ruta'];
+                        array_push($img_, $i);
+                    }
+                } else {
+                 /*   $i = array("id" => '', "ruta" => '', "cod" => '');
+                    array_push($img_, $i);*/
                 }
                 //Sacar etiquetas
                 $row['desarrollo'] = strip_tags($row['desarrollo']);

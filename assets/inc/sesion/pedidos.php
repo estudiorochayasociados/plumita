@@ -57,7 +57,7 @@ asort($pedidosArraySinAgrupar);
             </a>
             <div id="collapse<?= $value["cod"] ?>" class="collapse" role="tabpanel"
                  aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
-                <div class="card-body">
+                <div class="card-body d-none d-md-none d-md-block">
                     <div class="row">
                         <div class="col-md-6">
                             <table class="table table-striped table-hover">
@@ -99,29 +99,31 @@ asort($pedidosArraySinAgrupar);
                             </table>
                         </div>
                         <div class="col-md-6">
-                            <table class="table">
+                            <table class="table table-striped table-hover">
                                 <thead class="thead-dark">
                                 <tr>
                                     <th>Usuario</th>
                                     <th></th>
                                 </tr>
+                                </thead>
+                                <tbody>
                                 <tr>
                                     <td>Nombre</td>
-                                    <td width="100%"><?=$usuarioData['nombre'].' '.$usuarioData['apellido']?></td>
+                                    <td width="100%"><?= $usuarioData['nombre'] . ' ' . $usuarioData['apellido'] ?></td>
                                 </tr>
                                 <tr>
                                     <td>Dirección</td>
-                                    <td width="100%"><?=$usuarioData['direccion'].' - '.$usuarioData['localidad'].' - '.$usuarioData['provincia']?></td>
+                                    <td width="100%"><?= $usuarioData['direccion'] . ' - ' . $usuarioData['localidad'] . ' - ' . $usuarioData['provincia'] ?></td>
                                 </tr>
                                 <tr>
                                     <td>Teléfono</td>
-                                    <td width="100%"><?=$usuarioData['telefono']?></td>
+                                    <td width="100%"><?= $usuarioData['telefono'] ?></td>
                                 </tr>
                                 <tr>
                                     <td>Email</td>
-                                    <td width="100%"><?=$usuarioData['email']?></td>
+                                    <td width="100%"><?= $usuarioData['email'] ?></td>
                                 </tr>
-                                </thead>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -138,6 +140,94 @@ asort($pedidosArraySinAgrupar);
                         <?php endif; ?>
                     </span>
                 </span>
+                </div>
+                <div class=" d-md-none">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-striped table-hover">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th>
+                                        Producto
+                                    </th>
+                                    <th>
+                                        Cantidad
+                                    </th>
+                                    <th class="hidden-xs hidden-sm">
+                                        Precio
+                                    </th>
+                                    <th>
+                                        Precio Final
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($pedidosArraySinAgrupar as $key2 => $value2): ?>
+                                    <?php if ($value2['cod'] == $value["cod"]): ?>
+                                        <tr>
+                                            <td><?= $value2["producto"] ?></td>
+                                            <td><?= $value2["cantidad"] ?></td>
+                                            <td>$<?= $value2["precio"] ?></td>
+                                            <td>$<?= $value2["precio"] * $value2["cantidad"] ?></td>
+                                            <?php $precioTotal = $precioTotal + ($value2["precio"] * $value2["cantidad"]); ?>
+                                        </tr>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                                <tr>
+                                    <td><b>TOTAL DE LA COMPRA</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><b>$<?= $precioTotal ?></b></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-striped table-hover">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th>Usuario</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Nombre</td>
+                                    <td width="100%"><?= $usuarioData['nombre'] . ' ' . $usuarioData['apellido'] ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Dirección</td>
+                                    <td width="100%"><?= $usuarioData['direccion'] . ' - ' . $usuarioData['localidad'] . ' - ' . $usuarioData['provincia'] ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Teléfono</td>
+                                    <td width="100%"><?= $usuarioData['telefono'] ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td width="100%"><?= $usuarioData['email'] ?></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="fcenter mb-10">
+                        <hr>
+
+                        <span class="mb-10 fcenter" style="font-size:16px">
+                    <b>FORMA DE PAGO</b>
+                        <br>
+                    <span class="alert-info mt-10" style="border-radius: 10px; padding: 10px;">
+                        <?php if ($value["tipo"] == 0): ?>
+                            Transferencia bancaria
+                        <?php elseif ($value["tipo"] == 1): ?>
+                            Coordinar con vendedor
+                        <?php elseif ($value["tipo"] == 2): ?>
+                            Tarjeta de crédito o débito
+                        <?php endif; ?>
+                    </span>
+                </span>
+                    </div>
                 </div>
             </div>
         </div>

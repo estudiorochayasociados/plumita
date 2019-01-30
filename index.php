@@ -19,12 +19,12 @@ $template->themeInit();
 $ultimos_productos = $producto->listWithOps('', 'RAND()', '12');
 $categoria->set("area", "productos");
 $categorias_ = $categoria->listForArea('');
-$ultimas_categorias=array();
-foreach ($ultimos_productos as $prods){
-    $categoria->set('cod',$prods['data']['categoria']);
-    $cate=$categoria->view();
+$ultimas_categorias = array();
+foreach ($ultimos_productos as $prods) {
+    $categoria->set('cod', $prods['data']['categoria']);
+    $cate = $categoria->view();
     if (($key = array_search($cate, $categorias_)) !== false) {
-        array_push($ultimas_categorias,$cate);
+        array_push($ultimas_categorias, $cate);
         unset($categorias_[$key]);
     }
 }
@@ -51,17 +51,14 @@ foreach ($categorias_sliders as $catS) {
 $template->themeNav();
 ?>
 <!--================Home Carousel Area =================-->
-<div id="carouselControls" class="carousel slide" data-ride="carousel">
+<div id="carouselControls" class="carousel slide mb-50" data-ride="carousel">
     <div class="carousel-inner carousel-index">
         <?php
         $activo = 0;
         foreach ($sliders_data as $sli) {
             ?>
-            <div class="carousel-item <?php if ($activo == 0) {
-                echo 'active';
-                $activo++;
-            } ?>" style="height:400px;background:url(<?= $sli['imagenes']['0']['ruta']; ?>) no-repeat center center/cover;">
-                <!--     <img class="d-block w-100" src="<?= URL . '/' . $sli['imagenes']['0']['ruta']; ?>" alt="First slide">-->
+            <div class="carousel-item <?php if ($activo == 0) { echo 'active'; $activo++; } ?>" >
+                <img class="d-block w-100" src="<?= URL . '/' . $sli['imagenes']['0']['ruta']; ?>" alt="First slide">
             </div>
             <?php
         }
@@ -88,7 +85,7 @@ $template->themeNav();
                 $banner->set("vistas", $value);
                 $banner->increaseViews();
                 ?>
-                <div class="col-lg-6">
+                <div class="col-lg-6 mt-5">
                     <a href="<?= $banM['data']['link']; ?>">
                         <div class="special_offer_item" style="height:300px;background:url(<?= $banM['imagenes']['0']['ruta']; ?>) no-repeat center center/cover;">
                         </div>

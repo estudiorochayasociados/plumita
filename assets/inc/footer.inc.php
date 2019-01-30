@@ -37,7 +37,7 @@ foreach ($categorias_banners as $catB) {
     </div>
 </section>
 <!--================Footer Area =================-->
-<footer class="footer_area">
+<footer class="footer_area mt-100">
     <div class="container">
         <div class="footer_widgets">
             <div class="row">
@@ -59,7 +59,7 @@ foreach ($categorias_banners as $catB) {
                     </aside>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
-                    <aside class="f_widget link_widget f_info_widget">
+                    <aside class="f_widget link_widget f_info_widget fcenter">
                         <div class="f_w_title">
                             <h3>Informacón</h3>
                         </div>
@@ -70,7 +70,7 @@ foreach ($categorias_banners as $catB) {
                     </aside>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
-                    <aside class="f_widget link_widget f_account_widget">
+                    <aside class="f_widget link_widget f_account_widget fcenter">
                         <div class="f_w_title">
                             <h3>Mi cuenta</h3>
                         </div>

@@ -679,7 +679,7 @@ i:before {
 .shop_header_area .navbar {
   padding: 0px;
   background-color: transparent !important;
-  border-top: 2px solid #eeeeee;
+  /*border-top: 2px solid #eeeeee;*/
   border-bottom: 2px solid #d91522;
 }
 
@@ -885,13 +885,13 @@ i:before {
 }
 
 .carousel_menu_inner .navbar .navbar-nav.justify-content-end li a {
-  font-size: 20px;
+  font-size: 15px;
   border: 1px solid #cccccc;
   color: #333333;
   text-align: center;
   display: inline-block;
-  line-height: 48px;
-  padding: 0px 20px;
+  line-height: 38px;
+  padding: 0px 15px;
   -webkit-transition: all 400ms linear 0s;
   -o-transition: all 400ms linear 0s;
   transition: all 400ms linear 0s;
@@ -2053,8 +2053,7 @@ i:before {
 /* Special Offer css
 ============================================================================================ */
 .special_offer_area {
-  padding-top: 30px;
-}
+ }
 
 .special_offer_item {
   position: relative;
@@ -3140,7 +3139,7 @@ i:before {
 }
 
 .fillter_l_p_inner .fillter_l_p li a {
-  font-size: 16px;
+  font-size: 14px;
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   color: #666666;
@@ -3374,7 +3373,7 @@ i:before {
 /* Product Details Slider Area css
 ============================================================================================ */
 .product_details_area {
-  padding-top: 100px;
+  padding-top: 10px;
 }
 
 .product_details_slider .tp-thumbs {
@@ -3499,8 +3498,6 @@ i:before {
   line-height: 24px;
   color: #666666;
   letter-spacing: .325px;
-  border-top: 1px solid #d6d6d6;
-  border-bottom: 1px solid #d6d6d6;
   padding: 16px 0px;
 }
 
@@ -5533,7 +5530,7 @@ i:before {
 /* From Blog css
 ============================================================================================ */
 .from_blog_area {
-  padding-top: 60px;
+  padding-top: 30px;
   padding-bottom: 60px;
 }
 
@@ -6198,9 +6195,6 @@ i:before {
   transition: all 400ms linear 0s;
 }
 
-.pagination_area .pagination li:first-child a {
-  border: 1px solid #000002;
-}
 
 .pagination_area .pagination li.next a {
   background: #333333;
@@ -6210,6 +6204,11 @@ i:before {
 .pagination_area .pagination li:hover a {
   background: #333333;
   color: #fff;
+}
+
+.pagination_area .active {
+    background: #333333;
+    color: #fff !important;
 }
 
 .showing_fillter {

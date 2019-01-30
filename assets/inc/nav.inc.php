@@ -4,34 +4,7 @@ $carro = $carrito->return();
 ?>
 <!--================Menu Area =================-->
 <header class="shop_header_area carousel_menu_area">
-    <div class="carousel_top_header row m0">
-        <div class="container">
-            <div class="carousel_top_h_inner">
-                <div class="float-md-left">
-                    <div class="top_header_left">
-                        <?php
-                        $data_in = "http://ws.geeklab.com.ar/dolar/get-dolar-json.php";
-                        $data_json = @file_get_contents($data_in);
-                        if (strlen($data_json) > 0) {
-                            $data_out = json_decode($data_json, true);
-
-                            if (is_array($data_out)) {
-                                if (isset($data_out['libre'])) echo "Dolar: $" . $data_out['libre'] . "<br>\n";
-                            }
-                        }
-                        ?>
-                    </div>
-                </div>
-                <div class="float-md-right">
-                    <div class="top_header_middle">
-                        <a href="#"><i class="fa fa-phone"></i>Telefono: <span><?= TELEFONO ?></span></a>
-                        <a href="#"><i class="fa fa-envelope"></i> Email: <span><?= EMAIL ?></span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="carousel_menu_inner">
+    <div class="carousel_menu_inner pb-10">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="navbar-brand d-none d-md-block" style="width:15%;height:100px;background:url(<?= LOGO ?>) no-repeat center center/contain;">
@@ -56,6 +29,12 @@ $carro = $carrito->return();
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="<?= URL . '/contacto' ?>">Contacto</a></li>
+                        <?php if (!empty($_SESSION['usuarios'])): ?>
+                            <li class="nav-item d-md-none"><a class="nav-link" href="<?= URL ?>/sesion">Mi cuenta</a></li>
+                        <?php else: ?>
+                            <li class="nav-item d-md-none"><a class="nav-link" data-toggle="modal" data-target="#login"">Iniciar sesion</a></li>
+                        <?php endif; ?>
+                        <li class="nav-item d-md-none"><a class="nav-link" href="<?= URL . '/carrito'; ?>">Carrito</a></li>
                     </ul>
                     <ul class="navbar-nav justify-content-end">
                         <li class="search_icon"><a title="Buscar productos" href="<?= URL ?>/productos#buscar"><i class="icon-magnifier icons"></i></a></li>

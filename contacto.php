@@ -29,7 +29,7 @@ $template->themeNav();
 <!--================End Categories Banner Area =================-->
 
 <!--================Contact Area =================-->
-<section class="contact_area p_100">
+<section class="contact_area ">
     <div class="container">
         <div class="row contact_details">
             <div class="col-lg-4 col-md-6">

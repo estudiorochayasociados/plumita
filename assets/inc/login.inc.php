@@ -45,12 +45,12 @@ endif;
                         <input class="form-control" type="email" placeholder="Correo electrónico" name="email"
                                required>
                     </div>
-                    <div class="col-lg-12 form-group">
+                    <div class="col-lg-12 form-group mb-5">
                         <input class="form-control" type="password" placeholder="Contraseña" name="password"
                                required>
                     </div>
-                    <div class="col-lg-12 form-group">
-                        <h4><a href="#">¿Olvidaste tu contraseña?</a></h4>
+                    <div class="col-lg-12 mt-10 mb-10">
+                        <p><a href="#">¿Olvidaste tu contraseña?</a></p>
                     </div>
                     <div class="col-lg-12 form-group">
                         <button type="submit" name="login" class="btn update_btn form-control">Ingresar</button>

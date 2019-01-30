@@ -15,6 +15,7 @@ $template->themeInit();
 //Categorias
 $categoria->set("area", "productos");
 $categorias_data = $categoria->listForArea('');
+sort($categorias_data);
 //Productos
 $pagina = isset($_GET["pagina"]) ? $_GET["pagina"] : '0';
 $categoria_get = isset($_GET["categoria"]) ? $_GET["categoria"] : '';
@@ -101,7 +102,7 @@ $template->themeNav();
     <!--================End Categories Banner Area =================-->
 
     <!--================Categories Product Area =================-->
-    <section class="categories_product_main p_80">
+    <section class="categories_product_main p_20">
         <div class="container">
             <div class="categories_main_inner">
                 <div class="row row_disable">
@@ -207,9 +208,9 @@ $template->themeNav();
                                                 <?php endif; ?>
 
                                                 <?php for ($i = 1; $i <= $numeroPaginas; $i++): ?>
-                                                    <li class="<?php if ($i == $pagina + 1) {
-                                                        echo "active";
-                                                    } ?>"><a href="<?= $url ?><?= $anidador ?>pagina=<?= $i ?>"><?= $i ?></a></li>
+                                                    <li ><a href="<?= $url ?><?= $anidador ?>pagina=<?= $i ?>" class="<?php if ($i == $pagina + 1) {
+                                                            echo "active";
+                                                        } ?>"><?= $i ?></a></li>
                                                 <?php endfor; ?>
 
                                                 <?php if (($pagina + 2) <= $numeroPaginas): ?>

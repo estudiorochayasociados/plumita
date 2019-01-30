@@ -131,9 +131,8 @@ $template->themeNav();
                         <div class="quantity">
                             <?php
                             if (isset($_POST["enviar"])) {
-
-                                $carroEnvio = $carrito->checkEnvio();
-                                if ($carroEnvio != '') {
+    $carroEnvio = $carrito->checkEnvio();
+                                 if ($carroEnvio != '') {
                                     $carrito->delete($carroEnvio);
                                 }
 
@@ -152,14 +151,16 @@ $template->themeNav();
                                     $carrito->set("precio", $producto_data['data']['precio_descuento']);
                                 }
 
-                                if ($_SESSION["usuarios"]["descuento"] == 1) {
-                                    if ($producto_data['data']['precio'] != $producto_data['data']['precio_mayorista'] && $producto_data['data']['precio_mayorista'] != 0) {
-                                        $carrito->set("precio", $producto_data['data']['precio_mayorista']);
+                                if(is_array($_SESSION["usuarios"])) {
+                                    if ($_SESSION["usuarios"]["descuento"] == 1) {
+                                        if ($producto_data['data']['precio'] != $producto_data['data']['precio_mayorista'] && $producto_data['data']['precio_mayorista'] != 0) {
+                                            $carrito->set("precio", $producto_data['data']['precio_mayorista']);
+                                        } else {
+                                            $carrito->set("precio", $producto_data['data']['precio']);
+                                        }
                                     } else {
                                         $carrito->set("precio", $producto_data['data']['precio']);
                                     }
-                                } else {
-                                    $carrito->set("precio", $producto_data['data']['precio']);
                                 }
                                 $carrito->add();
                                 $funciones->headerMove(CANONICAL . "?success");
