@@ -138,7 +138,7 @@ if (count($carro) == 0) {
                                                     <h4><?= mb_strtoupper($carroItem["titulo"]); ?></h4>
                                                 </div>
                                             </div>
-                                            <div class="d-lg-none text-left">
+                                            <div class="d-md-none text-left">
                                                 <?= mb_strtoupper($carroItem["titulo"]); ?>
                                                 <p class="<?= $none ?>">Precio: <?= "$" . $carroItem["precio"]; ?></p>
                                                 <p class="<?= $none ?>">Cantidad: <?= $carroItem["cantidad"]; ?></p>

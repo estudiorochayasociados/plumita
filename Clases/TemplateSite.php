@@ -9,14 +9,22 @@ class TemplateSite
     public $keywords;
     public $description;
     public $favicon;
-    public $canonical;
-    public $autor;
-    public $made;
-    public $copy;
-    public $pais;
-    public $place;
-    public $position;
+   // public $canonical;
+   // public $autor;
+   // public $made;
+   // public $copy;
+   // public $pais;
+   // public $place;
+   // public $position;
     public $imagen;
+
+    private $canonical = CANONICAL;
+    private $autor     = TITULO;
+    private $made      = EMAIL;
+    private $pais      = 'Argentina';
+    private $place     = PROVINCIA;
+    private $position  = CIUDAD;
+    private $copy      = TITULO;
 
     public function themeInit()
     {
@@ -60,6 +68,17 @@ class TemplateSite
 
             gtag('config', 'UA-132855724-1');
         </script>
+        <!-- Begin Inspectlet Asynchronous Code -->
+        <script type="text/javascript">
+            (function() {
+                window.__insp = window.__insp || [];
+                __insp.push(['wid', 1138757695]);
+                var ldinsp = function(){
+                    if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js?wid=1138757695&r=' + Math.floor(new Date().getTime()/3600000); var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
+                setTimeout(ldinsp, 0);
+            })();
+        </script>
+        <!-- End Inspectlet Asynchronous Code -->
         <?php
 
         echo '<meta charset="utf-8"/>';

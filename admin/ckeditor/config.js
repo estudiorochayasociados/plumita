@@ -8,6 +8,6 @@
  	config.language = 'es';	
  	config.extraAllowedContent = 'a[data-lightbox,data-title,data-lightbox-saved]';
  	config.protectedSource.push(/<\?[\s\S]*?\?>/g); 
- 
+ 	config.entities = false;
  };
  

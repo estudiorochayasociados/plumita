@@ -122,8 +122,8 @@ $correo->emailEnviar();
                         <table class="table table-hover text-left">
                             <thead>
                             <th><b>PRODUCTO</b></th>
-                            <th><b>PRECIO UNITARIO</b></th>
-                            <th><b>CANTIDAD</b></th>
+                            <th class="hidden-xs"><b>PRECIO UNITARIO</b></th>
+                            <th class="hidden-xs"><b>CANTIDAD</b></th>
                             <th><b>TOTAL</b></th>
                             </thead>
                             <tbody>
@@ -140,34 +140,41 @@ $correo->emailEnviar();
                                 }
                                 ?>
                                 <tr class="<?= $clase ?>">
-                                    <td><?= $carroItem["titulo"]; ?></td>
+                                    <td>
+                                        <div class="media hidden-xs">
+                                            <div class="media-body">
+                                                <?= mb_strtoupper($carroItem["titulo"]); ?>
+                                            </div>
+                                        </div>
+                                        <div class="d-md-none text-left">
+                                            <?= mb_strtoupper($carroItem["titulo"]); ?>
+                                            <p class="<?= $none ?>">Precio: <?= "$" . $carroItem["precio"]; ?></p>
+                                            <p class="<?= $none ?>">Cantidad: <?= $carroItem["cantidad"]; ?></p>
+                                        </div>
+                                    </td>
+                                    <td class="hidden-xs"><p class="<?= $none ?>"><?= "$" . $carroItem["precio"]; ?></p></td>
+                                    <td class="hidden-xs"><p class="<?= $none ?>"><?= $carroItem["cantidad"]; ?></p></td>
                                     <?php
                                     if ($carroItem["precio"] != 0) {
                                         ?>
-                                        <td><span class="<?= $none ?>"><?= "$" . $carroItem["precio"]; ?></span>
-                                        </td>
-                                        <td><span class="<?= $none ?>"><?= $carroItem["cantidad"]; ?></span></td>
                                         <td><?= "$" . ($carroItem["precio"] * $carroItem["cantidad"]); ?></td>
                                         <?php
                                     } else {
-                                        echo '<td></td><td></td>';
                                         echo "<td>¡Gratis!</td>";
                                     }
                                     ?>
-
                                 </tr>
                                 <?php
                             }
                             ?>
                             <tr>
                                 <td><h3>TOTAL</h3></td>
-                                <td></td>
-                                <td></td>
+                                <td class="hidden-xs"></td>
+                                <td class="hidden-xs"></td>
                                 <td><h3>$<?= number_format($precio, "2", ",", ".") ?></h3></td>
                             </tr>
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
