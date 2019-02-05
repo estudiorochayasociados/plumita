@@ -59,7 +59,7 @@ asort($pedidosArraySinAgrupar);
                  aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <table class="table table-striped table-hover">
                                 <thead class="thead-dark">
                                 <tr>
@@ -101,38 +101,11 @@ asort($pedidosArraySinAgrupar);
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-md-6">
-                            <table class="table table-striped table-hover">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th>Usuario</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>Nombre</td>
-                                    <td width="100%"><?= $usuarioData['nombre'] . ' ' . $usuarioData['apellido'] ?></td>
-                                </tr>
-                                <tr>
-                                    <td>Dirección</td>
-                                    <td width="100%"><?= $usuarioData['direccion'] . ' - ' . $usuarioData['localidad'] . ' - ' . $usuarioData['provincia'] ?></td>
-                                </tr>
-                                <tr>
-                                    <td>Teléfono</td>
-                                    <td width="100%"><?= $usuarioData['telefono'] ?></td>
-                                </tr>
-                                <tr>
-                                    <td>Email</td>
-                                    <td width="100%"><?= $usuarioData['email'] ?></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                     <hr>
                     <span style="font-size:16px">
-                    <b>FORMA DE PAGO</b>
+                    <b class="mb-10">FORMA DE PAGO</b>
+                        <br class="visible-xs">
                     <span class="alert-info" style="border-radius: 10px; padding: 10px;">
                         <?php if ($value["tipo"] == 0): ?>
                             Transferencia bancaria

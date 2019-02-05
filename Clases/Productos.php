@@ -269,8 +269,8 @@ class Productos
                         array_push($img_, $i);
                     }
                 } else {
-                 /*   $i = array("id" => '', "ruta" => '', "cod" => '');
-                    array_push($img_, $i);*/
+                    /*   $i = array("id" => '', "ruta" => '', "cod" => '');
+                       array_push($img_, $i);*/
                 }
                 //Sacar etiquetas
                 $row['desarrollo'] = strip_tags($row['desarrollo']);
@@ -280,5 +280,13 @@ class Productos
             }
             return $array;
         }
+    }
+
+    public function editUnico($atributo, $valor)
+    {
+        $sql = "UPDATE `productos` SET
+`$atributo` = '{$valor}'
+WHERE `id`='{$this->id}' || `cod`='{$this->cod}'";
+        $this->con->sql($sql);
     }
 }

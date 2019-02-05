@@ -11,6 +11,7 @@ class Carrito
     public $peso;
     public $precio;
     public $opciones;
+    public $stock;
     private $con;
 
 
@@ -34,10 +35,11 @@ class Carrito
     {
         $condition = '';
 
-        $add = array('id' => $this->id, 'titulo' => $this->titulo, 'cantidad' => $this->cantidad, 'precio' => $this->precio, 'peso' => $this->peso, 'opciones' => $this->opciones);
+        $add = array('id' => $this->id, 'titulo' => $this->titulo, 'cantidad' => $this->cantidad, 'precio' => $this->precio, 'stock' => $this->stock,'peso' => $this->peso, 'opciones' => $this->opciones);
 
         if (count($_SESSION["carrito"]) == 0) {
             array_push($_SESSION["carrito"], $add);
+            return true;
         } else {
             for ($i = 0; $i < count($_SESSION["carrito"]); $i++) {
                 if ($_SESSION["carrito"][$i]["id"] == $this->id) {
@@ -46,9 +48,16 @@ class Carrito
             }
 
             if (is_numeric($condition)) {
-                $_SESSION["carrito"][$condition]["cantidad"] = $_SESSION["carrito"][$condition]["cantidad"] + $this->cantidad;
+                $stock_carrito = $_SESSION["carrito"][$condition]["cantidad"] + $add["cantidad"];
+                if($stock_carrito <= $add["stock"]) {
+                    $_SESSION["carrito"][$condition]["cantidad"] = $_SESSION["carrito"][$condition]["cantidad"] + $this->cantidad;
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
                 array_push($_SESSION["carrito"], $add);
+                return true;
             }
         }
     }

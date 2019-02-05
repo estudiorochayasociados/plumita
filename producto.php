@@ -28,7 +28,9 @@ $template->set("favicon", FAVICON);
 $template->themeInit();
 //Carro
 $carro = $carrito->return();
-//
+$url_limpia = CANONICAL;
+$url_limpia = str_replace("?success","",$url_limpia);
+$url_limpia = str_replace("?error","",$url_limpia);
 ?>
 <?php
 $template->themeNav();
@@ -78,7 +80,8 @@ $template->themeNav();
                 <div class="col-lg-8">
                     <div class="product_details_text">
                         <h3><?= ucfirst($producto_data['data']['titulo']); ?></h3>
-                        <h6>Disponibilidad: <span> consultar</span></h6>
+                        <h6>Disponibilidad: <span> <?= $producto_data["data"]["stock"] ?></span>
+                        </h6>
                         <?php
                         if (!empty($_SESSION['usuarios'])) {
                             if ($producto_data['data']['precio_mayorista'] != 0) {
@@ -131,8 +134,8 @@ $template->themeNav();
                         <div class="quantity">
                             <?php
                             if (isset($_POST["enviar"])) {
-    $carroEnvio = $carrito->checkEnvio();
-                                 if ($carroEnvio != '') {
+                                $carroEnvio = $carrito->checkEnvio();
+                                if ($carroEnvio != '') {
                                     $carrito->delete($carroEnvio);
                                 }
 
@@ -144,14 +147,14 @@ $template->themeNav();
                                 $carrito->set("cantidad", $_POST["cantidad"]);
                                 $carrito->set("titulo", $producto_data['data']['titulo']);
                                 $carrito->set("precio", $producto_data['data']['precio']);
-
+                                $carrito->set("stock", $producto_data['data']['stock']);
                                 if (($producto_data['data']['precio_descuento'] <= 0) || $producto_data['data']["precio_descuento"] == '') {
                                     $carrito->set("precio", $producto_data['data']['precio']);
                                 } else {
                                     $carrito->set("precio", $producto_data['data']['precio_descuento']);
                                 }
 
-                                if(is_array($_SESSION["usuarios"])) {
+                                if (is_array($_SESSION["usuarios"])) {
                                     if ($_SESSION["usuarios"]["descuento"] == 1) {
                                         if ($producto_data['data']['precio'] != $producto_data['data']['precio_mayorista'] && $producto_data['data']['precio_mayorista'] != 0) {
                                             $carrito->set("precio", $producto_data['data']['precio_mayorista']);
@@ -162,18 +165,24 @@ $template->themeNav();
                                         $carrito->set("precio", $producto_data['data']['precio']);
                                     }
                                 }
-                                $carrito->add();
-                                $funciones->headerMove(CANONICAL . "?success");
+
+
+                                if ($carrito->add()) {
+                                    $funciones->headerMove($url_limpia."?success");
+                                } else {
+                                    $funciones->headerMove($url_limpia."?error");
+                                }
                             }
                             if (strpos(CANONICAL, "success") == true) {
                                 echo "<div class='alert alert-success'>Agregaste un producto a tu carrito, querés <a href='" . URL . "/carrito'><b>pasar por caja</b></a> o <a href='" . URL . "/productos'><b>seguir comprando</b></a></div>";
                             }
+                            if (strpos(CANONICAL, "error") == true) {
+                                echo "<div class='alert alert-danger'>No se puede agregar por falta de stock, compruebe si ya posee este producto en su carrito.</div>";
+                            }
                             ?>
                             <form method="post">
                                 <div class="custom">
-                                    <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="icon_minus-06"></i></button>
-                                    <input type="text" name="cantidad" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-                                    <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" class="increase items-count" type="button"><i class="icon_plus"></i></button>
+                                    <input max="<?= $producto_data['data']['stock'] ?>" min="1" type="number" name="cantidad" id="sst" maxlength="12" value="1" title="Ingresar valores con respecto al stock" class="input-text qty" oninvalid="this.setCustomValidity('Stock disponible: <?= $producto_data['data']['stock'] ?>')" oninput="this.setCustomValidity('')">
                                 </div>
                                 <button class="add_cart_btn" name="enviar">Añadir</button>
                             </form>

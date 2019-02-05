@@ -13,6 +13,7 @@ $pedidos = new Clases\Pedidos();
 $carritos = new Clases\Carrito();
 $contenido = new Clases\Contenidos();
 $correo = new Clases\Email();
+$producto = new Clases\Productos();
 $cod_pedido = $_SESSION["cod_pedido"];
 $pedidos->set("cod", $cod_pedido);
 $pedido_info = $pedidos->info();
@@ -135,6 +136,11 @@ $correo->emailEnviar();
                                     $clase = "text-bold";
                                     $none = "hidden";
                                 } else {
+                                    $producto->set("id",$carroItem['id']);
+                                    $producto_data=$producto->view();
+                                    if (!empty($producto_data)){
+                                        $producto->editUnico("stock",$producto_data['stock']-$carroItem['cantidad']);
+                                    }
                                     $clase = '';
                                     $none = '';
                                 }
@@ -182,6 +188,7 @@ $correo->emailEnviar();
     </div>
 
 <?php
+
 $carritos->destroy();
 unset($_SESSION["cod_pedido"]);
 $template->themeEnd();

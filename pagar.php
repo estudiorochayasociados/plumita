@@ -29,7 +29,7 @@ $template->themeNav();
             <div class="solid_banner_inner navegador">
                 <h3>Compra N°: <?= $cod_pedido ?></h3>
                 <ul>
-                     <li>Llená el siguiente formulario para poder finalizar tu compra <span class="em em---1"></span></li>
+                    <li>Llená el siguiente formulario para poder finalizar tu compra <span class="em em---1"></span></li>
                 </ul>
             </div>
         </div>
@@ -37,7 +37,7 @@ $template->themeNav();
     <!--================End Categories Banner Area =================-->
 
     <div class="container mt-30">
-         <?php
+        <?php
         if (isset($_POST["registrarmeBtn"])) {
             $error = 0;
             $cod = substr(md5(uniqid(rand())), 0, 10);
@@ -114,16 +114,24 @@ $template->themeNav();
                                value="<?php echo isset($_POST["telefono"]) ? $_POST["telefono"] : '' ?>"
                                placeholder="Escribir telefono" name="telefono" required/>
                     </div>
-                    <div class="col-md-4">Provincia:<br/>
-                        <input class="form-control  mb-10" type="text"
-                               value="<?php echo isset($_POST["provincia"]) ? $_POST["provincia"] : '' ?>"
-                               placeholder="Escribir provincia" name="provincia" required/>
+
+                    <div class="col-md-4">Provincia
+                        <div class="input-group">
+                            <select class="pull-right form-control h40" name="provincia" id="provincia" required>
+                                <option value="" selected disabled>Provincia</option>
+                                <?php $funciones->provincias() ?>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-md-4">Localidad:<br/>
-                        <input class="form-control  mb-10" type="text"
-                               value="<?php echo isset($_POST["localidad"]) ? $_POST["localidad"] : '' ?>"
-                               placeholder="Escribir localidad" name="localidad" required/>
+
+                    <div class="col-md-4">Localidad
+                        <div class="input-group">
+                            <select class="form-control h40" name="localidad" id="localidad" required>
+                                <option value="" selected disabled>Localidad</option>
+                            </select>
+                        </div>
                     </div>
+
                     <div class="col-md-4">Dirección:<br/>
                         <input class="form-control  mb-10" type="text"
                                value="<?php echo isset($_POST["direccion"]) ? $_POST["direccion"] : '' ?>"

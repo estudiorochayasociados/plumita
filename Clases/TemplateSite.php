@@ -124,6 +124,11 @@ class TemplateSite
         echo '<meta property="og:image" content="' . $this->imagen . '" />';
 
         ?>
+
+
+        <!-- Start of HubSpot Embed Code -->
+        <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/5436420.js"></script>
+        <!-- End of HubSpot Embed Code -->
     </head>
         <body>
         <?php

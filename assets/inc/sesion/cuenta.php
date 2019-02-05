@@ -98,9 +98,9 @@ $usuarioData = $usuario->view();
             <div class="col-md-6">Provincia
                 <div class="input-group">
                     <select class="pull-right form-control h40" name="provincia" id="provincia" required>
-                        <option value="<?= $usuarioData['provincia'] ?>"
-                                selected><?= $usuarioData['provincia'] ?></option>
-                        <?php $funciones->provincias(); ?>
+                        <option value="<?= $usuarioData['provincia'] ?>" selected><?= $usuarioData['provincia'] ?></option>
+                        <option value="" disabled>Provincia</option>
+                        <?php $funciones->provincias() ?>
                     </select>
                     <span class="input-group-addon"><i
                                 class="login_icon glyphicon glyphicon-map-marker"></i></span>
@@ -111,6 +111,7 @@ $usuarioData = $usuario->view();
                     <select class="form-control h40" name="localidad" id="localidad" required>
                         <option value="<?= $usuarioData['localidad'] ?>"
                                 selected><?= $usuarioData['localidad'] ?></option>
+                        <option value="" disabled>Localidad</option>
                     </select>
                     <span class="input-group-addon"><i
                                 class="login_icon glyphicon glyphicon-map-marker"></i></span>

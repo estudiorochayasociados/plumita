@@ -1,6 +1,7 @@
 <?php
 $funcionesNav = new Clases\PublicFunction();
 //Clases
+$enviar= new Clases\Email();
 $imagenesNav = new Clases\Imagenes();
 $usuario = new Clases\Usuarios();
 $categoriasNav = new Clases\Categorias();
@@ -91,6 +92,26 @@ if (isset($_POST["registrar"])):
         <?php
         else:
             $usuario->login();
+            //Envio de mail al usuario
+        $mensaje = 'Gracias por registrarse ' . ucfirst($nombre) . '<br/>';
+        $asunto = TITULO . ' - Registro';
+        $receptor = $email;
+        $emisor = EMAIL;
+        $enviar->set("asunto", $asunto);
+        $enviar->set("receptor", $receptor);
+        $enviar->set("emisor", $emisor);
+        $enviar->set("mensaje", $mensaje);
+        $enviar->emailEnviar();
+        //Envio de mail a la empresa
+        $mensaje2 = 'El usuario ' . ucfirst($nombre).' '. ucfirst($apellido) . ' acaba de registrarse en nuestra plataforma' . '<br/>';
+        $asunto2 = TITULO . ' - Registro';
+        $receptor2 = EMAIL;
+        $emisor2 = EMAIL;
+        $enviar->set("asunto", $asunto2);
+        $enviar->set("receptor", $receptor2);
+        $enviar->set("emisor", $emisor2);
+        $enviar->set("mensaje", $mensaje2);
+        $enviar->emailEnviar();
             $funcionesNav->headerMove(CANONICAL);
         endif;
     else:

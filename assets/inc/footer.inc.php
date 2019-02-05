@@ -48,7 +48,7 @@ foreach ($categorias_banners as $catB) {
                         <p>Fabricante de cortadoras, bordeadoras de céspec y electrobombas</p>
                         <h6>Redes sociales:</h6>
                         <ul>
-                            <li><a href="https://www.facebook.com/plumitasrl/"><i class="social_facebook"></i></a></li>
+                            <li><a href="https://www.facebook.com/plumitasrl/" target="_blank"><i class="social_facebook"></i></a></li>
                             <!--
                             <li><a href="#"><i class="social_twitter"></i></a></li>
                             <li><a href="#"><i class="social_pinterest"></i></a></li>
@@ -61,7 +61,7 @@ foreach ($categorias_banners as $catB) {
                 <div class="col-lg-2 col-md-4 col-6">
                     <aside class="f_widget link_widget f_info_widget fcenter">
                         <div class="f_w_title">
-                            <h3>Informacón</h3>
+                            <h3>Información</h3>
                         </div>
                         <ul>
                             <li><a href="<?= URL ?>/c/empresa">Sobre nosotros</a></li>
@@ -140,6 +140,29 @@ foreach ($categorias_banners as $catB) {
 <script src="<?= URL ?>/vendors/jquery-ui/jquery-ui.js"></script>
 <script src="<?= URL ?>/assets/js/theme.js"></script>
 
+<script>
+    $("#provincia").change(function () {
+        $("#provincia option:selected").each(function () {
+            elegido = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "<?=URL ?>/assets/inc/localidades.inc.php",
+                data: "elegido=" + elegido,
+                dataType: "html",
+                success: function (data) {
+                    $('#localidad option').remove();
+                    var substr = data.split(';');
+                    for (var i = 0; i < substr.length; i++) {
+                        var value = substr[i];
+                        $("#localidad").append(
+                            $("<option></option>").attr("value", value).text(value)
+                        );
+                    }
+                }
+            });
+        });
+    })
+</script>
 <?php include("login.inc.php"); ?>
 
 </body>
