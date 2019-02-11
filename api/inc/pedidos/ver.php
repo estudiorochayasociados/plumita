@@ -1,32 +1,21 @@
 <?php
+header('Content-Type: application/json');
 //Clases
 $pedidos = new Clases\Pedidos();
 $funciones = new Clases\PublicFunction();
 $usuarios = new Clases\Usuarios();
 
-$estadoFiltro = isset($_GET["estadoFiltro"]) ? $_GET["estadoFiltro"] : '';
-$estado = isset($_GET["estado"]) ? $_GET["estado"] : '';
-$cod = isset($_GET["cod"]) ? $_GET["cod"] : '';
-$tipo = isset($_GET["tipo"]) ? $_GET["tipo"] : '';
-$usuario = isset($_GET["usuario"]) ? $_GET["usuario"] : '';
+$usuario = isset($_GET["cod"]) ? $_GET["cod"] : '';
 
-$filter = '';
-if ($estado != '') {
-    $filter = array("estado = $estado");
-}
-$data = $pedidos->list($filter);
+$filterPedidosAgrupados = array("usuario = '".$usuario."' GROUP BY cod");
+$filterPedidosSinAgrupar = array("usuario = '".$usuario."'");
 
-if ($estadoFiltro != '' && $estadoFiltro != 5) {
-    $filterPedidosAgrupados = array("estado = '" . $estadoFiltro . "' GROUP BY cod");
-    $filterPedidosSinAgrupar = array("estado = '" . $estadoFiltro . "'");
-} else {
-    $filterPedidosAgrupados = array("cod != '' GROUP BY cod");
-    $filterPedidosSinAgrupar = "";
-}
 
 $pedidosArrayAgrupados = $pedidos->list($filterPedidosAgrupados);
 $pedidosArraySinAgrupar = $pedidos->list($filterPedidosSinAgrupar);
+
 asort($pedidosArraySinAgrupar);
+
 $pedidos_array=array();
 
 foreach ($pedidosArrayAgrupados as $key => $value) {
@@ -38,6 +27,7 @@ foreach ($pedidosArrayAgrupados as $key => $value) {
     $fecha1 = $fecha1[2] . '-' . $fecha1[1] . '-' . $fecha1[0] . '-';
     $fecha = $fecha1 . $fecha[1];
     $detalle_=array();
+
     switch ($value['estado']) {
         case 0:
             //Estado: Carrito no cerrado
@@ -60,6 +50,7 @@ foreach ($pedidosArrayAgrupados as $key => $value) {
             $estado="Pago rechazado";
             break;
     }
+
     foreach ($pedidosArraySinAgrupar as $key2 => $value2) {
         if ($value2['cod'] == $value['cod']) {
             $precioTotal = $precioTotal + ($value2["precio"] * $value2["cantidad"]);

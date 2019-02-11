@@ -25,7 +25,7 @@ $carro = $carrito->return();
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item"><a class="nav-link" href="<?= URL . '/c/empresa' ?>">Sobre nosotros</a></li>
-                                <li class="nav-item"><a class="nav-link" href="<?= URL . '/c/servicio técnico' ?>">Servicio técnico</a></li>
+                                <li class="nav-item"><a class="nav-link" href="<?= URL . '/c/servicio-técnico' ?>">Servicio técnico</a></li>
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="<?= URL . '/contacto' ?>">Contacto</a></li>

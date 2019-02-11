@@ -11,16 +11,20 @@ $template->set("description", ucfirst(substr(strip_tags($contenido_data['conteni
 $template->set("keywords", TITULO . " | Empresa");
 $template->set("favicon", FAVICON);
 $template->themeInit();
-
+if ($contenido_data['cod']=="servicio-técnico"){
+    $cod="Servicio Técnico";
+}else{
+    $cod=$contenido_data['cod'];
+}
 $template->themeNav();
 ?>
 <section class="solid_banner_area">
     <div class="container">
         <div class="solid_banner_inner navegador">
-            <h3><?= ucfirst($contenido_data['cod']); ?></h3>
+            <h3><?= ucfirst($cod); ?></h3>
             <ul>
                 <li><a href="<?= URL ?>/index">Inicio</a></li>
-                <li class="current"><a href="#"><?= ucfirst($contenido_data['cod']); ?></a></li>
+                <li class="current"><a href="#"><?= ucfirst($cod); ?></a></li>
             </ul>
         </div>
     </div>

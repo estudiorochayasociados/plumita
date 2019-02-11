@@ -46,7 +46,7 @@ class autoload
     public static function runAdmin()
     {
         session_start();
-        define('URLSITE',"http://".$_SERVER['HTTP_HOST']."/plumita");
+            define('URLSITE',"http://".$_SERVER['HTTP_HOST']."/plumita");
         define('URL', "http://".$_SERVER['HTTP_HOST']."/plumita/admin");
         define('CANONICAL', "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]);
         require_once "../Clases/Zebra_Image.php";

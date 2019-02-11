@@ -22,6 +22,7 @@ if (is_array($usuarioSesion)) {
 }
 
 $template->themeNav();
+$error='';
 ?>
     <!--================Categories Banner Area =================-->
     <section class="solid_banner_area">
@@ -48,22 +49,23 @@ $template->themeNav();
             $password1 = $funciones->antihack_mysqli(isset($_POST["password1"]) ? $_POST["password1"] : '');
             $password2 = $funciones->antihack_mysqli(isset($_POST["password2"]) ? $_POST["password2"] : '');
             $postal = $funciones->antihack_mysqli(isset($_POST["postal"]) ? $_POST["postal"] : '');
+            $direccion = $funciones->antihack_mysqli(isset($_POST["direccion"]) ? $_POST["direccion"] : '');
             $localidad = $funciones->antihack_mysqli(isset($_POST["localidad"]) ? $_POST["localidad"] : '');
             $provincia = $funciones->antihack_mysqli(isset($_POST["provincia"]) ? $_POST["provincia"] : '');
             $pais = $funciones->antihack_mysqli(isset($_POST["pais"]) ? $_POST["pais"] : '');
             $telefono = $funciones->antihack_mysqli(isset($_POST["telefono"]) ? $_POST["telefono"] : '');
             $celular = $funciones->antihack_mysqli(isset($_POST["celular"]) ? $_POST["celular"] : '');
-            $invitado = $funciones->antihack_mysqli(isset($_POST["invitado"]) ? $_POST["invitado"] : '0');
+            $invitado = $funciones->antihack_mysqli(isset($_POST["invitado"]) ? $_POST["invitado"] : '1');
             $descuento = $funciones->antihack_mysqli(isset($_POST["descuento"]) ? $_POST["descuento"] : '');
             $fecha = $funciones->antihack_mysqli(isset($_POST["fecha"]) ? $_POST["fecha"] : date("Y-m-d"));
 
-            $usuarios->set("cod", $cod);
             $usuarios->set("nombre", $nombre);
             $usuarios->set("apellido", $apellido);
             $usuarios->set("doc", $doc);
             $usuarios->set("email", $email);
-            $usuarios->set("password1", $password1);
+            $usuarios->set("password", $password1);
             $usuarios->set("postal", $postal);
+            $usuarios->set("direccion", $direccion);
             $usuarios->set("localidad", $localidad);
             $usuarios->set("provincia", $provincia);
             $usuarios->set("pais", $pais);
@@ -73,24 +75,65 @@ $template->themeNav();
             $usuarios->set("descuento", $descuento);
             $usuarios->set("fecha", $fecha);
 
-            if ($invitado == 1) {
-                if ($password1 != $password2) {
-                    $error = 1;
-                    echo "Error las contraseñas no coinciden.<br/>";
-                } else {
-                    $error = 0;
-                    $usuarios->add();
-                }
+            $email_data = $usuarios->validate();
+            if (!empty($email_data)) {
+                $cod = $email_data['cod'];
             } else {
-                if ($error == 0) {
-                    $usuarios->invitado_sesion();
-                }
+                $cod = substr(md5(uniqid(rand())), 0, 10);
             }
-
-            $funciones->headerMove(URL . "/checkout/" . $cod_pedido . "/" . $tipo_pedido);
+            $usuarios->set("cod", $cod);
+            switch ($invitado) {
+                //checkbox marcado
+                case 0:
+                    //si existe el email, edita
+                    if (!empty($email_data)) {
+                        //pregunta si esta registrado
+                        if ($email_data['invitado'] == 0) {
+                            $error="Ya existe un usuario registrado con este email.";
+                        } else {
+                            //si invitado es 1
+                            if ($password1 != $password2) {
+                                $error="Error las contraseñas no coinciden.";
+                            } else {
+                                $usuarios->edit();
+                                $usuarios->login();
+                                $funciones->headerMove(URL . "/checkout/" . $cod_pedido . "/" . $tipo_pedido);
+                            }
+                        }
+                    } else {
+                        //si no existe, agrega el usuario
+                        if ($password1 != $password2) {
+                            $error="Error las contraseñas no coinciden.";
+                        } else {
+                            $usuarios->add();
+                            $usuarios->login();
+                            $funciones->headerMove(URL . "/checkout/" . $cod_pedido . "/" . $tipo_pedido);
+                        }
+                    }
+                    break;
+                //checkbox desmarcado
+                case 1:
+                    //si el email exite
+                    if (!empty($email_data)){
+                        //si el email tiene invitado 1
+                        if ($email_data['invitado'] == 1) {
+                            $usuarios->edit();
+                            $usuarios->login();
+                            $funciones->headerMove(URL . "/checkout/" . $cod_pedido . "/" . $tipo_pedido);
+                        }else{
+                            $error="Ya existe un usuario registrado con este email.";
+                        }
+                    }else{
+                        //el email no existe
+                        $usuarios->invitado_sesion();
+                        $funciones->headerMove(URL . "/checkout/" . $cod_pedido . "/" . $tipo_pedido);
+                    }
+                    break;
+            }
         }
         ?>
         <div class="col-md-12">
+            <div class="<?php if (empty($error)){ echo 'oculto'; } ?>alert alert-warning" role="alert"><?=$error;?></div>
             <form method="post" class="row">
                 <div class="row">
                     <input type="hidden" value="<?= $tipo_pedido ?>" name="metodos-pago"/>
@@ -138,17 +181,17 @@ $template->themeNav();
                                placeholder="Escribir dirección" name="direccion" required/>
                     </div>
                     <label class="col-md-12 col-xs-12 mt-10 mb-10 crear" style="font-size:16px">
-                        <input type="checkbox" name="invitado" value="1" onchange="$('.password').slideToggle()">
+                        <input type="checkbox" name="invitado" value="0" onchange="$('.password').slideToggle()">
                         ¿Deseas crear una cuenta de usuario y dejar tus datos grabados para la próxima compra?
                     </label>
                     <div class="col-md-6 col-xs-6 password" style="display: none;">Contraseña:<br/>
                         <input class="form-control  mb-10" type="password"
-                               value="<?php echo isset($_POST["password1"]) ? $_POST["password1"] : '' ?>"
+                               value=""
                                placeholder="Escribir password" name="password1"/>
                     </div>
                     <div class="col-md-6 col-xs-6 password" style="display: none;">Repetir Contraseña:<br/>
                         <input class="form-control  mb-10" type="password"
-                               value="<?php echo isset($_POST["password2"]) ? $_POST["password2"] : '' ?>"
+                               value=""
                                placeholder="Escribir repassword" name="password2"/>
                     </div>
 

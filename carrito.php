@@ -95,13 +95,16 @@ if (count($carro) == 0) {
                                 </thead>
                                 <tbody>
                                 <?php
-                                $carroEnvio = $carrito->checkEnvio();
                                 if (isset($_GET["remover"])) {
-                                    $carrito->delete($_GET["remover"]);
+                                    $carroPago = $carrito->checkPago();
+                                    if ($carroPago != '') {
+                                        $carrito->delete($carroPago);
+                                    }
                                     $carroEnvio = $carrito->checkEnvio();
                                     if ($carroEnvio != '') {
                                         $carrito->delete($carroEnvio);
                                     }
+                                    $carrito->delete($_GET["remover"]);
                                     $funciones->headerMove(URL . "/carrito");
                                 }
 

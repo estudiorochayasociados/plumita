@@ -14,6 +14,7 @@ $carritos = new Clases\Carrito();
 $contenido = new Clases\Contenidos();
 $correo = new Clases\Email();
 $producto = new Clases\Productos();
+$usuarios = new Clases\Usuarios();
 $cod_pedido = $_SESSION["cod_pedido"];
 $pedidos->set("cod", $cod_pedido);
 $pedido_info = $pedidos->info();
@@ -21,6 +22,9 @@ $pedido_info = $pedidos->info();
 if (count($_SESSION["carrito"]) == 0) {
     $funciones->headerMove(URL . "/index");
 }
+
+$usuarios->set("cod",$_SESSION["usuarios"]["cod"]);
+$usuario_data = $usuarios->view();
 
 if ($estado_get != '') {
     $pedidos->set("estado", $estado_get);
@@ -191,5 +195,8 @@ $correo->emailEnviar();
 
 $carritos->destroy();
 unset($_SESSION["cod_pedido"]);
+if($usuario_data["invitado"] == 1){
+    unset($_SESSION["usuarios"]);
+}
 $template->themeEnd();
 ?>

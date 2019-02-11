@@ -95,7 +95,7 @@ class Usuarios
         $sql = "SELECT * FROM `usuarios` WHERE `email` = '{$this->email}' AND `password`= '{$this->password}'";
         $usuarios = $this->con->sqlReturn($sql);
         $contar = mysqli_num_rows($usuarios);
-        $row = mysqli_fetch_assoc($usuarios);
+        $row = mysqli_fetch_assoc($usuarios); 
         if ($contar == 1) {
             $_SESSION["usuarios"] = $row;
         }

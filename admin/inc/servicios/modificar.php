@@ -119,7 +119,7 @@ $imagenes->imagenesAdmin();
         <div class="clearfix"></div>
         <br/>
         <div class="col-md-12">
-            <input type="submit" class="btn btn-primary" name="agregar" value="Guardar" />
+            <input type="submit" class="btn btn-primary" name="agregar" value="Modificar Servicios" />
         </div>
     </form>
 </div>

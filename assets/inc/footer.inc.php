@@ -65,7 +65,7 @@ foreach ($categorias_banners as $catB) {
                         </div>
                         <ul>
                             <li><a href="<?= URL ?>/c/empresa">Sobre nosotros</a></li>
-                            <li><a href="<?= URL ?>/c/servicio técnico">Servicio técnico</a></li>
+                            <li><a href="<?= URL ?>/c/servicio-técnico">Servicio técnico</a></li>
                         </ul>
                     </aside>
                 </div>
@@ -113,7 +113,6 @@ foreach ($categorias_banners as $catB) {
 <script async src="https://static.addtoany.com/menu/page.js"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins)-->
 <script src="<?= URL ?>/assets/js/jquery-3.2.1.min.js"></script>
-
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="<?= URL ?>/assets/js/popper.min.js"></script>
 <script src="<?= URL ?>/assets/js/bootstrap.min.js"></script>
@@ -139,7 +138,7 @@ foreach ($categorias_banners as $catB) {
 
 <script src="<?= URL ?>/vendors/jquery-ui/jquery-ui.js"></script>
 <script src="<?= URL ?>/assets/js/theme.js"></script>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
 <script>
     $("#provincia").change(function () {
         $("#provincia option:selected").each(function () {

@@ -135,7 +135,7 @@ if (isset($_POST["agregar"])) {
         </div>
         <br/>
         <div class="col-md-12">
-            <input type="submit" class="btn btn-primary" name="agregar" value="Modificar" />
+            <input type="submit" class="btn btn-primary" name="agregar" value="Modificar Landing" />
         </div>
     </form>
 </div>
