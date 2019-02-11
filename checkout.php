@@ -8,7 +8,6 @@ $template->set("description", "Cierre de compra");
 $template->set("keywords", "Cierre de compra");
 $template->set("favicon", FAVICON);
 $template->themeInit();
-$template->themeNav();
 $cod_pedido = isset($_GET["cod_pedido"]) ? $_GET["cod_pedido"] : '';
 $tipo_pedido = isset($_GET["tipo_pedido"]) ? $_GET["tipo_pedido"] : '';
 
@@ -100,7 +99,7 @@ switch ($pago["tipo"]) {
             "back_urls" => array(
                 "success" => "/compra-finalizada.php?estado=2",
                 "pending" => "/compra-finalizada.php?estado=1",
-                "failure" => "/compra-finalizada.php?estado=0",
+                "failure" => "/compra-finalizada.php?estado=4",
             ),
             "external_reference" => $cod_pedido,
             "auto_return" => "all",
@@ -114,8 +113,8 @@ switch ($pago["tipo"]) {
             ),
         );
         $preference = $mp->create_preference($preference_data);
-        //$funciones->headerMove($preference["response"]["sandbox_init_point"]);
-        echo "<iframe src='" . $preference["response"]["sandbox_init_point"] . "' width='100%' height='700px' style='border:0;margin:0'></iframe>";
+        $funciones->headerMove($preference["response"]["sandbox_init_point"]);
+        //echo "<iframe src='" . $preference["response"]["sandbox_init_point"] . "' width='100%' height='700px' style='border:0;margin:0'></iframe>";
         break;
 }
 ?>

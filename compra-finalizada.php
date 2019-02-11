@@ -23,13 +23,13 @@ if (count($_SESSION["carrito"]) == 0) {
     $funciones->headerMove(URL . "/index");
 }
 
-$usuarios->set("cod",$_SESSION["usuarios"]["cod"]);
+$usuarios->set("cod", $_SESSION["usuarios"]["cod"]);
 $usuario_data = $usuarios->view();
 
 if ($estado_get != '') {
     $pedidos->set("estado", $estado_get);
-    $pedidos->cambiar_estado();
     $pedidos->set("cod", $cod_pedido);
+    $pedidos->cambiar_estado();
     $pedido_info = $pedidos->info();
 }
 
@@ -44,9 +44,11 @@ switch ($pedido_info["estado"]) {
         $estado = "APROBADO";
         break;
     case 3:
+        $estado = "ENVIADO";
+        break;
+    case 4:
         $estado = "RECHAZADO";
         break;
-
 }
 
 $carro = $carritos->return();
@@ -140,10 +142,10 @@ $correo->emailEnviar();
                                     $clase = "text-bold";
                                     $none = "hidden";
                                 } else {
-                                    $producto->set("id",$carroItem['id']);
-                                    $producto_data=$producto->view();
-                                    if (!empty($producto_data)){
-                                        $producto->editUnico("stock",$producto_data['stock']-$carroItem['cantidad']);
+                                    $producto->set("id", $carroItem['id']);
+                                    $producto_data = $producto->view();
+                                    if ($pedido_info["estado"] == 1 || $pedido_info["estado"] == 2 || $pedido_info["estado"] == 3) {
+                                        $producto->editUnico("stock", $producto_data['stock'] - $carroItem['cantidad']);
                                     }
                                     $clase = '';
                                     $none = '';
@@ -195,7 +197,7 @@ $correo->emailEnviar();
 
 $carritos->destroy();
 unset($_SESSION["cod_pedido"]);
-if($usuario_data["invitado"] == 1){
+if ($usuario_data["invitado"] == 1) {
     unset($_SESSION["usuarios"]);
 }
 $template->themeEnd();
