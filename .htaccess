@@ -1,11 +1,13 @@
 Options +FollowSymLinks
-RewriteEngine on
 
-RewriteCond %{SCRIPT_FILENAME} !-d
-RewriteCond %{SCRIPT_FILENAME} !-f
-RewriteRule ^(.*)$ $1.php
 
 RewriteRule ^producto/(.*)/(.*)$ ./producto.php?cod=$2
+RewriteRule ^productos/s/(.*)/(.*)$ ./productos.php?categoria=$1&subcategoria=$2 [QSA,L]
+RewriteRule ^productos/s/(.*)$ ./productos.php?subcategoria=$1 [QSA,L]
+RewriteRule ^productos/c/(.*)$ ./productos.php?categoria=$1 [QSA,L]
+RewriteRule ^productos/b/(.*)$ ./productos.php?titulo=$1 [QSA,L]
+
+
 RewriteRule ^blog/(.*)/(.*)$ ./blog.php?cod=$2
 RewriteRule ^c/(.*)/(.*)$ ./contenidos.php?id=$2
 RewriteRule ^sesion/(.*)/(.*)$ ./sesion.php?op=$2
@@ -20,6 +22,11 @@ RewriteRule ^landing/(.*)/(.*)$ ./landing.php?cod=$2
 #ErrorDocument 403 https://www.cordobapymes.com.ar/404
 #ErrorDocument 500 https://www.cordobapymes.com.ar/404
 
+RewriteEngine on
+
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteRule ^(.*)$ $1.php
 
 php_value max_execution_time 9000
 

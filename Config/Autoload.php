@@ -8,8 +8,8 @@ class autoload
         session_start();
         $_SESSION["usuarios"] = isset($_SESSION["usuarios"]) ? $_SESSION["usuarios"] : '';
         $_SESSION["cod_pedido"] = isset($_SESSION["cod_pedido"]) ? $_SESSION["cod_pedido"] : substr(md5(uniqid(rand())), 0, 10);
-        define('URL', "http://".$_SERVER['HTTP_HOST']."/plumita");
-        define('CANONICAL', "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]);
+        define('URL', "https://".$_SERVER['HTTP_HOST']."/plumita");
+        define('CANONICAL', "https://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]);
         define('GOOGLE_TAG', "");
         define('TITULO', "Plumita S.R.L");
         define('TELEFONO', "03564 422291");
@@ -46,9 +46,9 @@ class autoload
     public static function runAdmin()
     {
         session_start();
-            define('URLSITE',"http://".$_SERVER['HTTP_HOST']."/plumita");
-        define('URL', "http://".$_SERVER['HTTP_HOST']."/plumita/admin");
-        define('CANONICAL', "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]);
+            define('URLSITE',"https://".$_SERVER['HTTP_HOST']."/plumita");
+        define('URL', "https://".$_SERVER['HTTP_HOST']."/plumita/admin");
+        define('CANONICAL', "https://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]);
         require_once "../Clases/Zebra_Image.php";
         spl_autoload_register(
             function ($clase)
@@ -57,5 +57,18 @@ class autoload
                 include_once "../" . $ruta;
             }
         );
+    }
+
+    public static function runCurl()
+    {
+        session_start();
+        $_SESSION["cod_pedido"] = isset($_SESSION["cod_pedido"]) ? $_SESSION["cod_pedido"] : strtoupper(substr(md5(uniqid(rand())), 0, 7));
+        define('URL', "https://" . $_SERVER['HTTP_HOST'] . "/plumita");
+        define('LOGO', URL . "/assets/img/logo.png");
+        define('TITULO', 'Vulcano Lubricaciones');
+        spl_autoload_register(function ($clase) {
+            $ruta = str_replace("\\", "/", $clase) . ".php";
+            include_once "../../" . $ruta;
+        });
     }
 }

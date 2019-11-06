@@ -1,5 +1,9 @@
 <?php
+$f = new Clases\PublicFunction();
 $carrito = new Clases\Carrito();
+$categoria = new Clases\Categorias();
+
+$categoriasData = $categoria->list(["area='productos'"]);
 $carro = $carrito->return();
 ?>
 <!--================Menu Area =================-->
@@ -17,8 +21,6 @@ $carro = $carrito->return();
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item"><a class="nav-link" href="<?= URL . '/index' ?>">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?= URL . '/productos' ?>">Productos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?= URL . '/blogs' ?>">Blog</a></li>
                         <li class="nav-item dropdown submenu">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Empresa <i class="fa fa-angle-down" aria-hidden="true"></i>
@@ -28,6 +30,22 @@ $carro = $carrito->return();
                                 <li class="nav-item"><a class="nav-link" href="<?= URL . '/c/servicio-técnico' ?>">Servicio técnico</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item dropdown submenu">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Productos <i class="fa fa-angle-down" aria-hidden="true"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <?php foreach ($categoriasData as $cats) { ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="<?= URL . '/productos/c/'.$f->normalizar_link($cats['titulo']) ?>">
+                                            <?= mb_strtoupper($cats['titulo']) ?>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="<?= URL . '/blogs' ?>">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?= URL . '/service' ?>">Service</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?= URL . '/contacto' ?>">Contacto</a></li>
                         <?php if (!empty($_SESSION['usuarios'])): ?>
                             <li class="nav-item d-md-none"><a class="nav-link" href="<?= URL ?>/sesion">Mi cuenta</a></li>
@@ -50,7 +68,6 @@ $carro = $carrito->return();
                                 </a>
                             </li>
                         <?php endif; ?>
-                        <li><a title="Carrito" href="<?= URL . '/carrito'; ?>"><i class="icon-handbag icons"></i> <?php if (!empty($carro)){echo @count($carro);} ?></a></li>
                     </ul>
                 </div>
             </nav>

@@ -22,7 +22,7 @@ if ($pagina > 0) {
     $pagina = $pagina - 1;
 }
 
-if (@count($_GET) > 1) {
+if (@count($_GET) >= 1) {
     $anidador = "&";
 } else {
     $anidador = "?";

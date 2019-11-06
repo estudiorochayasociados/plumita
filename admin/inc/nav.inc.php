@@ -29,6 +29,9 @@ $pages = ["ecommerce","contenidos", "novedades", "multimedia", "usuarios", "bann
                         <a class="dropdown-item" href="<?=URL?>/index.php?op=contenidos&accion=agregar">
                             Agregar Contenidos
                         </a>
+                        <a class="dropdown-item" href="<?= URL ?>/index.php?op=contenidos&accion=importar">
+                            Importar Servicios Técnicos
+                        </a>
                     </div>
                 </li>
                 <li class="nav-item dropdown <?php if (!in_array('multimedia', $pages)) {echo 'd-none';}?>">
