@@ -24,7 +24,7 @@ if (isset($_POST["login"])):
         </script>
     <?php
     else:
-        $funcionesNav->headerMove(CANONICAL);
+        $funcionesNav->headerMove(URL . "/sesion");
     endif;
 endif;
 ?>
@@ -113,7 +113,7 @@ if (isset($_POST["registrar"])):
             $enviar->set("emisor", $emisor2);
             $enviar->set("mensaje", $mensaje2);
             $enviar->emailEnviar();
-            $funcionesNav->headerMove(CANONICAL);
+            $funcionesNav->headerMove(URL . "/sesion");
         endif;
     else:
         ?>
@@ -196,7 +196,7 @@ if (isset($_POST["recuperar"])) {
                 });
             </script>
             <?php
-        }else{
+        } else {
             ?>
             <script>
                 $(document).ready(function () {
@@ -219,7 +219,7 @@ if (isset($_POST["recuperar"])) {
 }
 ?>
 
-<div class="modal fade" id="recuperar"  role="dialog" aria-labelledby="recuperar" aria-hidden="true" data-backdrop="false">
+<div class="modal fade" id="recuperar" role="dialog" aria-labelledby="recuperar" aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">

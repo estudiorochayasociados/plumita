@@ -3,7 +3,7 @@ require_once "Config/Autoload.php";
 Config\Autoload::runSitio();
 $template = new Clases\TemplateSite();
 $funciones = new Clases\PublicFunction();
-$template->set("title", TITULO." | Dejanos tus datos");
+$template->set("title", TITULO . " | Dejanos tus datos");
 $template->set("description", "Dejanos tus datos");
 $template->set("keywords", "Dejanos tus datos");
 $template->set("favicon", FAVICON);
@@ -11,6 +11,7 @@ $template->themeInit();
 $carrito = new Clases\Carrito();
 $usuarios = new Clases\Usuarios();
 $usuarioSesion = $usuarios->view_sesion();
+$funciones->headerMove(URL);
 
 $cod_pedido = $_SESSION["cod_pedido"];
 $tipo_pedido = isset($_GET["metodos-pago"]) ? $_GET["metodos-pago"] : '';
@@ -22,7 +23,7 @@ if (is_array($usuarioSesion)) {
 }
 
 $template->themeNav();
-$error='';
+$error = '';
 ?>
     <!--================Categories Banner Area =================-->
     <section class="solid_banner_area">
@@ -89,11 +90,11 @@ $error='';
                     if (!empty($email_data)) {
                         //pregunta si esta registrado
                         if ($email_data['invitado'] == 0) {
-                            $error="Ya existe un usuario registrado con este email.";
+                            $error = "Ya existe un usuario registrado con este email.";
                         } else {
                             //si invitado es 1
                             if ($password1 != $password2) {
-                                $error="Error las contraseñas no coinciden.";
+                                $error = "Error las contraseñas no coinciden.";
                             } else {
                                 $usuarios->edit();
                                 $usuarios->login();
@@ -103,7 +104,7 @@ $error='';
                     } else {
                         //si no existe, agrega el usuario
                         if ($password1 != $password2) {
-                            $error="Error las contraseñas no coinciden.";
+                            $error = "Error las contraseñas no coinciden.";
                         } else {
                             $usuarios->add();
                             $usuarios->login();
@@ -114,16 +115,16 @@ $error='';
                 //checkbox desmarcado
                 case 1:
                     //si el email exite
-                    if (!empty($email_data)){
+                    if (!empty($email_data)) {
                         //si el email tiene invitado 1
                         if ($email_data['invitado'] == 1) {
                             $usuarios->edit();
                             $usuarios->login();
                             $funciones->headerMove(URL . "/checkout/" . $cod_pedido . "/" . $tipo_pedido);
-                        }else{
-                            $error="Ya existe un usuario registrado con este email.";
+                        } else {
+                            $error = "Ya existe un usuario registrado con este email.";
                         }
-                    }else{
+                    } else {
                         //el email no existe
                         $usuarios->invitado_sesion();
                         $funciones->headerMove(URL . "/checkout/" . $cod_pedido . "/" . $tipo_pedido);
@@ -133,7 +134,9 @@ $error='';
         }
         ?>
         <div class="col-md-12">
-            <div class="<?php if (empty($error)){ echo 'oculto'; } ?>alert alert-warning" role="alert"><?=$error;?></div>
+            <div class="<?php if (empty($error)) {
+                echo 'oculto';
+            } ?>alert alert-warning" role="alert"><?= $error; ?></div>
             <form method="post" class="row">
                 <div class="row">
                     <input type="hidden" value="<?= $tipo_pedido ?>" name="metodos-pago"/>

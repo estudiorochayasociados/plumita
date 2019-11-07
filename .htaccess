@@ -9,8 +9,8 @@ RewriteRule ^productos/b/(.*)$ ./productos.php?titulo=$1 [QSA,L]
 
 
 RewriteRule ^blog/(.*)/(.*)$ ./blog.php?cod=$2
-RewriteRule ^c/(.*)/(.*)$ ./contenidos.php?id=$2
-RewriteRule ^sesion/(.*)/(.*)$ ./sesion.php?op=$2
+RewriteRule ^c(.*)/(.*)$ ./contenidos.php?id=$2
+RewriteRule ^sesion(.*)/(.*)$ ./sesion.php?op=$2
 RewriteRule ^pagar/(.*)/(.*)$ ./pagar.php?metodos-pago=$2
 RewriteRule ^carrito/(.*)/(.*)$ ./carrito.php?metodos-pago=$2
 RewriteRule ^checkout(.*)/(.*)/(.*)$ ./checkout.php?cod_pedido=$2&tipo_pedido=$3

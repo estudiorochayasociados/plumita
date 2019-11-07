@@ -69,48 +69,48 @@ $pages = ["ecommerce","contenidos", "novedades", "multimedia", "usuarios", "bann
                         </a>
                     </div>
                 </li>
-                <li class="nav-item dropdown <?php if (!in_array('portfolio', $pages)) {echo 'd-none';}?>">
-                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-                        Portfolio
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="<?=URL?>/index.php?op=portfolio&accion=ver">
-                            Ver Portfolio
-                        </a>
-                        <a class="dropdown-item" href="<?=URL?>/index.php?op=portfolio&accion=agregar">
-                            Agregar Portfolio
-                        </a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown <?php if (!in_array('servicios', $pages)) {echo 'd-none';}?>">
-                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-                        Servicios
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="<?=URL?>/index.php?op=servicios">
-                            Ver Servicios
-                        </a>
-                        <a class="dropdown-item" href="<?=URL?>/index.php?op=servicios&accion=agregar">
-                            Agregar Servicios
-                        </a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown <?php if (!in_array('ecommerce', $pages)) {echo 'd-none';}?>">
-                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-                        Ecommerce
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="<?=URL?>/index.php?op=pedidos&accion=ver">
-                            Pedidos
-                        </a>
-                        <a class="dropdown-item" href="<?=URL?>/index.php?op=envios&accion=ver">
-                            Métodos de Envios
-                        </a>
-                        <a class="dropdown-item" href="<?=URL?>/index.php?op=pagos&accion=ver">
-                            Métodos de Pagos
-                        </a>
-                    </div>
-                </li>
+<!--                <li class="nav-item dropdown --><?php //if (!in_array('portfolio', $pages)) {echo 'd-none';}?><!--">-->
+<!--                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">-->
+<!--                        Portfolio-->
+<!--                    </a>-->
+<!--                    <div class="dropdown-menu">-->
+<!--                        <a class="dropdown-item" href="--><?//=URL?><!--/index.php?op=portfolio&accion=ver">-->
+<!--                            Ver Portfolio-->
+<!--                        </a>-->
+<!--                        <a class="dropdown-item" href="--><?//=URL?><!--/index.php?op=portfolio&accion=agregar">-->
+<!--                            Agregar Portfolio-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--                <li class="nav-item dropdown --><?php //if (!in_array('servicios', $pages)) {echo 'd-none';}?><!--">-->
+<!--                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">-->
+<!--                        Servicios-->
+<!--                    </a>-->
+<!--                    <div class="dropdown-menu">-->
+<!--                        <a class="dropdown-item" href="--><?//=URL?><!--/index.php?op=servicios">-->
+<!--                            Ver Servicios-->
+<!--                        </a>-->
+<!--                        <a class="dropdown-item" href="--><?//=URL?><!--/index.php?op=servicios&accion=agregar">-->
+<!--                            Agregar Servicios-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--                <li class="nav-item dropdown --><?php //if (!in_array('ecommerce', $pages)) {echo 'd-none';}?><!--">-->
+<!--                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">-->
+<!--                        Ecommerce-->
+<!--                    </a>-->
+<!--                    <div class="dropdown-menu">-->
+<!--                        <a class="dropdown-item" href="--><?//=URL?><!--/index.php?op=pedidos&accion=ver">-->
+<!--                            Pedidos-->
+<!--                        </a>-->
+<!--                        <a class="dropdown-item" href="--><?//=URL?><!--/index.php?op=envios&accion=ver">-->
+<!--                            Métodos de Envios-->
+<!--                        </a>-->
+<!--                        <a class="dropdown-item" href="--><?//=URL?><!--/index.php?op=pagos&accion=ver">-->
+<!--                            Métodos de Pagos-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </li>-->
                 <li class="nav-item dropdown <?php if (!in_array('marketing', $pages)) {echo 'd-none';}?>">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                         Marketing

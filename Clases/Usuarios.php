@@ -44,10 +44,9 @@ class Usuarios
     public function add()
     {
         $validar = $this->validate();
-        if (!is_array($validar)) {
+        if (empty($validar)) {
             $sql = "INSERT INTO `usuarios` (`cod`, `nombre`, `apellido`, `doc`, `email`, `password`, `direccion`, `postal`, `localidad`, `provincia`, `pais`, `telefono`, `celular`, `invitado`, `descuento`, `fecha`) VALUES ('{$this->cod}', '{$this->nombre}', '{$this->apellido}', '{$this->doc}', '{$this->email}', '{$this->password}', '{$this->direccion}', '{$this->postal}', '{$this->localidad}', '{$this->provincia}', '{$this->pais}', '{$this->telefono}', '{$this->celular}', '{$this->invitado}', '{$this->descuento}', '{$this->fecha}')";
-            $this->con->sql($sql);
-            return true;
+            return $this->con->sqlReturn($sql);
         } else {
             return false;
         }
@@ -95,7 +94,7 @@ class Usuarios
         $sql = "SELECT * FROM `usuarios` WHERE `email` = '{$this->email}' AND `password`= '{$this->password}'";
         $usuarios = $this->con->sqlReturn($sql);
         $contar = mysqli_num_rows($usuarios);
-        $row = mysqli_fetch_assoc($usuarios); 
+        $row = mysqli_fetch_assoc($usuarios);
         if ($contar == 1) {
             $_SESSION["usuarios"] = $row;
         }

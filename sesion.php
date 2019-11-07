@@ -4,9 +4,9 @@ Config\Autoload::runSitio();
 $template = new Clases\TemplateSite();
 $funciones = new Clases\PublicFunction();
 $enviar = new Clases\Email();
-$template->set("title", TITULO." | Panel");
-$template->set("description", "Panel ".TITULO);
-$template->set("keywords", "Panel ".TITULO);
+$template->set("title", TITULO . " | Panel");
+$template->set("description", "Panel " . TITULO);
+$template->set("keywords", "Panel " . TITULO);
 $template->set("favicon", FAVICON);
 $template->themeInit();
 $usuarios = new Clases\Usuarios();
@@ -15,14 +15,14 @@ if (empty($usuarioSesion)) {
     $funciones->headerMove(URL . "/index");
 }
 ?>
-    <?php $template->themeNav(); ?>
+<?php $template->themeNav(); ?>
     <!-- BREADCRUMBS -->
     <section class="solid_banner_area">
         <div class="container">
             <div class="solid_banner_inner navegador">
                 <h3>Panel de usuario</h3>
                 <ul>
-                    <li><a href="<?=URL?>/index">Inicio</a></li>
+                    <li><a href="<?= URL ?>/index">Inicio</a></li>
                     <li class="current"><a href="#">Panel de usuario</a></li>
                 </ul>
             </div>
@@ -42,19 +42,21 @@ if (empty($usuarioSesion)) {
                                 <ul>
                                     <li>
                                         <a href="<?= URL ?>/sesion/cuenta">
-                                                <span class="no_line_h"><i class="fa fa-user"
-                                                                           aria-hidden="true"></i></span> Mi cuenta
+                                            <span class="no_line_h"><i class="fa fa-user" aria-hidden="true"></i></span> Mi cuenta
                                         </a>
                                     </li>
                                     <li>
                                         <a href="<?= URL ?>/sesion/pedidos">
-                                                <span class="no_line_h"><i class="fa fa-bookmark"
-                                                                           aria-hidden="true"></i></span> Mis
-                                            pedidos
+                                            <span class="no_line_h"><i class="fa fa-bookmark" aria-hidden="true"></i></span> Mis pedidos
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="<?= URL ?>/sesion/logout">
+                                        <a href="<?= URL ?>/armar-pedido">
+                                            <span class="no_line_h"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span> Armar pedido
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="<?= URL ?>/sesion?logout=1">
                                             <span class="no_line_h"><i class="fa fa-sign-out" aria-hidden="true"></i></span>Salir
                                         </a>
                                     </li>
@@ -78,6 +80,4 @@ if (empty($usuarioSesion)) {
             </div>
         </div>
     </section>
-<?php
-$template->themeEnd();
-?>
+<?php $template->themeEnd(); ?>

@@ -4,7 +4,7 @@ class autoload
 {
     public static function runSitio()
     {
-        require_once "Config/Minify.php";
+//        require_once "Config/Minify.php";
         session_start();
         $_SESSION["usuarios"] = isset($_SESSION["usuarios"]) ? $_SESSION["usuarios"] : '';
         $_SESSION["cod_pedido"] = isset($_SESSION["cod_pedido"]) ? $_SESSION["cod_pedido"] : substr(md5(uniqid(rand())), 0, 10);
@@ -18,7 +18,7 @@ class autoload
         define('EMAIL', "web@estudiorochayasoc.com.ar");//ventas@plumita.com
         define('EMAIL2', "davidmarcolini@plumita.com");
         define('PASS_EMAIL', "weAr2010");
-        define('SMTP_EMAIL', "estudiorochayasoc.com.ar");
+        define('SMTP_EMAIL', "cs1008.webhostbox.net");
         define('DIRECCION', "Av. 9 de Septiembre 3203");
         define('LOGO', URL . "/assets/img/logo.jpg");
         define('FAVICON', URL . "/assets/img/favicon.png");

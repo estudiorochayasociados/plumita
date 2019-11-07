@@ -8,6 +8,7 @@ $template->set("description", "Carrito de compra " . TITULO);
 $template->set("keywords", "Carrito de compra " . TITULO);
 $template->set("favicon", FAVICON);
 $template->themeInit();
+$funciones->headerMove(URL);
 //Clases
 $productos = new Clases\Productos();
 $imagenes = new Clases\Imagenes();

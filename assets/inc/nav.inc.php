@@ -2,9 +2,14 @@
 $f = new Clases\PublicFunction();
 $carrito = new Clases\Carrito();
 $categoria = new Clases\Categorias();
+$usuario = new Clases\Usuarios();
 
 $categoriasData = $categoria->list(["area='productos'"]);
 $carro = $carrito->return();
+if (isset($_GET['logout'])){
+    $usuario->logout();
+    $f->headerMove(URL);
+}
 ?>
 <!--================Menu Area =================-->
 <header class="shop_header_area carousel_menu_area">
