@@ -65,7 +65,7 @@ class autoload
         $_SESSION["cod_pedido"] = isset($_SESSION["cod_pedido"]) ? $_SESSION["cod_pedido"] : strtoupper(substr(md5(uniqid(rand())), 0, 7));
         define('URL', "https://" . $_SERVER['HTTP_HOST'] . "/plumita");
         define('LOGO', URL . "/assets/img/logo.png");
-        define('TITULO', 'Vulcano Lubricaciones');
+        define('TITULO', 's');
         spl_autoload_register(function ($clase) {
             $ruta = str_replace("\\", "/", $clase) . ".php";
             include_once "../../" . $ruta;

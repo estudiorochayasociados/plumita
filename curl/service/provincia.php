@@ -6,7 +6,6 @@ $service = new Clases\ServicioTecnico();
 
 $provincia = $funciones->antihack_mysqli(isset($_POST['provincia']) ? $_POST['provincia'] : '');
 
-//if (!empty($provincia)) {
 $provinciaData = $service->listForProvincia($provincia);
 if (!empty($provinciaData)) {
     $response = '';
@@ -35,7 +34,3 @@ if (!empty($provinciaData)) {
     $result = array("status" => false, "message" => "No hay ningún distribuidor.");
     echo json_encode($result);
 }
-//} else {
-//    $result = array("status" => false, "message" => "Ocurrió un error, recargar la página.");
-//    echo json_encode($result);
-//}

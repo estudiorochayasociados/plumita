@@ -71,7 +71,6 @@ $template->themeEnd();
             type: "POST",
             data: {provincia: provincia},
             success: function (data) {
-                console.log(data);
                 data = JSON.parse(data);
                 if (data['status']) {
                     $('#listado').html('');
@@ -92,7 +91,6 @@ $template->themeEnd();
             type: "POST",
             data: {ciudad: ciudad},
             success: function (data) {
-                console.log(data);
                 data = JSON.parse(data);
                 if (data['status']) {
                     $('#listado').html('');

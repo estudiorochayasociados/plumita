@@ -4,18 +4,11 @@
     <list default="true" id="6fec21c0-f538-442c-9230-c3d22adf3c37" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Clases/Usuarios.php" beforeDir="false" afterPath="$PROJECT_DIR$/Clases/Usuarios.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Config/Autoload.php" beforeDir="false" afterPath="$PROJECT_DIR$/Config/Autoload.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/inc/nav.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/inc/nav.inc.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/inc/usuarios/ver.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/inc/usuarios/ver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/inc/login.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/assets/inc/login.inc.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/inc/nav.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/assets/inc/nav.inc.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/inc/sesion/pedidos.php" beforeDir="false" afterPath="$PROJECT_DIR$/assets/inc/sesion/pedidos.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carrito.php" beforeDir="false" afterPath="$PROJECT_DIR$/carrito.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/checkout.php" beforeDir="false" afterPath="$PROJECT_DIR$/checkout.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compra-finalizada.php" beforeDir="false" afterPath="$PROJECT_DIR$/compra-finalizada.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pagar.php" beforeDir="false" afterPath="$PROJECT_DIR$/pagar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sesion.php" beforeDir="false" afterPath="$PROJECT_DIR$/sesion.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/curl/service/ciudad.php" beforeDir="false" afterPath="$PROJECT_DIR$/curl/service/ciudad.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/curl/service/provincia.php" beforeDir="false" afterPath="$PROJECT_DIR$/curl/service/provincia.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service.php" beforeDir="false" afterPath="$PROJECT_DIR$/service.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,10 +27,20 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/assets/inc/login.inc.php">
+        <entry file="file://$PROJECT_DIR$/assets/inc/nav.inc.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="93" column="13" lean-forward="true" selection-start-line="93" selection-start-column="13" selection-end-line="93" selection-end-column="13" />
+            <state relative-caret-position="228">
+              <caret line="33" column="92" selection-start-line="33" selection-start-column="92" selection-end-line="33" selection-end-column="92" />
+              <caret line="34" column="92" selection-start-line="34" selection-start-column="92" selection-end-line="34" selection-end-column="92" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.htaccess">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="10" column="14" lean-forward="true" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -94,7 +97,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/admin/inc/productos/modificar.php" />
         <option value="$PROJECT_DIR$/sitemap.php" />
         <option value="$PROJECT_DIR$/Clases/Carrito.php" />
         <option value="$PROJECT_DIR$/assets/inc/footer.inc.php" />
@@ -123,28 +125,29 @@
         <option value="$PROJECT_DIR$/test.php" />
         <option value="$PROJECT_DIR$/Clases/ServicioTecnico.php" />
         <option value="$PROJECT_DIR$/admin/inc/contenidos/importar.php" />
-        <option value="$PROJECT_DIR$/service.php" />
-        <option value="$PROJECT_DIR$/curl/service/provincia.php" />
         <option value="$PROJECT_DIR$/index.php" />
-        <option value="$PROJECT_DIR$/assets/inc/login.inc.php" />
         <option value="$PROJECT_DIR$/pagar.php" />
         <option value="$PROJECT_DIR$/curl/product/view.php" />
         <option value="$PROJECT_DIR$/carrito.php" />
         <option value="$PROJECT_DIR$/curl/cart/add.php" />
         <option value="$PROJECT_DIR$/sesion.php" />
         <option value="$PROJECT_DIR$/Clases/Productos.php" />
-        <option value="$PROJECT_DIR$/assets/inc/nav.inc.php" />
-        <option value="$PROJECT_DIR$/Config/Autoload.php" />
         <option value="$PROJECT_DIR$/compra-finalizada.php" />
         <option value="$PROJECT_DIR$/checkout.php" />
         <option value="$PROJECT_DIR$/admin/inc/usuarios/ver.php" />
         <option value="$PROJECT_DIR$/assets/inc/sesion/pedidos.php" />
         <option value="$PROJECT_DIR$/admin/inc/pedidos/ver.php" />
         <option value="$PROJECT_DIR$/admin/inc/nav.inc.php" />
-        <option value="$PROJECT_DIR$/curl/cart/view.php" />
         <option value="$PROJECT_DIR$/armar-pedido.php" />
         <option value="$PROJECT_DIR$/Clases/Usuarios.php" />
+        <option value="$PROJECT_DIR$/assets/inc/login.inc.php" />
+        <option value="$PROJECT_DIR$/curl/service/provincia.php" />
+        <option value="$PROJECT_DIR$/Config/Autoload.php" />
+        <option value="$PROJECT_DIR$/curl/cart/view.php" />
+        <option value="$PROJECT_DIR$/curl/service/ciudad.php" />
+        <option value="$PROJECT_DIR$/service.php" />
         <option value="$PROJECT_DIR$/.htaccess" />
+        <option value="$PROJECT_DIR$/assets/inc/nav.inc.php" />
       </list>
     </option>
   </component>
@@ -215,32 +218,6 @@
               <item name="plumita" type="462c0819:PsiDirectoryNode" />
               <item name="curl" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="plumita" type="b2602c69:ProjectViewProjectNode" />
-              <item name="plumita" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="plumita" type="b2602c69:ProjectViewProjectNode" />
-              <item name="plumita" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-              <item name="phpmailer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="plumita" type="b2602c69:ProjectViewProjectNode" />
-              <item name="plumita" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-              <item name="phpmailer" type="462c0819:PsiDirectoryNode" />
-              <item name="phpmailer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="plumita" type="b2602c69:ProjectViewProjectNode" />
-              <item name="plumita" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-              <item name="phpmailer" type="462c0819:PsiDirectoryNode" />
-              <item name="phpmailer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -359,12 +336,12 @@
       <workItem from="1573045850039" duration="506000" />
       <workItem from="1573078656831" duration="2349000" />
       <workItem from="1573128271371" duration="30000" />
-      <workItem from="1573136432124" duration="13394000" />
+      <workItem from="1573136432124" duration="17476000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="254534000" />
+    <option name="totallyTimeSpent" value="258616000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -575,15 +552,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/curl/service/ciudad.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/contacto.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
@@ -591,34 +559,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-424">
-          <caret line="17" column="2" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/curl/service/provincia.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="22" column="51" lean-forward="true" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="392">
           <caret line="43" column="42" selection-start-line="43" selection-start-column="42" selection-end-line="43" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blog.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="46" selection-start-line="46" selection-end-line="97" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -678,13 +622,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Config/Autoload.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="20" column="51" selection-start-line="20" selection-start-column="51" selection-end-line="20" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Clases/Email.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
@@ -720,13 +657,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/inc/nav.inc.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="29" column="43" lean-forward="true" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/inc/pedidos/ver.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -758,36 +688,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/armar-pedido.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="250" column="41" lean-forward="true" selection-start-line="250" selection-start-column="41" selection-end-line="250" selection-end-column="41" />
-          <folding>
-            <element signature="n#style#0;n#form#0;n#div#0;n#div#1;n#div#0;n#div#0;n#section#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#form#0;n#div#0;n#div#1;n#div#0;n#div#0;n#section#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#form#0;n#div#0;n#div#1;n#div#0;n#div#0;n#section#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#td#2;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#0;n#div#0;n#section#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/curl/cart/view.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="35" column="48" selection-start-line="35" selection-start-column="48" selection-end-line="35" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.htaccess">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Clases/Usuarios.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
@@ -795,10 +695,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/blog.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="17" column="45" lean-forward="true" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Config/Autoload.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="63" column="24" selection-start-line="63" selection-start-column="24" selection-end-line="63" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/curl/cart/view.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/curl/service/provincia.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="4" selection-start-line="4" selection-end-line="4" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/curl/service/ciudad.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="14" column="93" selection-start-line="14" selection-start-column="93" selection-end-line="14" selection-end-column="93" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/armar-pedido.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-112">
+          <caret line="270" column="45" lean-forward="true" selection-start-line="270" selection-start-column="45" selection-end-line="270" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="83" column="13" lean-forward="true" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/inc/login.inc.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="93" column="13" lean-forward="true" selection-start-line="93" selection-start-column="13" selection-end-line="93" selection-end-column="13" />
+        <state relative-caret-position="336">
+          <caret line="86" column="20" lean-forward="true" selection-start-line="86" selection-start-column="20" selection-end-line="86" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.htaccess">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="10" column="14" lean-forward="true" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/inc/nav.inc.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="33" column="92" selection-start-line="33" selection-start-column="92" selection-end-line="33" selection-end-column="92" />
+          <caret line="34" column="92" selection-start-line="34" selection-start-column="92" selection-end-line="34" selection-end-column="92" />
         </state>
       </provider>
     </entry>
