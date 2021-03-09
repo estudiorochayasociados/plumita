@@ -1,83 +1,100 @@
 <?php
 require_once "Config/Autoload.php";
-Config\Autoload::runSitio();
+Config\Autoload::run();
 $template = new Clases\TemplateSite();
 $funciones = new Clases\PublicFunction();
-$enviar = new Clases\Email();
-$template->set("title", TITULO . " | Panel");
-$template->set("description", "Panel " . TITULO);
-$template->set("keywords", "Panel " . TITULO);
-$template->set("favicon", FAVICON);
-$template->themeInit();
-$usuarios = new Clases\Usuarios();
-$usuarioSesion = $usuarios->view_sesion();
-if (empty($usuarioSesion)) {
-    $funciones->headerMove(URL . "/index");
+$checkout = new Clases\Checkout();
+$carrito = new Clases\Carrito();
+$usuario = new Clases\Usuarios();
+
+if (empty($_SESSION["usuarios"]) || $_SESSION['usuarios']['invitado'] == 1) {
+    $usuario->logout();
+    $funciones->headerMove(URL);
 }
+
+$op = isset($_GET["op"]) ? $_GET["op"] : '';
+$usuarioSesion = $usuario->viewSession();
+
+$pedidos = $funciones->antihack_mysqli(strpos($_SERVER['REQUEST_URI'], "pedidos"));
+$cuenta = $funciones->antihack_mysqli(strpos($_SERVER['REQUEST_URI'], "cuenta"));
+if ($pedidos == "" && $cuenta == "") {
+    $vacio = "ok";
+} else {
+    $vacio = NULL;
+}
+if (isset($_GET['logout'])) {
+    $checkout->destroy();
+    $usuario->logout();
+}
+
+$template->set("title", "PANEL DE USUARIO | " . TITULO);
+$template->set("description", "");
+$template->set("keywords", "");
+$template->set("imagen", LOGO);
+$template->set("body", "");
+$template->themeInit();
 ?>
-<?php $template->themeNav(); ?>
-    <!-- BREADCRUMBS -->
-    <section class="solid_banner_area">
-        <div class="container">
-            <div class="solid_banner_inner navegador">
-                <h3>Panel de usuario</h3>
-                <ul>
-                    <li><a href="<?= URL ?>/index">Inicio</a></li>
-                    <li class="current"><a href="#">Panel de usuario</a></li>
-                </ul>
-            </div>
+<section class="solid_banner_area">
+    <div class="container">
+        <div class="solid_banner_inner navegador">
+            <h3>Panel de usuario</h3>
+            <ul>
+                <li><a href="<?= URL ?>/index">Inicio</a></li>
+                <li class="current"><a href="<?= URL ?>/sesion">Panel de usuario</a></li>
+            </ul>
         </div>
-    </section>
-    <!-- END BREADCRUMBS -->
-    <section class="categories_product_main p_20">
-        <div class="container">
-            <div class="categories_main_inner">
-                <div class="row row_disable">
-                    <div class="col-lg-3 float-md-left mb-10">
-                        <div class="categories_sidebar">
-                            <aside class="l_widgest l_menufacture_widget">
-                                <div class="l_w_title">
-                                    <h3>Panel</h3>
-                                </div>
-                                <ul>
-                                    <li>
-                                        <a href="<?= URL ?>/sesion/cuenta">
-                                            <span class="no_line_h"><i class="fa fa-user" aria-hidden="true"></i></span> Mi cuenta
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="<?= URL ?>/sesion/pedidos">
-                                            <span class="no_line_h"><i class="fa fa-bookmark" aria-hidden="true"></i></span> Mis pedidos
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="<?= URL ?>/armar-pedido">
-                                            <span class="no_line_h"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span> Armar pedido
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="<?= URL ?>/sesion?logout=1">
-                                            <span class="no_line_h"><i class="fa fa-sign-out" aria-hidden="true"></i></span>Salir
-                                        </a>
-                                    </li>
-                                </ul>
-                            </aside>
-                        </div>
+    </div>
+</section>
+<!--My Account section start-->
+<div class="my-account-section section pt-10 pb-100 pb-lg-80 pb-md-70 pb-sm-60 pb-xs-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 pt-15">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="<?= URL ?>/productos" class="btn btn-primary btn btn-lg btn-block mb-15">
+                            <i class="fa fa-shopping-cart fa-2x mt-10"></i>
+                            <h4 class="blanco">Ir a comprar</h4>
+                        </a>
                     </div>
-                    <div class="col-lg-9 float-md-right">
-                        <div class="categories_product_area">
-                            <div class="row">
-                                <?php
-                                $op = isset($_GET["op"]) ? $_GET["op"] : 'pedidos';
-                                if ($op != '') {
-                                    include("assets/inc/sesion/" . $op . ".php");
-                                }
-                                ?>
-                            </div>
-                        </div>
+                    <div class="col-md-3">
+                        <a href="<?= URL ?>/sesion/pedidos" class="btn btn-primary btn btn-lg btn-block mb-15">
+                            <i class="fa fa-list fa-2x mt-10"></i>
+                            <h4 class="blanco">Mis Pedidos</h4>
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="<?= URL ?>/sesion/cuenta" class="btn btn-primary btn btn-lg btn-block mb-15">
+                            <i class="fa fa-edit fa-2x mt-10"></i>
+                            <h4 class="blanco">Mis datos</h4>
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="<?= URL ?>/sesion?logout" class="btn btn-primary btn btn-lg btn-block mb-15">
+                            <i class="fa fa-sign-out fa-2x mt-10"></i>
+                            <h4 class="blanco">Salir</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 float-md-right">
+                <div class="categories_product_area">
+                    <div class="row">
+                        <?php
+                        $op = isset($_GET["op"]) ? $_GET["op"] : 'pedidos';
+                        if ($op != '') {
+                            include("assets/inc/sesion/" . $op . ".php");
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
+<!--My Account section end-->
+<!-- panel-user -->
+<div class="container pb-150">
+
+</div>
 <?php $template->themeEnd(); ?>

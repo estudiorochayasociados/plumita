@@ -40,7 +40,7 @@ if (!empty($carro)) {
         $response .= "</tr>";
     }
     $response .= "</table>";
-    $response.="<a href=\"<?= URL ?>/checkout\" class=\"btn btn-info\" type=\"submit\" style=\"width: 100%;background-color: #013aa0\">
+    $response .= "<a href=\"" . URL . "/checkout\" class=\"btn btn-block btn-success\" id='btnSend' >
                     <i class=\"fa fa-shopping-cart\"></i> ENVIAR PEDIDO
                 </a>";
     $result = array("status" => true, "texto" => $response);

@@ -5,16 +5,16 @@ require "../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php";
 ?>
 <div class="col-md-12">
     <form method="post" enctype="multipart/form-data">
-        <h3>Importar productos de Excel a la Web (<a href="<?= URLSITE ?>/assets/archivos/ejemploServicioTecnico.xlsx" target="_blank">descargar modelo</a>)
+        <h3>Importar productos de Excel a la Web (<a href="<?= URL ?>/assets/archivos/ejemploServicioTecnico.xlsx" target="_blank">descargar modelo</a>)
         </h3>
-        <hr/>
+        <hr />
         <div class="row">
             <div class="col-md-12">
-                <input type="file" name="excel" class="form-control" required/>
+                <input type="file" name="excel" class="form-control" required />
             </div>
             <br>
             <div class="col-md-12 mt-15">
-                <input type="submit" name="submit" value="Verifica e importar archivo" class='btn  btn-info'/>
+                <input type="submit" name="submit" value="Verifica e importar archivo" class='btn  btn-info' />
             </div>
         </div>
     </form>
@@ -35,7 +35,7 @@ require "../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php";
             $importar = '';
             if (!empty($numCols)) {
                 for ($row = 2; $row <= $numRows; $row++) {
-//                    $cod = substr(md5(uniqid(rand())), 0, 8);
+                    //                    $cod = substr(md5(uniqid(rand())), 0, 8);
                     $nombre = $objPHPExcel->getActiveSheet()->getCell("A" . $row)->getCalculatedValue();
                     if (empty($nombre)) continue;
                     $direccion = $funciones->antihack($objPHPExcel->getActiveSheet()->getCell("B" . $row)->getCalculatedValue());
@@ -66,6 +66,5 @@ require "../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php";
         } else {
             echo '<span class="alert alert-danger">Seleccionar primero el archivo a subir.</span>';
         }
-    }
-    ?>
+    } ?>
 </div>

@@ -23,7 +23,7 @@ if ($pagina > 0) {
 }
 
 if (@count($_GET) >= 1) {
-    $anidador = "&";
+    $anidador = "?";
 } else {
     $anidador = "?";
 }
@@ -34,10 +34,10 @@ else:
     $url = CANONICAL;
 endif;
 
-$novedades_data = $novedades->listWithOps("", "", $cantidad * $pagina . ',' . $cantidad);
+$novedades_data = $novedades->list("", "", $cantidad * $pagina . ',' . $cantidad);
 $numeroPaginas = $novedades->paginador("", $cantidad);
 
-$template->themeNav();
+
 ?>
 <!--================Categories Banner Area =================-->
 <section class="solid_banner_area">
@@ -59,20 +59,21 @@ $template->themeNav();
             <div class="row">
                 <?php
                 foreach ($novedades_data as $nov) {
+
                     ?>
                     <div class="col-lg-6 col-sm-6 mb-20">
                         <a href="<?= URL . '/blog/' . $funciones->normalizar_link($nov['data']["titulo"]) . '/' . $nov['data']['cod'] ?>">
-                            <div class="from_blog_item" style="height:350px;background:url(<?= $nov['imagenes']['0']['ruta']; ?>) no-repeat center center/cover;">
+                            <div class="from_blog_item" style="height:350px;background:url(<?= $nov['images'][0]['ruta']; ?>) no-repeat center center/cover;">
                                 <div class="f_blog_text">
                                     <?php
                                     if ($nov['data']['categoria'] != '') {
                                         ?>
-                                        <h5><?= ucfirst($nov['categorias']['titulo']); ?></h5>
+                                        <h5><?= ucfirst($nov['category']['data']['titulo']); ?></h5>
                                         <?php
                                     }
                                     ?>
                                     <p><?= ucfirst(substr(strip_tags($nov['data']['titulo']), 0, 60)); ?>...</p>
-                                    <h6><?= $nov['fecha_actual'] ?></h6>
+                                    <h6><?= $nov['data']['fecha'] ?></h6>
                                 </div>
                             </div>
                         </a>

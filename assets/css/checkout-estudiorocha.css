@@ -1,0 +1,21 @@
+.checkout-estudiorocha .box {
+    border: 1px solid #e1e1e1;
+    margin-bottom: 20px;
+    padding:20px;
+}
+
+label {
+    margin:0;
+    font-weight: normal;
+    font-size:13px !important;
+}
+
+.form-control {
+    margin:0 !important;
+}
+
+.form-error {
+    font-size:12px !important;
+    margin:0 !important;
+    padding:0 !important;
+}

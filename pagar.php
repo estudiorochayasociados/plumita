@@ -22,7 +22,7 @@ if (is_array($usuarioSesion)) {
     $funciones->headerMove(URL . "/checkout/" . $cod_pedido . "/" . $tipo_pedido);
 }
 
-$template->themeNav();
+
 $error = '';
 ?>
     <!--================Categories Banner Area =================-->

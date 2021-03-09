@@ -159,6 +159,37 @@ class PublicFunction
 
     }
 
+    
+    public function normalizar($string)
+    {
+        $string = str_replace("á", "a", $string);
+        $string = str_replace("Á", "A", $string);
+        $string = str_replace("ä", "a", $string);
+        $string = str_replace("Ä", "A", $string);
+        $string = str_replace("é", "e", $string);
+        $string = str_replace("ë", "e", $string);
+        $string = str_replace("Ë", "E", $string);
+        $string = str_replace("É", "E", $string);
+        $string = str_replace("í", "i", $string);
+        $string = str_replace("ï", "i", $string);
+        $string = str_replace("Í", "I", $string);
+        $string = str_replace("Ï", "I", $string);
+        $string = str_replace("Ì", "I", $string);
+        $string = str_replace("ó", "o", $string);
+        $string = str_replace("Ó", "O", $string);
+        $string = str_replace("ö", "o", $string);
+        $string = str_replace("Ö", "O", $string);
+        $string = str_replace("ú", "u", $string);
+        $string = str_replace("Ú", "U", $string);
+        $string = str_replace("Ü", "U", $string);
+        $string = str_replace("ü", "u", $string); 
+        //para ampliar los caracteres a reemplazar agregar lineas de este tipo:
+        //$string = str_replace("caracter - que - queremos - cambiar","caracter - por - el - cual - lo - vamos - a - cambiar",$string);
+        return $string;
+
+    }
+
+
 
 
     function curl($method, $url, $data){
@@ -195,10 +226,10 @@ class PublicFunction
         return $result;
     }
 
-
-    public function localidades($palabra)
+    public function localidades()
     {
-        $con = new Conexion(); 
+        $con = new Conexion();
+        $palabra = ($this->antihack_mysqli($_GET["elegido"]));
         $sql = "SELECT  distinct `_provincias`.`nombre`,`_localidades`.`nombre` FROM  `_localidades` , `_provincias` WHERE  `_localidades`.`provincia_id` =  `_provincias`.`id` AND `_provincias`.`nombre`  LIKE '%$palabra%' AND `_localidades`.`nombre` != '' ORDER BY `_localidades`.`nombre`";
         $notas = $con->sqlReturn($sql);
         while ($row = mysqli_fetch_assoc($notas)) {

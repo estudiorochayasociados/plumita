@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require 'vendor/autoload.php';
+//require 'vendor/autoload.php';
 
 class Email
 {
@@ -12,6 +12,12 @@ class Email
     private $receptor;
     private $emisor;
     private $mensaje;
+    private $config;
+
+    public function __construct()
+    {
+        $this->config = new Config();
+    }
 
     public function set($atributo, $valor)
     {
@@ -25,27 +31,69 @@ class Email
 
     public function emailEnviar()
     {
+        require dirname(__DIR__)."/vendor/autoload.php";
+        require_once dirname(__DIR__)."/vendor/phpmailer/phpmailer/src/PHPMailer.php";
+        require_once dirname(__DIR__)."/vendor/phpmailer/phpmailer/src/SMTP.php";
         $mail = new PHPMailer(true);
-        $mensaje = '<body style="background: #0f74a8;margin:0;padding:0"><div style="background: #fff;width:700px;margin:auto;padding:20px"><div><br/><img src="' . LOGO . '" width="200"/><br/><hr/></div>' . $this->mensaje . '<br/></div></body>';
+        $mensaje = '<body style="background: #0f74a8;margin:0;padding:0"><div style="background: #fff;width:700px;margin:auto;padding:20px"><div><br/><img src="'.LOGO.'" width="200"/><br/><hr/></div>'.$this->mensaje.'<br/></div></body>';
+        $emailData=$this->config->viewEmail();
         try {
-//Server settings
-            $mail->SMTPDebug = 0; // Enable verbose debug output
+            //Server settings
+            $mail->SMTPDebug = 0;                                 // Enable verbose debug output
             $mail->isSMTP();
             $mail->CharSet = 'UTF-8';
-// Set mailer to use SMTP
-            $mail->Host = SMTP_EMAIL; // Specify main and backup SMTP servers
-            $mail->SMTPAuth = true; // Enable SMTP authentication
-            $mail->Username = EMAIL; // SMTP username
-            $mail->Password = PASS_EMAIL; // SMTP password
-            $mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
-            $mail->Port = 587; // TCP port to connect to
+            // Set mailer to use SMTP
+            $mail->Host = $emailData['data']['smtp'];  // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = $emailData['data']['email'];                 // SMTP username
+            $mail->Password = $emailData['data']['password'];                           // SMTP password
+            $mail->SMTPSecure = $emailData['data']['smtp_secure'];                            // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = $emailData['data']['puerto'];                                    // TCP port to connect to
 
-//Recipients
-            $mail->setFrom($this->emisor, 'Plumita S.R.L');
-            $mail->addAddress($this->receptor, ''); // Add a recipient
+            //Recipients
+            $mail->setFrom($this->emisor, TITULO);
+            $mail->addAddress($this->receptor, '');     // Add a recipient
 
-//Content
-            $mail->isHTML(true); // Set email format to HTML
+            //Content
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = $this->asunto;
+            $mail->Body = $mensaje;
+            $mail->AltBody = strip_tags($mensaje);
+
+            $mail->send();
+            return 1;
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
+
+    public function emailEnviarCurl()
+    {
+        require "../../vendor/autoload.php";
+        require_once "../../vendor/phpmailer/phpmailer/src/PHPMailer.php";
+        require_once "../../vendor/phpmailer/phpmailer/src/SMTP.php";
+        $mail = new PHPMailer(true);
+        $mensaje = '<body style="background: #0f74a8;margin:0;padding:0"><div style="background: #fff;width:700px;margin:auto;padding:20px"><div><br/><img src="'.LOGO.'" width="200"/><br/><hr/></div>'.$this->mensaje.'<br/></div></body>';
+        $emailData=$this->config->viewEmail();
+        try {
+            //Server settings
+            $mail->SMTPDebug = 0;                                 // Enable verbose debug output
+            $mail->isSMTP();
+            $mail->CharSet = 'UTF-8';
+            // Set mailer to use SMTP
+            $mail->Host = $emailData['data']['smtp'];  // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = $emailData['data']['email'];                 // SMTP username
+            $mail->Password = $emailData['data']['password'];                           // SMTP password
+            $mail->SMTPSecure = $emailData['data']['smtp_secure'];                            // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = $emailData['data']['puerto'];                                    // TCP port to connect to
+
+            //Recipients
+            $mail->setFrom($this->emisor, TITULO);
+            $mail->addAddress($this->receptor, '');     // Add a recipient
+
+            //Content
+            $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = $this->asunto;
             $mail->Body = $mensaje;
             $mail->AltBody = strip_tags($mensaje);

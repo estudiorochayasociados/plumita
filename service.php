@@ -14,7 +14,7 @@ $contenido = new Clases\Contenidos();
 $contenido->set("cod", "0b610fe00d");
 $contentData = $contenido->view();
 //Clases
-$template->themeNav();
+
 ?>
 <!--================Categories Banner Area =================-->
 <section class="solid_banner_area">

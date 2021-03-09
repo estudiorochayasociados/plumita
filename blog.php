@@ -11,33 +11,32 @@ $categoria = new Clases\Categorias();
 $cod = isset($_GET["cod"]) ? $_GET["cod"] : '';
 $novedades->set("cod", $cod);
 $novedades_data = $novedades->view();
-$fecha = explode("-", $novedades_data['fecha']);
-$imagen->set("cod", $cod);
-$imagenes_data = $imagen->listForProduct();
+$fecha = explode("-", $novedades_data['data']['fecha']);
+// $imagen->set("cod", $cod);
+// $imagenes_data = $imagen->list("","","");
 //
-if (!empty($novedades_data['imagenes'][0]['ruta'])) {
-    $ruta_ = URL . "/" . $novedades_data['imagenes'][0]['ruta'];
+if (!empty($novedades_data['images'][0]['ruta'])) {
+    $ruta_ = URL . "/" . $novedades_data['images'][0]['ruta'];
 } else {
     $ruta_ = '';
 }
-$template->set("title", TITULO . " | " . ucfirst(strip_tags($novedades_data['titulo'])));
-$template->set("description", ucfirst(substr(strip_tags($novedades_data['desarrollo']), 0, 160)));
-$template->set("keywords", ucfirst(strip_tags($novedades_data['titulo'])));
+$template->set("title", TITULO . " | " . ucfirst(strip_tags($novedades_data['data']['titulo'])));
+$template->set("description", ucfirst(substr(strip_tags($novedades_data['data']['desarrollo']), 0, 160)));
+$template->set("keywords", ucfirst(strip_tags($novedades_data['data']['titulo'])));
 $template->set("imagen", $ruta_);
 $template->set("favicon", FAVICON);
 $template->themeInit();
 
-$template->themeNav();
 ?>
 <!--================Categories Banner Area =================-->
 <section class="solid_banner_area">
     <div class="container">
         <div class="solid_banner_inner navegador">
-            <h3><?= ucfirst($novedades_data['titulo']); ?></h3>
+            <h3><?= ucfirst($novedades_data['data']['titulo']); ?></h3>
             <ul>
                 <li><a href="<?= URL ?>/index">Inicio</a></li>
                 <li><a href="<?= URL ?>/blogs">Blogs</a></li>
-                <li class="current"><a href="#"><?= ucfirst($novedades_data['titulo']); ?></a></li>
+                <li class="current"><a href="#"><?= ucfirst($novedades_data['data']['titulo']); ?></a></li>
             </ul>
         </div>
     </div>
@@ -54,7 +53,8 @@ $template->themeNav();
                         <div class="carousel-inner">
                             <?php
                             $activo = 0;
-                            foreach ($imagenes_data as $img) {
+               
+                            foreach ($novedades_data['images'] as $key =>$img) {
                                 ?>
                                 <div class="carousel-item <?php if ($activo == 0) {
                                     echo 'active';
@@ -75,11 +75,11 @@ $template->themeNav();
                         </a>
                     </div>
 
-                    <h3><?= ucfirst($novedades_data['titulo']); ?></h3>
+                    <h3><?= ucfirst($novedades_data['data']['titulo']); ?></h3>
                     <div class="add_review pl-0">
                         <?= $fecha[2] . '/' . $fecha[1] . '/' . $fecha[0] ?>
                     </div>
-                    <p><?= ucfirst($novedades_data['desarrollo']); ?></p>
+                    <p><?= ucfirst($novedades_data['data']['desarrollo']); ?></p>
                     <div class="shareing_icon">
                         <h5 class="pt-40 pb-10">Compartir :</h5>
                         <div class="a2a_kit a2a_kit_size_32 a2a_default_style pb-40">

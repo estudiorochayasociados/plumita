@@ -11,7 +11,7 @@ class TemplateAdmin
     public $favicon;
     public $canonical;
 
-    public function themeInit()
+    public function themeInit($pagesCustom)
     {
         echo '<!DOCTYPE html>';
         echo '<html lang="es">';

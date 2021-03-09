@@ -5,14 +5,18 @@ Config\Autoload::runSitio();
 $template = new Clases\TemplateSite();
 $funciones = new Clases\PublicFunction();
 $enviar = new Clases\Email();
+$config = new Clases\Config();
 //
+
+$captchaData = $config->viewCaptcha();
+
 $template->set("title", TITULO . " | Contacto");
 $template->set("description", "Contacto ".TITULO);
 $template->set("keywords", "Contacto ".TITULO);
 $template->set("favicon", FAVICON);
 $template->themeInit();
 //
-$template->themeNav();
+
 ?>
 <!--================Categories Banner Area =================-->
 <section class="solid_banner_area">

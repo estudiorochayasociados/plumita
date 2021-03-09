@@ -1,13 +1,29 @@
 <?php
-$usuarios = new Clases\Usuarios();
+$usuario = new Clases\Usuarios();
+$pedido = $funciones->antihack_mysqli(isset($_GET["pedido"]) ? $_GET["pedido"] : '0');
 ?>
     <div class="mt-20">
         <div class="col-lg-12 col-md-12">
-            <h4>Usuarios <a class="btn btn-success pull-right" href="<?= URL ?>/index.php?op=usuarios&accion=agregar">AGREGAR
-                    USUARIOS</a></h4>
+            <h4>Usuarios
+                <a class="btn btn-success pull-right" href="<?= URLADMIN ?>/index.php?op=usuarios&accion=agregar<?php if ($pedido == 1) {
+                    echo '&pedido=1';
+                } ?>">
+                    AGREGAR
+                    USUARIOS
+                </a>
+            </h4>
             <hr/>
             <input class="form-control" id="myInput" type="text" placeholder="Buscar..">
             <hr/>
+            <?php
+            if ($pedido == 1) {
+                ?>
+                <div class="alert alert-success" role="alert">
+                    Seleccion un usuario para comenzar a armar el pedido o agrega un usuario nuevo.
+                </div>
+                <?php
+            }
+            ?>
             <table class="table  table-bordered  ">
                 <thead>
                 <th>Nombre</th>
@@ -18,25 +34,81 @@ $usuarios = new Clases\Usuarios();
                 <tbody>
                 <?php
                 $filter = array();
-                $data = $usuarios->list("");
-                if (is_array($data)) {
-                    for ($i = 0; $i < count($data); $i++) {
-                        echo "<tr>";
-                        echo "<td>" . strtoupper($data[$i]["nombre"]) . " " . strtoupper($data[$i]["apellido"]) . "</td>";
-                        echo "<td>" . strtoupper($data[$i]["email"]) . "</td>";
-                        if ($data[$i]["descuento"] == 0):
-                            echo "<td>Minorista</td>";
-                        elseif ($data[$i]["descuento"] == 1):
-                            echo "<td>Mayorista</td>";
-                        endif;
-                        echo "<td>";
-                        echo '<a class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Modificar" href="' . URL . '/index.php?op=usuarios&accion=modificar&cod=' . $data[$i]["cod"] . '">
-                        <i class="fa fa-cog"></i></a>';
+                $usuariosData = $usuario->list('', '', '');
+                if (is_array($usuariosData)) {
+                    foreach ($usuariosData as $data) {
+                        ?>
+                        <tr>
+                            <td><?= mb_strtoupper($data['data']["nombre"]) . " " . mb_strtoupper($data['data']["apellido"]) ?></td>
 
-                        echo '<a class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" href="' . URL . '/index.php?op=usuarios&accion=ver&borrar=' . $data[$i]["cod"] . '">
-                        <i class="fa fa-trash"></i></a>';
-                        echo "</td>";
-                        echo "</tr>";
+                            <td><?= mb_strtolower($data['data']["email"]) ?></td>
+                            <td>
+                                <?php
+                                if ($data['data']["minorista"] == 1) {
+                                    echo "MINORISTA";
+                                } else {
+                                    echo "MAYORISTA";
+                                }
+                                ?>
+                            </td>
+                            <td>
+                                <?php
+                                if ($data['data']["estado"] == 1) {
+                                    ?>
+                                    <a class="btn btn-success"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="Activo"
+                                       href="<?= URLADMIN . '/index.php?op=usuarios&cod=' . $data['data']['cod'] . '&active=0' ?>">
+                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                    </a>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <a class="btn btn-primary"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="No activo"
+                                       href="<?= URLADMIN . '/index.php?op=usuarios&cod=' . $data['data']['cod'] . '&active=1' ?>">
+                                        <i class="fa fa-ban" aria-hidden="true"></i>
+                                    </a>
+                                    <?php
+                                }
+                                ?>
+                                <span>
+                            </span>
+                                <a class="btn btn-warning"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   title="Ver Pedidos"
+                                   href="<?= URLADMIN ?>/index.php?op=pedidos&accion=ver&usuario=<?= $data['data']["cod"] ?>">
+                                    <i class="fa fa-list"></i></a>
+
+                                <a class="btn btn-dark"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   title="Agregar Pedido"
+                                   href="<?= URLADMIN ?>/index.php?op=pedidos&accion=agregar&usuario=<?= $data['data']["cod"] ?>">
+                                    <i class="fa fa-plus"></i></a>
+
+                                <a class="btn btn-info"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   title="Modificar"
+                                   href="<?= URLADMIN ?>/index.php?op=usuarios&accion=modificar&cod=<?= $data['data']["cod"] ?>">
+                                    <i class="fa fa-cog"></i></a>
+                                <!--
+                                <a class="btn btn-danger"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   title="Eliminar"
+                                   href="<?= URLADMIN ?>/index.php?op=usuarios&accion=ver&borrar=<?= $data['data']["cod"] ?>">
+                                    <i class="fa fa-trash"></i></a>
+                                    -->
+                            </td>
+                        </tr>
+                        <?php
+
                     }
                 }
                 ?>
@@ -47,8 +119,14 @@ $usuarios = new Clases\Usuarios();
 <?php
 if (isset($_GET["borrar"])) {
     $cod = $funciones->antihack_mysqli(isset($_GET["borrar"]) ? $_GET["borrar"] : '');
-    $usuarios->set("cod",$cod);
-    $usuarios->delete();
-    $funciones->headerMove(URL . "/index.php?op=usuarios");
+    $usuario->set("cod", $cod);
+    $usuario->delete();
+    $funciones->headerMove(URLADMIN . "/index.php?op=usuarios");
+}
+if (isset($_GET["active"])) {
+    $estado = $funciones->antihack_mysqli(isset($_GET["active"]) ? $_GET["active"] : '');
+    $usuario->set("cod", $funciones->antihack_mysqli(isset($_GET["cod"]) ? $_GET["cod"] : ''));
+    $usuario->editSingle("estado", $estado);
+    $funciones->headerMove(URLADMIN . "/index.php?op=usuarios");
 }
 ?>

@@ -16,28 +16,18 @@ $template->set("keywords", "bordeadora, cortadora, cesped, pasto, yuyo, alto niv
 $template->set("favicon", FAVICON);
 $template->themeInit();
 //Banners
-$categoria->set("area", "banners");
-
-$bannerCategorias = $banner->listWithOps(["categoria='825bc91df3'"], '', '');
-
+$bannerCategorias = $banner->list(["categoria='825bc91df3'"], '', '');
 //Sliders
-$categoria->set("area", "sliders");
-$categorias_sliders = $categoria->listForArea('');
-foreach ($categorias_sliders as $catS) {
-    if ($catS['titulo'] == "Principal") {
-        $slider->set("categoria", $catS['cod']);
-        $sliders_data = $slider->listForCategory();
-    }
-}
+$sliders_data = $slider->list([("categoria = '3473ddb26e'")], "", "");
 //
-$template->themeNav();
+
 ?>
 <!--================Home Carousel Area =================-->
 <div id="carouselControls" class="carousel slide mb-50" data-ride="carousel">
     <div class="carousel-inner carousel-index">
         <?php foreach ($sliders_data as $key => $sli) { ?>
             <div class="carousel-item <?= $key == 0 ? 'active' : '' ?>">
-                <img class="d-block w-100" src="<?= URL . '/' . $sli['imagenes']['0']['ruta']; ?>" alt="First slide">
+                <img class="d-block w-100" src="<?= URL . '/' . $sli['image']['ruta']; ?>" alt="First slide">
             </div>
         <?php } ?>
     </div>
@@ -60,20 +50,19 @@ $template->themeNav();
             <?php
             $amount = count($bannerCategorias);
             foreach ($bannerCategorias as $key => $ban_) {
-                if ($key == ($amount-1)) {
+                if ($key == ($amount - 1)) {
                     if ($amount % 2 != 0) {
                         echo "<div class='col-lg-3'></div>";
                     }
                 }
-                ?>
+            ?>
                 <div class="col-lg-6 mt-5">
-                    <a href="<?= $ban_['data']['link']; ?>">
-                        <div class="special_offer_item"
-                             style="height:300px;background:url(<?= $ban_['imagenes']['0']['ruta']; ?>) no-repeat center center/cover;">
+                    <a href="<?= URL . "/" . $ban_['data']['link']; ?>">
+                        <div class="special_offer_item" style="height:300px;background:url(<?= $ban_['image']['ruta']; ?>) no-repeat center center/cover;">
                         </div>
                     </a>
                 </div>
-                <?php
+            <?php
             }
             ?>
         </div>

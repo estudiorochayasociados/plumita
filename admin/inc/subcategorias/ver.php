@@ -1,13 +1,13 @@
 <?php
 $categorias = new Clases\Categorias(); 
 $filter    = array();
-$data = $categorias->list("");
+$data = $categorias->list('','','');
 ?>
 <div class="mt-20">
     <div class="col-lg-12 col-md-12">
         <h4>
             Categorias
-            <a class="btn btn-success pull-right" href="<?=URL?>/index.php?op=categorias&accion=agregar">
+            <a class="btn btn-success pull-right" href="<?=URLADMIN?>/index.php?op=categorias&accion=agregar">
                 AGREGAR CATEGORIAS
             </a>
         </h4>
@@ -34,11 +34,11 @@ $data = $categorias->list("");
                         echo "<td>" . strtoupper($data[$i]["titulo"]) . "</td>";
                         echo "<td>" . strtoupper($data[$i]["area"]) . "</td>";
                         echo "<td>";
-                        echo '<a class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Agregar" href="' . URL . '/index.php?op=subcategorias&accion=agregar&cod=' . $data[$i]["cod"] . '">
+                        echo '<a class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Agregar" href="' . URLADMIN . '/index.php?op=subcategorias&accion=agregar&cod=' . $data[$i]["cod"] . '">
                         <i class="fa fa-plus"></i> SUBCATEGORÍA</a>';
-                        echo '<a class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Modificar" href="' . URL . '/index.php?op=categorias&accion=modificar&cod=' . $data[$i]["cod"] . '"><i class="fa fa-cog"></i></a>';
+                        echo '<a class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Modificar" href="' . URLADMIN . '/index.php?op=categorias&accion=modificar&cod=' . $data[$i]["cod"] . '"><i class="fa fa-cog"></i></a>';
 
-                        echo '<a class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" href="' . URL . '/index.php?op=categorias&accion=ver&borrar=' . $data[$i]["cod"] . '">
+                        echo '<a class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" href="' . URLADMIN . '/index.php?op=categorias&accion=ver&borrar=' . $data[$i]["cod"] . '">
                         <i class="fa fa-trash"></i></a>';
                         echo "</td>";
                         echo "</tr>";
@@ -56,6 +56,6 @@ if (isset($_GET["borrar"])) {
     $imagenes->set("cod", $cod);
     $categorias->delete();
     $imagenes->deleteAll();
-    $funciones->headerMove(URL . "/index.php?op=categorias");
+    $funciones->headerMove(URLADMIN . "/index.php?op=categorias");
 }
 ?>

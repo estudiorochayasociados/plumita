@@ -1,4 +1,5 @@
 <?php
+/*
 $funcionesNav = new Clases\PublicFunction();
 //Clases
 $enviar = new Clases\Email();
@@ -242,4 +243,5 @@ if (isset($_POST["recuperar"])) {
     </div>
 </div>
 <!-- End Recuperar modal -->
-
+*/
+?>

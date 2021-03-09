@@ -1,6 +1,6 @@
 <?php
-require_once "../../Config/Autoload.php";
-Config\Autoload::runSitio2();
+require_once dirname(__DIR__,2)."/Config/Autoload.php";
+Config\Autoload::run();
 $funcion = new Clases\PublicFunction();
-$funcion->localidades($_GET["elegido"]);
+$funcion->localidades();
 ?>

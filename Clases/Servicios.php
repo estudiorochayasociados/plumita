@@ -11,6 +11,7 @@ class Servicios
     public $titulo;
     public $desarrollo;
     public $categoria;
+    public $subcategoria;
     public $keywords;
     public $description;
     public $fecha;
@@ -20,10 +21,18 @@ class Servicios
     public function __construct()
     {
         $this->con = new Conexion();
+        $this->categorias = new Categorias();
+        $this->subcategorias = new Subcategorias();
+        $this->imagenes = new Imagenes();
     }
 
     public function set($atributo, $valor)
     {
+        if (!empty($valor)) {
+            $valor = "'" . $valor . "'";
+        } else {
+            $valor = "NULL";
+        }
         $this->$atributo = $valor;
     }
 
@@ -34,34 +43,67 @@ class Servicios
 
     public function add()
     {
-        $sql   = "INSERT INTO `servicios`(`cod`, `titulo`, `desarrollo`, `categoria`, `keywords`, `description`, `fecha`) VALUES ('{$this->cod}', '{$this->titulo}', '{$this->desarrollo}', '{$this->categoria}', '{$this->keywords}', '{$this->description}', '{$this->fecha}')";
+        $sql = "INSERT INTO `servicios`(`cod`, `titulo`, `desarrollo`, `categoria`,`subcategoria`, `keywords`, `description`, `fecha`) 
+                VALUES ({$this->cod},
+                        {$this->titulo},
+                        {$this->desarrollo},
+                        {$this->categoria},
+                        {$this->subcategoria},
+                        {$this->keywords},
+                        {$this->description},
+                        {$this->fecha})";
         $query = $this->con->sql($sql);
         return $query;
     }
 
     public function edit()
     {
-        $sql   = "UPDATE `servicios` SET cod = '{$this->cod}', titulo = '{$this->titulo}', desarrollo = '{$this->desarrollo}', categoria = '{$this->categoria}', keywords = '{$this->keywords}', description = '{$this->description}', fecha = '{$this->fecha}' WHERE `cod`='{$this->cod}'";
+        $sql = "UPDATE `servicios` 
+                SET cod = {$this->cod},
+                    titulo = {$this->titulo},
+                    desarrollo = {$this->desarrollo},
+                    categoria = {$this->categoria},
+                    subcategoria = {$this->subcategoria},
+                    keywords = {$this->keywords},
+                    description = {$this->description},
+                    fecha = {$this->fecha} 
+                WHERE `cod`={$this->cod}";
         $query = $this->con->sql($sql);
         return $query;
     }
 
     public function delete()
     {
-        $sql   = "DELETE FROM `servicios` WHERE `cod`  = '{$this->cod}'";
+        $sql = "DELETE FROM `servicios` WHERE `cod`  = {$this->cod}";
         $query = $this->con->sql($sql);
-        return $query;
+
+        if (!empty($this->imagenes->list(array("cod=$this->cod"), 'orden ASC', ''))) {
+            $this->imagenes->cod = $this->cod;
+            $this->imagenes->deleteAll();
+        }
+
+        if (!empty($query)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function view()
     {
-        $sql   = "SELECT * FROM `servicios` WHERE cod = '{$this->cod}' ORDER BY id DESC";
-        $notas = $this->con->sqlReturn($sql);
-        $row   = mysqli_fetch_assoc($notas);
-        return $row;
+        $sql = "SELECT * FROM `servicios` WHERE cod = {$this->cod} ORDER BY id DESC LIMIT 1";
+        $servicio = $this->con->sqlReturn($sql);
+        $row = mysqli_fetch_assoc($servicio);
+        $img = $this->imagenes->list(array("cod = '" . $row['cod'] . "'"), "orden ASC", "");
+        $this->categorias->set("cod", $row["categoria"]);
+        $cat = $this->categorias->view();
+        $this->subcategorias->set("cod", $row["subcategoria"]);
+        $subcat = $this->subcategorias->view();
+        $array = array("data" => $row, "category" => $cat, "subcategory" => $subcat, "images" => $img);
+        return $array;
     }
 
-    function list($filter)
+    function list($filter, $order, $limit)
     {
         $array = array();
         if (is_array($filter)) {
@@ -71,15 +113,30 @@ class Servicios
             $filterSql = '';
         }
 
-        $sql   = "SELECT * FROM `servicios` $filterSql  ORDER BY id DESC";
-        $notas = $this->con->sqlReturn($sql);
+        if ($order != '') {
+            $orderSql = $order;
+        } else {
+            $orderSql = "id DESC";
+        }
 
-        if ($notas) {
-            while ($row = mysqli_fetch_assoc($notas)) {
-                $array[] = $row;
+        if ($limit != '') {
+            $limitSql = "LIMIT " . $limit;
+        } else {
+            $limitSql = '';
+        }
+
+        $sql = "SELECT * FROM `servicios` $filterSql ORDER BY $orderSql $limitSql";
+        $servicio = $this->con->sqlReturn($sql);
+        if ($servicio) {
+            while ($row = mysqli_fetch_assoc($servicio)) {
+                $img = $this->imagenes->list(array("cod = '" . $row['cod'] . "'"), "orden ASC", "");
+                $this->categorias->set("cod", $row['categoria']);
+                $cat = $this->categorias->view();
+                $this->subcategorias->set("cod", $row['subcategoria']);
+                $subcat = $this->subcategorias->view();
+                $array[] = array("data" => $row, "category" => $cat, "subcategory" => $subcat, "images" => $img);
             }
             return $array;
         }
     }
-
 }

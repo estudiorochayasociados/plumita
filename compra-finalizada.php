@@ -22,7 +22,7 @@ $pedido_info = $pedidos->info();
 if (count($_SESSION["carrito"]) == 0) {
     $funciones->headerMove(URL . "/index");
 }
-$template->themeNav();
+
 ?>
     <section class="solid_banner_area">
         <div class="container">

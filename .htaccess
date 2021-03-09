@@ -1,109 +1,48 @@
-Options +FollowSymLinks
+
+RewriteEngine On
+
+
 
 
 RewriteRule ^producto/(.*)/(.*)$ ./producto.php?cod=$2
-RewriteRule ^productos/s/(.*)/(.*)$ ./productos.php?categoria=$1&subcategoria=$2 [QSA,L]
-RewriteRule ^productos/s/(.*)$ ./productos.php?subcategoria=$1 [QSA,L]
-RewriteRule ^productos/c/(.*)$ ./productos.php?categoria=$1 [QSA,L]
-RewriteRule ^productos/b/(.*)$ ./productos.php?titulo=$1 [QSA,L]
-
-
-RewriteRule ^c/(.*)/(.*)$ ./contenidos.php?id=$2
+RewriteRule ^inicio ./index.php
 RewriteRule ^blog/(.*)/(.*)$ ./blog.php?cod=$2
-RewriteRule ^sesion(.*)/(.*)$ ./sesion.php?op=$2
-RewriteRule ^pagar/(.*)/(.*)$ ./pagar.php?metodos-pago=$2
 RewriteRule ^carrito/(.*)/(.*)$ ./carrito.php?metodos-pago=$2
-RewriteRule ^checkout(.*)/(.*)/(.*)$ ./checkout.php?cod_pedido=$2&tipo_pedido=$3
+RewriteRule ^c/(.*)$ ./contenidos.php?id=$1
+RewriteRule ^sesion/(.*)$ ./sesion.php?op=$1
 RewriteRule ^landing/(.*)/(.*)$ ./landing.php?cod=$2
+RewriteRule ^servicios/(.*)/(.*)$ ./servicios.php?cod=$2
+RewriteRule ^portfolio/(.*)/(.*)$ ./portfolio.php?cod=$2
+RewriteRule ^checkout/(.*)$ ./checkout.php?op=$1
 
-#ErrorDocument 404 https://www..com.ar/404
-#ErrorDocument 400 https://www..com.ar/404
-#ErrorDocument 401 https://www..com.ar/404
-#ErrorDocument 403 https://www..com.ar/404
-#ErrorDocument 500 https://www..com.ar/404
 
-RewriteEngine on
+RewriteRule ^productos/c/(.*)/(.*)$ ./productos.php?categoria=$2 [QSA,L]
+RewriteRule ^productos/s/(.*)/(.*)/(.*)/(.*)$ ./productos.php?categoria=$2&subcategoria=$4 [QSA,L]
+RewriteRule ^productos/s/(.*)/(.*)$ ./productos.php?subcategoria=$2 [QSA,L]
+RewriteRule ^productos/b/(.*)/(.*)/(.*)/(.*)$ ./productos.php?$1=$2&$3=$4 [QSA,L]
+RewriteRule ^productos/b/(.*)/(.*)$ ./productos.php?$1=$2 [QSA,L]
+RewriteRule ^productos/(.*)$ ./productos.php [QSA,L]
+
+RewriteRule ^ofertas/c/(.*)/(.*)$ ./ofertas.php?categoria=$2 [QSA,L]
+RewriteRule ^ofertas/s/(.*)/(.*)/(.*)/(.*)$ ./ofertas.php?categoria=$2&subcategoria=$4 [QSA,L]
+RewriteRule ^ofertas/s/(.*)/(.*)$ ./ofertas.php?subcategoria=$2 [QSA,L]
+RewriteRule ^ofertas/b/(.*)/(.*)/(.*)/(.*)$ ./ofertas.php?$1=$2&$3=$4 [QSA,L]
+RewriteRule ^ofertas/b/(.*)/(.*)$ ./ofertas.php?$1=$2 [QSA,L]
+RewriteRule ^ofertas/(.*)$ ./ofertas.php [QSA,L]
+
+#ErrorDocument 404 http://www..com.ar/404
+#ErrorDocument 400 http://www..com.ar/404
+#ErrorDocument 401 http://www..com.ar/404
+#ErrorDocument 403 http://www..com.ar/404
+#ErrorDocument 500 http://www..com.ar/404
+
+
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
 
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-l
 RewriteRule ^(.*)$ $1.php
 
-RewriteCond %{HTTPS} !=on
-RewriteCond %{HTTP_HOST} !^www\..+$ [NC]
-RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-
-php_value max_execution_time 9000
-
-Header add Access-Control-Allow-Origin "*"
-
-<IfModule mod_headers.c>
-SetEnvIf Range (,.*?){5,} bad-range=1
-RequestHeader unset Range env=bad-range
-Header set X-Frame-Options DENY
-Header set X-Content-Type-Options "nosniff"
-Header set X-Content-Security-Policy "allow 'self';"
-Header set X-XSS-Protection "1; mode=block"
-</IfModule>
-
-# Block access to the .htaccess file
-<files .htaccess>
-order allow,deny
-deny from all
-</files>
-
-###########
-SetOutputFilter DEFLATE
-Header unset ETag
-FileETag None
-<FilesMatch "\.(js|css|ico|pdf|jpg|jpeg|png|gif)$">
-Header set Cache-Control "public"
-Header set Expires "Thu, 15 Apr 2020 20:00:00 GMT"
-Header unset Last-Modified
-</FilesMatch>
-
-<ifModule mod_gzip.c>
-mod_gzip_on Yes
-mod_gzip_dechunk Yes
-mod_gzip_item_include file .(html?|txt|css|js|php|pl)$
-mod_gzip_item_include handler ^cgi-script$
-mod_gzip_item_include mime ^text/.*
-mod_gzip_item_include mime ^application/x-javascript.*
-mod_gzip_item_exclude mime ^image/.*
-mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
-</ifModule>
-
-<IfModule mod_expires.c>
-ExpiresActive On
-ExpiresByType image/jpg "access 1 year"
-ExpiresByType image/jpeg "access 1 year"
-ExpiresByType image/gif "access 1 year"
-ExpiresByType image/png "access 1 year"
-ExpiresByType text/css "access 1 month"
-ExpiresByType application/pdf "access 1 month"
-ExpiresByType text/x-javascript "access 1 month"
-ExpiresByType application/x-shockwave-flash "access 1 month"
-ExpiresByType image/x-icon "access 1 year"
-ExpiresDefault "access plus 1 year"
-</IfModule>
-
-<ifModule mod_headers.c>
-  <filesMatch "\\.(ico|pdf|flv|jpg|jpeg|png|gif|swf)$">
-    Header set Cache-Control "max-age=2592000, public"
-  </filesMatch>
-
-  <filesMatch "\\.(css)$">
-    Header set Cache-Control "max-age=2592000, public"
-  </filesMatch>
-
-  <filesMatch "\\.(js)$">
-    Header set Cache-Control "max-age=216000, private"
-  </filesMatch>
-
-  <filesMatch "\\.(xml|txt)$">
-    Header set Cache-Control "max-age=216000, public, must-revalidate"
-  </filesMatch>
-
-  <filesMatch "\\.(html|htm|php)$">
-    Header set Cache-Control "max-age=1, private, must-revalidate"
-  </filesMatch>
-</ifModule>

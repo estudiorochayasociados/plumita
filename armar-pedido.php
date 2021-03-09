@@ -73,7 +73,7 @@ if (isset($_GET["remover"])) {
     $carrito->delete($_GET["remover"]);
     $funciones->headerMove(URL . "/armar-pedido");
 }
-$template->themeNav();
+
 ?>
 <!-- BREADCRUMBS -->
 <section class="solid_banner_area">
@@ -93,7 +93,8 @@ $template->themeNav();
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-               <h4>Carrito</h4>
+                <h4>PEDIDO</h4>
+                <hr/>
                 <div id="cartTable" class="mt-10">
 
                 </div>
@@ -102,7 +103,6 @@ $template->themeNav();
                 <div class="row">
                     <form style="width: 100%" method="get">
                         <input type="text" class="form-control d-inline-block" name="buscar" value="<?= $titulo ?>" placeholder="Buscar" style="width: 88%">
-
                         <button type="submit" class="btn btn-info" style="background-color: #013aa0">Buscar</button>
                     </form>
                 </div>
@@ -112,7 +112,7 @@ $template->themeNav();
                         Usted posee un descuento del <?= $_SESSION['usuarios']['descuento'] ?>%.
                     </div>
                 <?php } ?>
-                <table class="table table-striped">
+                <table class="table table-striped table-hover">
                     <thead>
                     <tr id="head">
                         <th>CÓDIGO</th>
@@ -270,7 +270,7 @@ $template->themeNav();
                 data = JSON.parse(data);
                 if (data['status'] == true) {
                     $('#productModalTitle' + cod).html('');
-                    $('#productModalTitle' + cod).html(data['header']);
+                    //$('#productModalTitle' + cod).html(data['header']);
                     $('#productModalDiv' + cod).html('');
                     $('#productModalDiv' + cod).html(data['response']);
                     $('#productModal' + cod).modal('toggle');

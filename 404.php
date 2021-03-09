@@ -9,7 +9,7 @@ $template->set("keywords", "Página no encontrada");
 $template->set("favicon", FAVICON);
 $template->themeInit();
 
-$template->themeNav();
+
 ?>
 <!--================login Area =================-->
 <section class="error_area p_100">

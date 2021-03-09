@@ -9,19 +9,26 @@ $product = $funciones->antihack_mysqli(isset($_POST['cod']) ? $_POST['cod'] : ''
 if (isset($_SESSION['usuarios'])) {
     if (!empty($product)) {
         $producto->set("cod", $product);
-        $productoData = $producto->view();
+        $productoData = $producto->view_();
         if (!empty($productoData)) {
-            $precio = $productoData['precio'];
+            $precio = $productoData["data"]['precio'];
             $response = '';
 
-            $price_ = $productoData['precio'];
+            $price_ = $productoData["data"]['precio'];
             if (!empty($_SESSION['usuarios']['descuento'])) {
-                $price_ = $productoData['precio'] - (($_SESSION['usuarios']['descuento'] * $productoData['precio']) / 100);
+                $price_ = $productoData["data"]['precio'] - (($_SESSION['usuarios']['descuento'] * $productoData["data"]['precio']) / 100);
             }
-            $header = $productoData['titulo'] . '- ' . $productoData['cod_producto'];
+            $header = mb_strtoupper($productoData["data"]['titulo'] . ' - ' . $productoData["data"]['cod_producto']);
 
             $response .= "<form class='form-box' id='cartForm$product'>";
-            $response .= "<h5>HACER PEDIDO</h5>";
+            $response .= "<div class='row'>";
+            $response .= "<div class='col-md-3'>";
+            $response .= "<img src='" . URL . "/" . $productoData["imagenes"][0]["ruta"] . "' width='100' />";
+            $response .= "</div>";
+            $response .= "<div class='col-md-9'>";
+            $response .= "<h3>".$header."</h3>";
+            $response .= "</div>";
+            $response .= "</div>";
             $response .= "<hr>";
             $response .= "<input type='hidden' name='product' value='$product'>";
             $response .= "<div class='row'>";

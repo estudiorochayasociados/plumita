@@ -6,17 +6,17 @@ $id = isset($_GET["id"]) ? $_GET["id"] : '';
 $contenido = new Clases\Contenidos();
 $contenido->set("cod", $id);
 $contenido_data = $contenido->view();
-$template->set("title", TITULO . " | ".ucfirst(strip_tags($contenido_data['cod'])));
-$template->set("description", ucfirst(substr(strip_tags($contenido_data['contenido']), 0, 160)));
+$template->set("title", TITULO . " | ".ucfirst(strip_tags($contenido_data['data']['cod'])));
+$template->set("description", ucfirst(substr(strip_tags($contenido_data['data']['contenido']), 0, 160)));
 $template->set("keywords", TITULO . " | Empresa");
 $template->set("favicon", FAVICON);
 $template->themeInit();
-if ($contenido_data['cod']=="servicio-técnico"){
+if ($contenido_data['data']['cod']=="servicio-técnico"){
     $cod="Servicio Técnico";
 }else{
-    $cod=$contenido_data['cod'];
+    $cod=$contenido_data['data']['cod'];
 }
-$template->themeNav();
+
 ?>
 <section class="solid_banner_area">
     <div class="container">
@@ -34,7 +34,7 @@ $template->themeNav();
         <div class="row">
             <div class="col-lg-12">
                 <div class="">
-                    <p><?= ucfirst($contenido_data['contenido']); ?></p>
+                    <p><?= ucfirst($contenido_data['data']['contenido']); ?></p>
                 </div>
             </div>
         </div>

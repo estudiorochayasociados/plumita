@@ -11,6 +11,7 @@ class Portfolio
     public $titulo;
     public $desarrollo;
     public $categoria;
+    public $subcategoria;
     public $keywords;
     public $description;
     public $fecha;
@@ -20,10 +21,18 @@ class Portfolio
     public function __construct()
     {
         $this->con = new Conexion();
+        $this->categorias = new Categorias();
+        $this->subcategorias = new Subcategorias();
+        $this->imagenes = new Imagenes();
     }
 
     public function set($atributo, $valor)
     {
+        if(!empty($valor)) {
+            $valor = "'".$valor."'";
+        } else {
+            $valor = "NULL";
+        }
         $this->$atributo = $valor;
     }
 
@@ -34,34 +43,58 @@ class Portfolio
 
     public function add()
     {
-        $sql   = "INSERT INTO `portfolio`(`cod`, `titulo`, `desarrollo`, `categoria`, `keywords`, `description`, `fecha`) VALUES ('{$this->cod}', '{$this->titulo}', '{$this->desarrollo}', '{$this->categoria}', '{$this->keywords}', '{$this->description}', '{$this->fecha}')";
+        $sql = "INSERT INTO `portfolio`(`cod`, `titulo`, `desarrollo`, `categoria`,`subcategoria`, `keywords`, `description`, `fecha`) VALUES ({$this->cod}, {$this->titulo}, {$this->desarrollo}, {$this->categoria},{$this->subcategoria}, {$this->keywords}, {$this->description}, {$this->fecha})";
         $query = $this->con->sql($sql);
         return $query;
     }
 
     public function edit()
     {
-        $sql   = "UPDATE `portfolio` SET cod = '{$this->cod}', titulo = '{$this->titulo}', desarrollo = '{$this->desarrollo}', categoria = '{$this->categoria}', keywords = '{$this->keywords}', description = '{$this->description}', fecha = '{$this->fecha}' WHERE `id`='{$this->id}'";
+        $sql = "UPDATE `portfolio` 
+                SET cod = {$this->cod}, 
+                    titulo = {$this->titulo}, 
+                    desarrollo = {$this->desarrollo}, 
+                    categoria = {$this->categoria},  
+                    subcategoria = {$this->subcategoria}, 
+                    keywords = {$this->keywords}, 
+                    description = {$this->description}, 
+                    fecha = {$this->fecha} 
+                WHERE `cod`={$this->cod}";
         $query = $this->con->sql($sql);
         return $query;
     }
 
     public function delete()
     {
-        $sql   = "DELETE FROM `portfolio` WHERE `cod`  = '{$this->cod}'";
-        $query = $this->con->sql($sql);
-        return $query;
+        $sql = "DELETE FROM `portfolio` WHERE `cod`  = {$this->cod}";
+        $query = $this->con->sqlReturn($sql);
+        if (!empty($this->imagenes->list(array("cod={$this->cod}"),'orden ASC',''))) {
+            $this->imagenes->cod = $this->cod;
+            $this->imagenes->deleteAll();
+        }
+        if (!empty($query)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function view()
     {
-        $sql   = "SELECT * FROM `portfolio` WHERE cod = '{$this->cod}' ORDER BY id DESC";
-        $notas = $this->con->sqlReturn($sql);
-        $row   = mysqli_fetch_assoc($notas);
-        return $row;
+        $sql = "SELECT * FROM `portfolio` WHERE cod = {$this->cod} ORDER BY id DESC LIMIT 1";
+        $portfolio = $this->con->sqlReturn($sql);
+        $row = mysqli_fetch_assoc($portfolio);
+        $img = $this->imagenes->list(array("cod = {$this->cod}"), "orden ASC", "");
+        $this->categorias->set("cod", $row['categoria']);
+        $cat = $this->categorias->view();
+        $this->subcategorias->set("cod",$row['subcategoria']);
+        $subcat = $this->subcategorias->view();
+        $array = array("data" => $row, "category" => $cat, "subcategory" => $subcat, "images" => $img);
+        return $array;
     }
 
-    function list($filter) {
+    function list($filter, $order, $limit)
+    {
         $array = array();
         if (is_array($filter)) {
             $filterSql = "WHERE ";
@@ -70,12 +103,28 @@ class Portfolio
             $filterSql = '';
         }
 
-        $sql   = "SELECT * FROM `portfolio` $filterSql  ORDER BY id DESC";
-        $notas = $this->con->sqlReturn($sql);
+        if ($order != '') {
+            $orderSql = $order;
+        } else {
+            $orderSql = "id DESC";
+        }
 
-        if ($notas) {
-            while ($row = mysqli_fetch_assoc($notas)) {
-                $array[] = $row;
+        if ($limit != '') {
+            $limitSql = "LIMIT " . $limit;
+        } else {
+            $limitSql = '';
+        }
+
+        $sql = "SELECT * FROM `portfolio` $filterSql ORDER BY $orderSql $limitSql";
+        $portfolio = $this->con->sqlReturn($sql);
+        if ($portfolio) {
+            while ($row = mysqli_fetch_assoc($portfolio)) {
+                $img = $this->imagenes->list(array("cod = '" . $row['cod']."'"), "orden ASC", "");
+                $this->categorias->set("cod", $row['categoria']);
+                $cat = $this->categorias->view();
+                $this->subcategorias->set("cod",$row['subcategoria']);
+                $subcat = $this->subcategorias->view();
+                $array[] = array("data" => $row, "categorie" => $cat, "subcategorie" => $subcat, "images" => $img);
             }
             return $array;
         }

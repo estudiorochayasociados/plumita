@@ -1,12 +1,12 @@
 <?php
-$sliders = new Clases\Sliders();
-$imagenes= new Clases\Imagenes();
+$slider = new Clases\Sliders();
+$sliders = $slider->list('','','');
 ?>
 <div class="mt-20">
     <div class="col-lg-12 col-md-12">
         <h4>
             Sliders
-            <a class="btn btn-success pull-right" href="<?=URL?>/index.php?op=sliders&accion=agregar">
+            <a class="btn btn-success pull-right" href="<?=URLADMIN?>/index.php?op=sliders&accion=agregar">
                 AGREGAR SLIDERS
             </a>
         </h4>
@@ -24,17 +24,15 @@ $imagenes= new Clases\Imagenes();
             </thead>
             <tbody>
                 <?php
-                $filter  = array();
-                $data = $sliders->list("");
-                if (is_array($data)) {
-                    for ($i = 0; $i < count($data); $i++) {
+                if (is_array($sliders)) {
+                    foreach ($sliders as $data) {
                         echo "<tr>";
-                        echo "<td>" . strtoupper($data[$i]["titulo"]) . "</td>";
+                        echo "<td>" . strtoupper($data['data']["titulo"]) . "</td>";
                         echo "<td>";
-                        echo '<a class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Modificar" href="' . URL . '/index.php?op=sliders&accion=modificar&cod=' . $data[$i]["cod"] . '">
+                        echo '<a class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Modificar" href="' . URLADMIN . '/index.php?op=sliders&accion=modificar&cod=' . $data['data']["cod"] . '">
                         <i class="fa fa-cog"></i></a>';
 
-                        echo '<a class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" href="' . URL . '/index.php?op=sliders&accion=ver&borrar=' . $data[$i]["cod"] . '">
+                        echo '<a class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar" href="' . URLADMIN . '/index.php?op=sliders&accion=ver&borrar=' . $data['data']["cod"] . '">
                         <i class="fa fa-trash"></i></a>';
                         echo "</td>";
                         echo "</tr>";
@@ -48,10 +46,8 @@ $imagenes= new Clases\Imagenes();
 <?php
 if (isset($_GET["borrar"])) {
     $cod = $funciones->antihack_mysqli(isset($_GET["borrar"]) ? $_GET["borrar"] : '');
-    $sliders->set("cod", $cod);
-    $imagenes->set("cod", $cod);
-    $sliders->delete();
-    $imagenes->deleteAll();
-    $funciones->headerMove(URL . "/index.php?op=sliders");
+    $slider->set("cod", $cod);
+    $slider->delete();
+    $funciones->headerMove(URLADMIN . "/index.php?op=sliders");
 }
 ?>

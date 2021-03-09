@@ -4,163 +4,139 @@ namespace Clases;
 
 class TemplateSite
 {
-
     public $title;
     public $keywords;
     public $description;
-    public $favicon;
-   // public $canonical;
-   // public $autor;
-   // public $made;
-   // public $copy;
-   // public $pais;
-   // public $place;
-   // public $position;
     public $imagen;
+    public $favicon;
+    public $body;
+
+    private $config;
+    private $contactData;
+
+    public function __construct()
+    {
+        $this->body = '';
+        $this->config = new Config();
+        $this->contactData = $this->config->viewContact();
+        $this->user = new Usuarios();
+    }
 
     private $canonical = CANONICAL;
-    private $autor     = TITULO;
-    private $made      = EMAIL;
-    private $pais      = 'Argentina';
-    private $place     = PROVINCIA;
-    private $position  = CIUDAD;
-    private $copy      = TITULO;
+    private $autor = TITULO;
+    private $copy = TITULO;
 
-    public function themeInit()
+    private function head()
     {
-        ?>
-        <!DOCTYPE html>
-        <html lang="es">
-    <head>
-        <!-- Icon css link -->
-        <link href="<?=URL?>/assets/css/font-awesome.min.css" rel="stylesheet">
-        <link href="<?=URL?>/vendors/line-icon/css/simple-line-icons.css" rel="stylesheet">
-        <link href="<?=URL?>/vendors/elegant-icon/style.css" rel="stylesheet">
-        <!-- Bootstrap -->
-        <link href="<?=URL?>/assets/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Rev slider css -->
-        <link href="<?=URL?>/vendors/revolution/css/settings.css" rel="stylesheet">
-        <link href="<?=URL?>/vendors/revolution/css/layers.css" rel="stylesheet">
-        <link href="<?=URL?>/vendors/revolution/css/navigation.css" rel="stylesheet">
-
-        <!-- Extra plugin css -->
-        <link href="<?=URL?>/vendors/bootstrap-selector/css/bootstrap-select.min.css" rel="stylesheet">
-
-        <!--Productos-->
-        <link href="<?=URL?>/vendors/jquery-ui/jquery-ui.css" rel="stylesheet">
-
-        <link href="<?=URL?>/assets/css/style.css" rel="stylesheet">
-        <link href="<?=URL?>/assets/css/responsive.css" rel="stylesheet">
-        <link href="<?=URL?>/assets/css/estilos.css" rel="stylesheet">
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132855724-1"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'UA-132855724-1');
-        </script>
-        <!-- Begin Inspectlet Asynchronous Code -->
-        <script type="text/javascript">
-            (function() {
-                window.__insp = window.__insp || [];
-                __insp.push(['wid', 1138757695]);
-                var ldinsp = function(){
-                    if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js?wid=1138757695&r=' + Math.floor(new Date().getTime()/3600000); var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
-                setTimeout(ldinsp, 0);
-            })();
-        </script>
-        <!-- End Inspectlet Asynchronous Code -->
-        <?php
-
+        isset($_SESSION["usuarios"]["cod"]) ? $this->user->refreshSession($_SESSION["usuarios"]["cod"]) : '';
+        echo '<!DOCTYPE html>';
+        echo '<html class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">';
+        echo '<head>';
         echo '<meta charset="utf-8"/>';
         echo '<meta name="author" lang="es" content="' . $this->autor . '" />';
-        echo '<link rel="author" href="' . $this->made . '" rel="nofollow" />';
+        echo '<link rel="author" href="' . $this->contactData['data']['email'] . '" rel="nofollow" />';
         echo '<meta name="copyright" content="' . $this->copy . '" />';
-        echo '<link rel="canonical" href="' . $this->canonical . '" />';
+        echo '<link rel="canonical" href="' . strip_tags($this->canonical) . '" />';
         echo '<meta name="distribution" content="global" />';
         echo '<meta name="robots" content="all" />';
         echo '<meta name="rating" content="general" />';
         echo '<meta name="content-language" content="es-ar" />';
-        echo '<meta name="DC.identifier" content="' . $this->canonical . '" />';
+        echo '<meta name="DC.identifier" content="' . strip_tags($this->canonical) . '" />';
         echo '<meta name="DC.format" content="text/html" />';
-        echo '<meta name="DC.coverage" content="' . $this->pais . '" />';
+        echo '<meta name="DC.coverage" content="' . $this->contactData['data']['pais'] . '" />';
         echo '<meta name="DC.language" content="es-ar" />';
         echo '<meta http-equiv="window-target" content="_top" />';
         echo '<meta name="robots" content="all" />';
         echo '<meta http-equiv="content-language" content="es-ES" />';
         echo '<meta name="google" content="notranslate" />';
         echo '<meta name="geo.region" content="AR-X" />';
-        echo '<meta name="geo.placename" content="' . $this->place . '" />';
-        echo '<meta name="geo.position" content="' . $this->position . '" />';
-        echo '<meta name="ICBM" content="' . $this->position . '" />';
+        echo '<meta name="geo.placename" content="' . $this->contactData['data']['provincia'] . '" />';
+        echo '<meta name="geo.position" content="' . $this->contactData['data']['localidad'] . '" />';
+        echo '<meta name="ICBM" content="' . $this->contactData['data']['localidad'] . '" />';
         echo '<meta content="public" name="Pragma" />';
         echo '<meta http-equiv="pragma" content="public" />';
         echo '<meta http-equiv="cache-control" content="public" />';
-        echo '<meta property="og:url" content="' . $this->canonical . '" />';
+        echo '<meta property="og:url" content="' . strip_tags($this->canonical) . '" />';
         echo '<meta charset="utf-8">';
         echo '<meta content="IE=edge" http-equiv="X-UA-Compatible">';
         echo '<meta content="width=device-width, initial-scale=1" name="viewport">';
         echo '<meta name="language" content="Spanish">';
         echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />';
-        echo '<title>' . $this->title . '</title>';
-        echo '<meta http-equiv="title" content="' . $this->title . '" />';
-        echo '<meta name="description" lang=es content="' . $this->description . '" />';
-        echo '<meta name="keywords" lang=es content="' . $this->keywords . '" />';
-        echo '<link href="' . $this->favicon . '" rel="Shortcut Icon" />';
-        echo '<meta name="DC.title" content="' . $this->title . '" />';
-        echo '<meta name="DC.subject" content="' . $this->description . '" />';
-        echo '<meta name="DC.description" content="' . $this->description . '" />';
-        echo '<meta property="og:title" content="' . $this->title . '" />';
-        echo '<meta property="og:description" content="' . $this->description . '" />';
+        echo '<title>' . strip_tags($this->title) . '</title>';
+        echo '<meta http-equiv="title" content="' . strip_tags($this->title) . '" />';
+        echo '<meta name="description" lang=es content="' . strip_tags($this->description) . '" />';
+        echo '<meta name="keywords" lang=es content="' . strip_tags($this->keywords) . '" />';
+        echo '<link href="' . URL . '/assets/img/favicon.png" rel="Shortcut Icon" />';
+        echo '<meta name="DC.title" content="' . strip_tags($this->title) . '" />';
+        echo '<meta name="DC.subject" content="' . strip_tags($this->description) . '" />';
+        echo '<meta name="DC.description" content="' . strip_tags($this->description) . '" />';
+        echo '<meta property="og:title" content="' . strip_tags($this->title) . '" />';
+        echo '<meta property="og:description" content="' . strip_tags($this->description) . '" />';
         echo '<meta property="og:image" content="' . $this->imagen . '" />';
+        echo '<link href="' . FAVICON . '" rel="Shortcut Icon" />';
+        echo '<link href="' . URL . '/assets/css/font-awesome.min.css" rel="stylesheet">';
+        echo '<link href="' .URL .'/vendors/line-icon/css/simple-line-icons.css" rel="stylesheet">';
+        echo '<link href="' .URL .'/vendors/elegant-icon/style.css" rel="stylesheet">';
+        echo '<link href="' .URL .'/assets/css/bootstrap.min.css" rel="stylesheet">';
 
-        ?>
+        echo '<link href="' .URL .'/vendors/revolution/css/settings.css" rel="stylesheet">';
+        echo '<link href="' .URL .'/vendors/revolution/css/layers.css" rel="stylesheet">';
+        echo '<link href="' .URL .'/vendors/revolution/css/navigation.css" rel="stylesheet">';
+
+        echo '<link href="' .URL .'/vendors/bootstrap-selector/css/bootstrap-select.min.css" rel="stylesheet">';
+        echo '<link href="' .URL .'/assets/css/estilos-rocha.css" rel="stylesheet">';
+        echo '<link href="' .URL .'/vendors/jquery-ui/jquery-ui.css" rel="stylesheet">';
 
 
-        <!-- Start of HubSpot Embed Code -->
-        <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/5436420.js"></script>
-        <!-- End of HubSpot Embed Code -->
-    </head>
-        <body>
-        <?php
+        echo '<link href="' .URL .'/assets/css/progress-wizard.min.css" rel="stylesheet">';
+        echo '<link href="' .URL .'/assets/css/main-rocha.css" rel="stylesheet">';
+        echo '<link href="' .URL .'/assets/css/style.css" rel="stylesheet">';
+        echo '<link href="' .URL .'/assets/css/responsive.css" rel="stylesheet">';
+        echo '<link href="' .URL .'/assets/css/estilos.css" rel="stylesheet">';
+        echo '</head>';
+        echo '<body class="common-home res layout-4">';
+        echo '<div id="wrapper" class="wrapper-fluid banners-effect-5">';
     }
 
-    public function themeNav()
+    private function foot()
     {
+        require_once 'assets/inc/checkout/modals.php';
+        echo '</div>';
+        echo '</body>';
+        echo '</html>';
+    }
+
+    public function themeInit()
+    {
+        self::head();
         include 'assets/inc/nav.inc.php';
     }
 
-    public function themeSideIndex()
+    public function themeInitStages()
     {
-        include 'assets/inc/sideIndex.inc.php';
-    }
-
-    public function themeSideBlog()
-    {
-        include 'assets/inc/sideBlog.inc.php';
+        self::head();
+        include 'assets/inc/checkout/nav.inc.php';
     }
 
     public function themeEnd()
     {
         include 'assets/inc/footer.inc.php';
+        self::foot();
+    }
+
+    public function themeEndStages()
+    {
+        include 'assets/inc/checkout/footer.inc.php';
+        self::foot();
     }
 
     public function set($atributo, $valor)
     {
+        if (!empty($valor)) {
+            $valor = $valor;
+        } else {
+            $valor = "NULL";
+        }
         $this->$atributo = $valor;
-    }
-
-    public function get($atributo)
-    {
-        return $this->$atributo;
     }
 }

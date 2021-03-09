@@ -3,14 +3,7 @@ $categoria_footer = new Clases\Categorias();
 $banner_footer = new Clases\Banner();
 $imagen = new Clases\Imagenes();
 //Banners
-$categoria_footer->set("area", "banners");
-$categorias_banners = $categoria_footer->listForArea('');
-foreach ($categorias_banners as $catB) {
-    if ($catB['titulo'] == "Pie") {
-        $banner_footer->set("categoria", $catB['cod']);
-        $banner_data_pie = $banner_footer->listForCategory('RAND()', '1');
-    }
-}
+$banner_data_pie = $banner_footer->list([('categoria = "da8497826b"')], 'RAND()', '');
 ?>
 <section class="">
     <div class="container">
@@ -23,14 +16,14 @@ foreach ($categorias_banners as $catB) {
                 $value = $banP['vistas'] + 1;
                 $banner_footer->set("vistas", $value);
                 $banner_footer->increaseViews();
-                ?>
+            ?>
                 <div class="col-md-12">
                     <a href="<?= $banP['link']; ?>">
                         <div class="special_offer_item" style="height:150px;background:url(<?= $img['ruta']; ?>) no-repeat center center/contain;">
                         </div>
                     </a>
                 </div>
-                <?php
+            <?php
             }
             ?>
         </div>
@@ -45,7 +38,7 @@ foreach ($categorias_banners as $catB) {
                     <aside class="f_widget f_about_widget">
                         <div class="col-md-12" style="width:100%;height:80px;background:url(<?= LOGO ?>) no-repeat center center/contain;">
                         </div>
-                        <p>Fabricante de cortadoras, bordeadoras de céspec y electrobombas</p>
+                        <p>Fabricante de cortadoras, bordeadoras de césped y electrobombas</p>
                         <h6>Redes sociales:</h6>
                         <ul>
                             <li><a href="https://www.facebook.com/plumitasrl/" target="_blank"><i class="social_facebook"></i></a></li>
@@ -65,7 +58,6 @@ foreach ($categorias_banners as $catB) {
                         </div>
                         <ul>
                             <li><a href="<?= URL ?>/c/empresa">Sobre nosotros</a></li>
-                            <li><a href="<?= URL ?>/c/servicio-técnico">Servicio técnico</a></li>
                         </ul>
                     </aside>
                 </div>
@@ -75,19 +67,17 @@ foreach ($categorias_banners as $catB) {
                             <h3>Mi cuenta</h3>
                         </div>
                         <ul>
-                            <?php if (!empty($_SESSION['usuarios'])): ?>
+                            <?php if (!empty($_SESSION['usuarios'])) : ?>
                                 <li>
                                     <a title="cuenta" href="<?= URL ?>/sesion">Mi cuenta
                                     </a>
                                 </li>
-                            <?php else: ?>
+                            <?php else : ?>
                                 <li>
-                                    <a data-toggle="modal" data-target="#login"
-                                       title="Iniciar sesion">Mi cuenta
+                                    <a data-toggle="modal" data-target="#login" title="Iniciar sesion">Mi cuenta
                                     </a>
                                 </li>
                             <?php endif; ?>
-                            <li><a href="<?= URL ?>/carrito">Carrito</a></li>
                         </ul>
                     </aside>
                 </div>
@@ -98,9 +88,13 @@ foreach ($categorias_banners as $catB) {
         </div>
         <div class="footer_copyright">
             <h5>©
-                <script>document.write(new Date().getFullYear());</script>
-                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                Todos los derechos reservados, <?=TITULO?> Copyright by <a href="http://www.estudiorochayasoc.com" target="_blank">Estudio Rocha & Asociados</a>
+                <script>
+                    document.write(new Date().getFullYear());
+                </script>
+                Copyright &copy;<script>
+                    document.write(new Date().getFullYear());
+                </script>
+                Todos los derechos reservados, <?= TITULO ?> Copyright by <a href="http://www.estudiorochayasoc.com" target="_blank">Estudio Rocha & Asociados</a>
 
             </h5>
         </div>
@@ -116,6 +110,11 @@ foreach ($categorias_banners as $catB) {
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="<?= URL ?>/assets/js/popper.min.js"></script>
 <script src="<?= URL ?>/assets/js/bootstrap.min.js"></script>
+<!-- <script src="<?= URL ?>/assets/js/select2.min.js"></script> -->
+<script src="<?= URL ?>/assets/js/bootstrap-notify.min.js"></script>
+<script src="<?= URL ?>/assets/js/services/services.js"></script>
+<script src="<?= URL ?>/assets/js/services/cart.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <!-- Rev slider js -->
 <script src="<?= URL ?>/vendors/revolution/js/jquery.themepunch.tools.min.js"></script>
 <script src="<?= URL ?>/vendors/revolution/js/jquery.themepunch.revolution.min.js"></script>
@@ -140,29 +139,11 @@ foreach ($categorias_banners as $catB) {
 <script src="<?= URL ?>/assets/js/theme.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
 <script>
-    $("#provincia").change(function () {
-        $("#provincia option:selected").each(function () {
-            elegido = $(this).val();
-            $.ajax({
-                type: "GET",
-                url: "<?=URL ?>/assets/inc/localidades.inc.php",
-                data: "elegido=" + elegido,
-                dataType: "html",
-                success: function (data) {
-                    $('#localidad option').remove();
-                    var substr = data.split(';');
-                    for (var i = 0; i < substr.length; i++) {
-                        var value = substr[i];
-                        $("#localidad").append(
-                            $("<option></option>").attr("value", value).text(value)
-                        );
-                    }
-                }
-            });
-        });
-    })
+    setInterval(() => {
+        refreshCart('<?= URL ?>')
+    }, 1500);
 </script>
-<?php include("login.inc.php"); ?>
-
+</div>
 </body>
+
 </html>

@@ -1,29 +1,28 @@
 <?php
 $landing = new Clases\Landing();
-$imagenes  = new Clases\Imagenes();
-$zebra     = new Clases\Zebra_Image();
+$imagenes = new Clases\Imagenes();
+$zebra = new Clases\Zebra_Image();
 
-$cod       = $funciones->antihack_mysqli(isset($_GET["cod"]) ? $_GET["cod"] : '');
+$cod = $funciones->antihack_mysqli(isset($_GET["cod"]) ? $_GET["cod"] : '');
 $borrarImg = $funciones->antihack_mysqli(isset($_GET["borrarImg"]) ? $_GET["borrarImg"] : '');
 
 $landing->set("cod", $cod);
 $landingInd = $landing->view();
-$imagenes->set("cod", $landingInd["cod"]);
+$imagenes->set("cod", $landingInd['data']["cod"]);
 $imagenes->set("link", "landing&accion=modificar");
 
 $categorias = new Clases\Categorias();
-$data = $categorias->list(array("area = 'landing'"));
+$data = $categorias->list(array("area = 'landing'"), '', '');
 
 if ($borrarImg != '') {
     $imagenes->set("id", $borrarImg);
     $imagenes->delete();
-    $funciones->headerMove(URL . "/index.php?op=landing&cod=$cod");
+    $funciones->headerMove(URLADMIN . "/index.php?op=landing&cod=$cod");
 }
 
 if (isset($_POST["agregar"])) {
     $count = 0;
-    $cod   = $landingInd["cod"];
-    //$landing->set("id", $id);
+    $cod = $landingInd['data']["cod"];
     $landing->set("cod", $cod);
     $landing->set("titulo", $funciones->antihack_mysqli(isset($_POST["titulo"]) ? $_POST["titulo"] : ''));
     $landing->set("categoria", $funciones->antihack_mysqli(isset($_POST["categoria"]) ? $_POST["categoria"] : ''));
@@ -32,43 +31,14 @@ if (isset($_POST["agregar"])) {
     $landing->set("description", trim($funciones->antihack_mysqli(isset($_POST["description"]) ? $_POST["description"] : '')));
     $landing->set("keywords", $funciones->antihack_mysqli(isset($_POST["keywords"]) ? $_POST["keywords"] : ''));
 
-    foreach ($_FILES['files']['name'] as $f => $name) {
-        $imgInicio = $_FILES["files"]["tmp_name"][$f];
-        $tucadena  = $_FILES["files"]["name"][$f];
-        $partes    = explode(".", $tucadena);
-        $dom       = (count($partes) - 1);
-        $dominio   = $partes[$dom];
-        $prefijo   = substr(md5(uniqid(rand())), 0, 10);
-        if ($dominio != '') {
-            $destinoFinal     = "../assets/archivos/" . $prefijo . "." . $dominio;
-            move_uploaded_file($imgInicio, $destinoFinal);
-            chmod($destinoFinal, 0777);
-            $destinoRecortado = "../assets/archivos/recortadas/a_" . $prefijo . "." . $dominio;
-
-            $zebra->source_path = $destinoFinal;
-            $zebra->target_path = $destinoRecortado;
-            $zebra->jpeg_quality = 80;
-            $zebra->preserve_aspect_ratio = true;
-            $zebra->enlarge_smaller_images = true;
-            $zebra->preserve_time = true;
-
-            if ($zebra->resize(800, 700, ZEBRA_IMAGE_NOT_BOXED)) {
-                unlink($destinoFinal);
-            }
-
-            $imagenes->set("cod", $cod);
-            $imagenes->set("ruta", str_replace("../", "", $destinoRecortado));
-            $imagenes->add();
-        }
-
-        $count++;
+    if (isset($_FILES['files'])) {
+        $imagenes->resizeImages($cod, $_FILES['files'], "../assets/archivos", "../assets/archivos/recortadas");
     }
 
     $landing->edit();
-    $funciones->headerMove(URL . "/index.php?op=landing");
+    $funciones->headerMove(URLADMIN . "/index.php?op=landing");
 }
 ?>
-
 <div class="col-md-12 ">
     <h4>
         Landing
@@ -77,51 +47,80 @@ if (isset($_POST["agregar"])) {
     <form method="post" class="row" enctype="multipart/form-data">
         <label class="col-md-4">
             Título:<br/>
-            <input type="text" value="<?=$landingInd["titulo"]?>" name="titulo">
+            <input type="text" value="<?= $landingInd['data']["titulo"] ?>" name="titulo" required>
         </label>
         <label class="col-md-4">
             Categoría:<br/>
             <select name="categoria">
-                <option></option>
                 <?php
                 foreach ($data as $categoria) {
-                    if($landingInd["categoria"] == $categoria["cod"]) {
-                        echo "<option value='".$categoria["cod"]."' selected>".$categoria["titulo"]."</option>";
+                    if ($landingInd['data']["categoria"] == $categoria['data']["cod"]) {
+                        echo "<option value='" . $categoria['data']["cod"] . "' selected>" . $categoria['data']["titulo"] . "</option>";
                     } else {
-                        echo "<option value='".$categoria["cod"]."'>".$categoria["titulo"]."</option>";
-                    } 
+                        echo "<option value='" . $categoria['data']["cod"] . "'>" . $categoria['data']["titulo"] . "</option>";
+                    }
                 }
                 ?>
             </select>
         </label>
         <label class="col-md-4">
             Fecha:<br/>
-            <input type="date" name="fecha" value="<?=$landingInd["fecha"]?>">
+            <input type="date" name="fecha" value="<?= $landingInd['data']["fecha"] ?>">
         </label>
-
         <div class="clearfix">
         </div>
         <label class="col-md-12">
             Desarrollo:<br/>
             <textarea name="desarrollo" class="ckeditorTextarea">
-                <?=$landingInd["desarrollo"];?>
+                <?= $landingInd['data']["desarrollo"]; ?>
             </textarea>
         </label>
         <div class="clearfix">
         </div>
         <label class="col-md-12">
             Palabras claves dividas por ,<br/>
-            <input type="text" name="keywords" value="<?=$landingInd["keywords"]?>">
+            <input type="text" name="keywords" value="<?= $landingInd['data']["keywords"] ?>">
         </label>
         <label class="col-md-12">
             Descripción breve<br/>
-            <textarea name="description"><?=$landingInd["description"]?></textarea>
+            <textarea name="description"><?= $landingInd['data']["description"] ?></textarea>
         </label>
         <br/>
         <div class="col-md-12">
             <div class="row">
                 <?php
-                $imagenes->imagenesAdmin();
+                if (!empty($landingInd['images'])) {
+                    foreach ($landingInd['images'] as $img) {
+                        ?>
+                        <div class='col-md-2 mb-20 mt-20'>
+                            <div style="height:200px;background:url(<?= '../' . $img['ruta']; ?>) no-repeat center center/contain;">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <a href="<?= URLADMIN . '/index.php?op=novedades&accion=modificar&cod=' . $img['cod'] . '&borrarImg=' . $img['id'] ?>" class="btn btn-sm btn-block btn-danger">
+                                        BORRAR IMAGEN
+                                    </a>
+                                </div>
+                                <div class="col-md-5 text-right">
+                                    <select onchange='$(location).attr("href", "<?= CANONICAL ?>&idImg=<?= $img["id"] ?>&ordenImg="+$(this).val())'>
+                                        <?php
+                                        for ($i = 0; $i <= count($landingInd['images']); $i++) {
+                                            if ($img["orden"] == $i) {
+                                                echo "<option value='$i' selected>$i</option>";
+                                            } else {
+                                                echo "<option value='$i'>$i</option>";
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                    <i>orden</i>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <?php
+                    }
+                }
                 ?>
             </div>
         </div>
@@ -129,13 +128,13 @@ if (isset($_POST["agregar"])) {
         </div>
         <label class="col-md-12">
             Imágenes:<br/>
-            <input type="file" id="file" name="files[]" multiple="multiple" accept="image/*" />
+            <input type="file" id="file" name="files[]" multiple="multiple" accept="image/*"/>
         </label>
         <div class="clearfix">
         </div>
         <br/>
         <div class="col-md-12">
-            <input type="submit" class="btn btn-primary" name="agregar" value="Modificar Landing" />
+            <input type="submit" class="btn btn-primary" name="agregar" value="Modificar"/>
         </div>
     </form>
 </div>
