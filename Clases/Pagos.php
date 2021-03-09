@@ -51,7 +51,6 @@ class Pagos
                         {$this->defecto},
                         {$this->tipo})";
         $query = $this->con->sql($sql);
-
         if (!empty($query)) {
             return true;
         } else {
